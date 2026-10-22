@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Daily Standup Quest | Plataforma de Testes de Inglês para Devs (A1 ➔ A2)</title>
+  <meta name="description" content="Plataforma gamificada de avaliação de inglês técnico com menu de testes, diagnóstico cirúrgico de erros e painel do professor.">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow effects -->
+  <div class="cyber-glow glow-cyan"></div>
+  <div class="cyber-glow glow-green"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <div class="app-container">
+    <!-- Top HUD Navigation / Dashboard Header -->
+    <header class="hud-header">
+      <div class="hud-left">
+        <div class="brand-tag" id="hudHomeBtn" style="cursor: pointer;" title="Voltar ao Catálogo de Testes">
+          <span class="pulse-indicator"></span>
+          <span class="brand-title">STANDUP QUEST</span>
+          <span class="brand-badge" id="hudActiveQuestBadge">A1 ➔ A2</span>
+        </div>
+        <div class="terminal-branch">
+          <svg class="git-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+            <path d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path>
+          </svg>
+          <span id="hudStudentTag">dev:(<span class="branch-name" id="hudStudentName">Lucas</span>)</span>
+        </div>
+      </div>
+
+      <div class="hud-center">
+        <!-- Level Progress Container -->
+        <div class="level-hud" id="hudProgressBlock">
+          <div class="level-hud-meta">
+            <span class="level-hud-title" id="hudLevelTitle">LEVEL 1 / 10</span>
+            <span class="level-hud-ticket" id="hudTicket">AUTH-101</span>
+          </div>
+          <div class="progress-track" id="progressTrack">
+            <div class="progress-bar-fill" id="progressBarFill" style="width: 10%;"></div>
+            <div class="progress-milestones" id="progressMilestones">
+              <!-- Dynamically populated nodes -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <!-- XP Points Counter -->
+        <div class="stat-pill xp-pill" title="Pontos de Experiência (XP)">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-val" id="xpCounter">0</span>
+          <span class="stat-label">XP</span>
+          <div class="xp-float" id="xpFloat"></div>
+        </div>
+
+        <!-- Combo Streak Multiplier -->
+        <div class="stat-pill streak-pill" id="streakPill" title="Sequência de Acertos">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-val" id="streakCounter">0x</span>
+        </div>
+
+        <!-- Lives (3 Hearts) -->
+        <div class="stat-pill lives-pill" id="livesPill" title="Vidas Restantes">
+          <div class="hearts-wrapper" id="heartsContainer">
+            <span class="heart active" data-index="0">♥</span>
+            <span class="heart active" data-index="1">♥</span>
+            <span class="heart active" data-index="2">♥</span>
+          </div>
+        </div>
+
+        <!-- Catalog / Menu Button -->
+        <button class="nav-hud-btn" id="menuToggleBtn" title="Ver Catálogo de Testes">
+          <span>📋 Menu</span>
+        </button>
+
+        <!-- Audio Mute/Unmute Toggle -->
+        <button class="sound-toggle-btn" id="soundToggleBtn" title="Alternar Efeitos Sonoros (M)">
+          <span id="soundIcon">🔊</span>
+        </button>
+
+        <!-- Slide Deck Toggle -->
+        <button class="nav-hud-btn study-deck-btn" id="studyDeckBtn" title="Slides de Aula: Preposições IN, ON, AT">
+          <span>🖥️ Slides de Aula</span>
+        </button>
+
+        <!-- Help / Rules Modal Toggle -->
+        <button class="cheat-sheet-btn" id="cheatSheetBtn" title="Cheat Sheet de Regras">
+          <span>📖 Regras</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Dynamic Views -->
+    <main class="main-content" id="mainContent">
+
+      <!-- ===================================================================
+           VIEW 1: TEST CATALOG / QUEST SELECTION MENU
+           =================================================================== -->
+      <section class="quest-screen" id="catalogScreen">
+        <div class="catalog-card glass-panel">
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="window-title">~/quest-hub/available-sprints.yaml</span>
+            <span class="window-tag">CATÁLOGO DE SPRINT QUESTS</span>
+          </div>
+
+          <div class="catalog-body">
+            <!-- Student Identification Bar -->
+            <div class="student-id-banner">
+              <div class="student-input-group">
+                <label for="studentNameInput" class="student-label">
+                  <span class="label-icon">👤</span> IDENTIFICAÇÃO DO DEV / ESTUDANTE:
+                </label>
+                <div class="input-with-button">
+                  <input type="text" id="studentNameInput" placeholder="Ex: Lucas Chagas" value="Lucas" class="cyber-input" maxlength="40">
+                  <span class="input-hint">Suas respostas serão registradas para diagnóstico do professor</span>
+                </div>
+              </div>
+
+              <div class="remote-share-badge" title="Disponível via Cloudflare Tunnel para acesso remoto">
+                <span class="globe-pulse"></span>
+                <span>LINK COMPARTILHÁVEL ATIVO</span>
+              </div>
+            </div>
+
+            <!-- Interactive Classroom Slide Deck Banner -->
+            <div class="study-slides-banner" id="catalogSlidesBanner">
+              <div class="slides-banner-glow"></div>
+              <div class="slides-banner-content">
+                <div class="slides-banner-badge">
+                  <span class="pulse-indicator"></span>
+                  SLIDE DECK DA AULA // PREPOSIÇÕES
+                </div>
+                <h2 class="slides-banner-title">Guia & Slides da Aula: <span class="highlight-cyan">IN, ON, AT</span></h2>
+                <p class="slides-banner-desc">
+                  Material interativo para aula e estudo autônomo com a Pirâmide Invertida de Tempo e Lugar, segredos de Transporte, termos de TI e 4 tickets de Standup para debugar ao vivo.
+                </p>
+              </div>
+              <button class="btn btn-primary btn-slides-launch" id="openSlidesBannerBtn">
+                <span class="btn-icon">🖥️</span>
+                <span class="btn-text">ABRIR SLIDES (6 TELAS)</span>
+              </button>
+            </div>
+
+            <div class="catalog-header-text">
+              <h1 class="catalog-title">Escolha o seu Teste Técnico em Inglês</h1>
+              <p class="catalog-subtitle">
+                Selecione uma sprint quest para avaliar seu domínio em situações reais de engenharia de software (Daily Standups, Bug Triage e Code Reviews).
+              </p>
+            </div>
+
+            <!-- Quests Cards Grid -->
+            <div class="quests-grid" id="questsCatalogGrid">
+              <!-- Dynamically populated from QUESTS_CATALOG -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 2: QUEST INTRO / BRIEFING SCREEN
+           =================================================================== -->
+      <section class="quest-screen hidden" id="introScreen">
+        <div class="intro-card glass-panel">
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="window-title" id="introWindowFile">~/standup/daily-sync-briefing.sh</span>
+            <button class="btn-text-only" id="backToCatalogBtn">⬅ Voltar ao Menu</button>
+          </div>
+
+          <div class="intro-body">
+            <div class="intro-badge" id="introQuestBadge">STANDUP SPRINT // A1 ➔ A2 ENGLISH DRILL</div>
+            <h1 class="intro-title" id="introQuestTitle">Daily Standup Quest:<br><span class="highlight-cyan">Mastering the Simple Past</span></h1>
+            <p class="intro-desc" id="introQuestDesc">
+              Você é um dev em transição do <strong>A1 para A2</strong> e precisa reportar com precisão o que fez ontem na Daily Standup com o time internacional. Evite o temido <em>duplo passado</em> e domine verbos regulares, irregulares, o verbo <em>to be</em> e perguntas com <em>did</em>!
+            </p>
+
+            <div class="mission-rules-grid">
+              <div class="rule-box">
+                <div class="rule-icon">🎯</div>
+                <div class="rule-title" id="introTotalQ">10 Níveis Progressivos</div>
+                <div class="rule-desc" id="introSkillsSummary">De verbos regulares com <code>-ed</code> até perguntas Wh- e síntese em reuniões reais.</div>
+              </div>
+
+              <div class="rule-box">
+                <div class="rule-icon">❤️</div>
+                <div class="rule-title">3 Vidas de Produção</div>
+                <div class="rule-desc">Cada erro consome 1 vida de deploy. Mantenha os serviços operacionais!</div>
+              </div>
+
+              <div class="rule-box">
+                <div class="rule-icon">🔬</div>
+                <div class="rule-title">Diagnóstico Cirúrgico</div>
+                <div class="rule-desc">Cada alternativa errada diagnostica o padrão exato da sua falha cognitiva.</div>
+              </div>
+
+              <div class="rule-box">
+                <div class="rule-icon">💾</div>
+                <div class="rule-title">Registro Automático</div>
+                <div class="rule-desc">Suas respostas são salvas no banco de dados para feedback personalizado do professor.</div>
+              </div>
+            </div>
+
+            <div class="intro-actions">
+              <button class="btn btn-primary btn-large" id="startQuestBtn">
+                <span class="btn-text">INICIAR ESTA QUEST</span>
+                <span class="btn-icon">➔</span>
+              </button>
+              <div class="shortcut-tip">
+                Dica: Você pode usar as teclas <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> e <kbd>Espaço</kbd> no teclado.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 3: ACTIVE GAMEPLAY ARENA
+           =================================================================== -->
+      <section class="quest-screen hidden" id="gameScreen">
+        <div class="quest-arena glass-panel">
+          <!-- Terminal Header -->
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-center-info">
+              <span class="terminal-file" id="ticketFilename">ticket-AUTH-101.md</span>
+              <span class="category-chip" id="categoryBadge">Verbos Regulares (-ed)</span>
+            </div>
+            <div class="terminal-diff-tag" id="difficultyTag">Nível 1 • Básico</div>
+          </div>
+
+          <!-- Standup Dialogue / Context Area -->
+          <div class="standup-dialogue-box">
+            <div class="avatar-col">
+              <div class="scrum-avatar">
+                <span class="avatar-emoji">👨‍💻</span>
+                <span class="online-indicator"></span>
+              </div>
+              <span class="avatar-role" id="speakerRole">Scrum Master</span>
+            </div>
+            <div class="speech-bubble">
+              <div class="bubble-header">
+                <span class="speaker-name" id="speakerName">Carlos (Tech Lead)</span>
+                <span class="speech-timestamp">Yesterday @ 09:30 AM</span>
+              </div>
+              <p class="speech-text" id="scrumPromptText">
+                "Lucas, what did you work on yesterday?"
+              </p>
+            </div>
+          </div>
+
+          <!-- Code Context Block (The Sentence to Complete) -->
+          <div class="code-challenge-container">
+            <div class="code-box-header">
+              <span class="code-tab active">daily-report.log</span>
+              <span class="code-lang">ENGLISH STANDUP LOG</span>
+            </div>
+            <div class="code-box-body">
+              <div class="line-numbers">
+                <span>01</span>
+                <span>02</span>
+                <span>03</span>
+              </div>
+              <div class="code-lines">
+                <div class="code-comment">// Task description & daily standup update:</div>
+                <div class="code-target-line" id="questionSentence">
+                  "Yesterday, I <span class="blank-slot">________</span> (work) on the login screen for five hours."
+                </div>
+                <div class="code-subtext" id="questionSubtext">
+                  Selecione a opção que completa a frase corretamente no Simple Past:
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Multiple Choice Options Grid -->
+          <div class="options-grid" id="optionsGrid">
+            <!-- Populated dynamically with 4 option cards -->
+          </div>
+
+          <!-- Immediate Diagnostic Feedback Drawer -->
+          <div class="feedback-drawer hidden" id="feedbackDrawer">
+            <div class="feedback-content">
+              <div class="feedback-header">
+                <div class="feedback-status-badge" id="feedbackStatusBadge">
+                  <span class="status-icon" id="feedbackStatusIcon">✅</span>
+                  <span class="status-text" id="feedbackStatusTitle">SPRINT UPDATE APPROVED!</span>
+                </div>
+                <div class="feedback-xp-gain" id="feedbackXpGain">+100 XP</div>
+              </div>
+
+              <!-- Diagnostic Error Identification Badge (Displayed when user fails) -->
+              <div class="diagnostic-error-banner hidden" id="feedbackDiagnosticBanner">
+                <span class="error-diag-icon">⚠️</span>
+                <div class="error-diag-meta">
+                  <div class="error-diag-label" id="errorDiagLabel">TIPO DE ERRO: Armadilha do Duplo Passado</div>
+                  <div class="error-diag-desc" id="errorDiagDesc">Você usou 'didn't pushed'. Com o auxiliar didn't, o verbo principal deve voltar obrigatoriamente para a forma base.</div>
+                </div>
+              </div>
+
+              <!-- 1-line concise pedagogical explanation -->
+              <div class="feedback-rule-box">
+                <div class="rule-icon-box">💡</div>
+                <div class="rule-explanation-text" id="feedbackRuleText">
+                  Regra padrão: para a maioria dos verbos regulares, acrescentamos <strong>-ed</strong> ao infinitivo (<em>work ➔ worked</em>).
+                </div>
+              </div>
+
+              <div class="feedback-actions">
+                <button class="btn btn-action" id="nextQuestionBtn">
+                  <span class="btn-text" id="nextBtnText">PRÓXIMO TICKET</span>
+                  <span class="btn-icon">➔</span>
+                  <span class="btn-kbd-hint">[Espaço]</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 4: RESULT / DIAGNOSTIC REPORT (Victory or Game Over)
+           =================================================================== -->
+      <section class="quest-screen hidden" id="resultScreen">
+        <div class="result-card glass-panel">
+          <div class="terminal-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="window-title">~/diagnostics/standup-quest-summary.json</span>
+            <span class="window-tag" id="resultWindowTag">DEPLOY SUCCESSFUL</span>
+          </div>
+
+          <div class="result-body">
+            <!-- Verdict Banner -->
+            <div class="verdict-banner" id="verdictBanner">
+              <div class="verdict-icon" id="verdictIcon">🏆</div>
+              <div class="verdict-meta">
+                <span class="verdict-eyebrow">DIAGNÓSTICO PEDAGÓGICO DE INGLÊS TÉCNICO</span>
+                <h2 class="verdict-title" id="verdictTitle">PRONTO PARA A2</h2>
+                <p class="verdict-description" id="verdictDescription">
+                  Excelente domínio das estruturas do Simple Past! Você constrói afirmativas, negativas e perguntas com precisão e evita com consistência o duplo passado (*didn't pushed*).
+                </p>
+              </div>
+            </div>
+
+            <!-- Server Sync Confirmation Pill -->
+            <div class="server-sync-status" id="serverSyncStatus">
+              <span class="sync-dot"></span>
+              <span class="sync-text" id="syncStatusText">💾 Respostas salvas com sucesso no banco de dados do professor!</span>
+            </div>
+
+            <!-- Key Metric Metrics Row -->
+            <div class="result-stats-row">
+              <div class="stat-card">
+                <div class="stat-card-label">PONTUAÇÃO TOTAL</div>
+                <div class="stat-card-value highlight-cyan" id="resultFinalXp">1.250 XP</div>
+                <div class="stat-card-sub" id="resultBonusSub">Bônus de Streak incluído</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-label">TAXA DE PRECISÃO</div>
+                <div class="stat-card-value highlight-green" id="resultAccuracy">100%</div>
+                <div class="stat-card-sub" id="resultScoreRatio">10 / 10 corretas</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-label">VIDAS PRESERVADAS</div>
+                <div class="stat-card-value highlight-pink" id="resultLivesLeft">3 / 3</div>
+                <div class="stat-card-sub" id="resultLivesSub">Sem falhas críticas</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-label">STATUS DA SPRINT</div>
+                <div class="stat-card-value highlight-yellow" id="resultSprintStatus">COMPLETA</div>
+                <div class="stat-card-sub">Release aprovada</div>
+              </div>
+            </div>
+
+            <!-- Detailed Pedagogical Breakdown by Areas -->
+            <div class="diagnostics-breakdown-section">
+              <h3 class="section-title">
+                <span class="title-icon">📊</span>
+                Diagnóstico por Habilidade Gramatical
+              </h3>
+              
+              <div class="area-meters-grid" id="areaMetersGrid">
+                <!-- Dynamically populated per quest -->
+              </div>
+            </div>
+
+            <!-- Detailed Question Audit / Log Accordion -->
+            <div class="questions-audit-section">
+              <div class="audit-header" id="auditToggleBtn">
+                <span class="audit-title">📝 Registro das Respostas & Diagnóstico de Erros</span>
+                <span class="audit-arrow" id="auditArrow">▼</span>
+              </div>
+              <div class="audit-list" id="auditList">
+                <!-- Dynamically populated review cards -->
+              </div>
+            </div>
+
+            <!-- Action Buttons at Final Screen -->
+            <div class="result-actions">
+              <button class="btn btn-primary" id="restartQuestBtn">
+                <span class="btn-icon">🔁</span>
+                <span class="btn-text">TENTAR NOVAMENTE</span>
+              </button>
+
+              <button class="btn btn-secondary" id="returnCatalogBtn">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">ESCOLHER OUTRO TESTE</span>
+              </button>
+
+              <button class="btn btn-secondary" id="copyReportBtn">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text" id="copyBtnText">COPIAR RELATÓRIO</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 2: GRAMMAR CHEAT SHEET
+       =================================================================== -->
+  <div class="modal-backdrop hidden" id="cheatSheetModal">
+    <div class="modal-card glass-panel">
+      <div class="terminal-topbar">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="window-title">~/docs/simple-past-tech-cheatsheet.md</span>
+        <button class="modal-close-btn" id="closeCheatSheetBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 8px; padding: 10px 14px; gap: 10px; flex-wrap: wrap;">
+          <span style="font-size: 0.85rem; color: #d8b4fe;">📚 Procurando o material de aula das preposições <strong>IN, ON, AT</strong>?</span>
+          <button class="btn btn-primary" id="openSlidesFromCheatSheetBtn" style="padding: 5px 12px; font-size: 0.78rem;">ABRIR SLIDES DE AULA ➔</button>
+        </div>
+        <h2>Guia de Bolso: Simple Past para Devs (A1 ➔ A2)</h2>
+        <p class="modal-sub">As 4 regras de ouro para nunca mais errar em Daily Standups:</p>
+
+        <div class="cheatsheet-grid">
+          <div class="cheat-card">
+            <div class="cheat-badge">REGRA 1</div>
+            <h3>Verbos Regulares (-ed)</h3>
+            <ul>
+              <li><strong>Padrão:</strong> acrescente <code>-ed</code>: <em>work ➔ worked</em>, <em>test ➔ tested</em>.</li>
+              <li><strong>Terminados em -e:</strong> acrescente apenas <code>-d</code>: <em>close ➔ closed</em>, <em>save ➔ saved</em>.</li>
+              <li><strong>CVC (consoante + vogal + consoante):</strong> dobra a última consoante: <em>stop ➔ stopped</em>.</li>
+            </ul>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-badge">REGRA 2</div>
+            <h3>Verbos Irregulares em Tech</h3>
+            <ul>
+              <li><code>have ➔ had</code> ("We had a sprint review")</li>
+              <li><code>write ➔ wrote</code> ("Sarah wrote the backend test")</li>
+              <li><code>run ➔ ran</code> ("The pipeline ran successfully")</li>
+              <li><code>find ➔ found</code> ("We found a memory leak")</li>
+              <li><code>see ➔ saw</code> ("I saw the pull request")</li>
+            </ul>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-badge">REGRA 3</div>
+            <h3>A Regra de Ouro do DID / DIDN'T</h3>
+            <p>O auxiliar <code>did</code> e <code>didn't</code> já carrega todo o passado. O verbo principal <strong>VOLTA OBRIGATORIAMENTE AO INFINITIVO BASE</strong>!</p>
+            <div class="code-compare">
+              <div class="compare-wrong">❌ I didn't pushed the code.</div>
+              <div class="compare-right">✅ I didn't push the code.</div>
+              <div class="compare-wrong">❌ Did you reviewed the PR?</div>
+              <div class="compare-right">✅ Did you review the PR?</div>
+            </div>
+          </div>
+
+          <div class="cheat-card">
+            <div class="cheat-badge">REGRA 4</div>
+            <h3>Verbo To Be no Passado</h3>
+            <ul>
+              <li><strong>WAS:</strong> <code>I / He / She / It</code> ("The server <em>was</em> down.")</li>
+              <li><strong>WERE:</strong> <code>You / We / They</code> ("We <em>were</em> in a meeting.")</li>
+              <li><em>Cuidado:</em> Nunca use "did be" ou "didn't be"! ("The server wasn't responding").</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 3: INTERACTIVE CLASSROOM SLIDE DECK (IN, ON, AT)
+       =================================================================== -->
+  <div class="modal-backdrop hidden" id="studyDeckModal">
+    <div class="modal-card slide-deck-card glass-panel">
+      <!-- Terminal Topbar with Slide Controls -->
+      <div class="terminal-topbar">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="window-title">~/slides/prepositions-in-on-at.deck</span>
+        <div class="deck-top-actions">
+          <span class="slide-counter-badge" id="slideCounterBadge">SLIDE <span id="currentSlideNum">1</span> / 6</span>
+          <button class="btn-deck-util" id="slideFullscreenBtn" title="Alternar Tela Cheia">⛶</button>
+          <button class="modal-close-btn" id="closeStudyDeckBtn" title="Fechar Slides (ESC)">&times;</button>
+        </div>
+      </div>
+
+      <!-- Slide Deck Viewport -->
+      <div class="slide-deck-body">
+        <div class="slide-pages-container" id="slidePagesContainer">
+
+          <!-- SLIDE 1: O BUG COGNITIVO & A PIRÂMIDE INVERTIDA -->
+          <div class="slide-page active" data-slide="1">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 01 // FUNDAMENTO VISUAL</span>
+              <h2 class="slide-title">O "Bug Mental" do Português & A Pirâmide Invertida</h2>
+              <p class="slide-subtitle">
+                Em português dizemos <em>"no Brasil"</em>, <em>"na segunda-feira"</em> e <em>"às 9h"</em> usando quase sempre variações de <strong>EM (no/na)</strong>. Em inglês, a preposição expressa <strong>ESCALA (Dimensão & Precisão)</strong>.
+              </p>
+            </div>
+
+            <div class="slide-content-grid">
+              <!-- Visual Interactive Pyramid -->
+              <div class="pyramid-interactive-wrapper">
+                <div class="pyramid-tier tier-in" data-tier="in">
+                  <div class="tier-badge">IN • O MAIOR / GERAL</div>
+                  <div class="tier-desc">3D • Espaço Amplo / Caixa Fechada • Séculos, Anos, Meses • Países & Cidades</div>
+                </div>
+                <div class="pyramid-tier tier-on" data-tier="on">
+                  <div class="tier-badge">ON • INTERMEDIÁRIO</div>
+                  <div class="tier-desc">2D • Superfície & Linhas • Dias da Semana & Datas • Ruas & Telas</div>
+                </div>
+                <div class="pyramid-tier tier-at" data-tier="at">
+                  <div class="tier-badge">AT • ULTRA-ESPECÍFICO</div>
+                  <div class="tier-desc">1D • Ponto Exato no Alvo • Horários no Relógio • Endereço com Número</div>
+                </div>
+              </div>
+
+              <!-- Key Takeaway Card -->
+              <div class="slide-side-card">
+                <div class="takeaway-badge">💡 A REGRA DE OURO</div>
+                <h3>Pense como um Funil de Zoom</h3>
+                <ul class="slide-bullet-list">
+                  <li><strong>IN:</strong> Zoom afastado no mapa mundial ou no calendário do ano.</li>
+                  <li><strong>ON:</strong> Zoom intermediário focado na folha do calendário ou na rua/superfície.</li>
+                  <li><strong>AT:</strong> Zoom máximo focado no ponteiro dos minutos ou no número predial exato.</li>
+                </ul>
+                <div class="memory-anchor-box">
+                  <span class="anchor-icon">🧠</span>
+                  <span><strong>Âncora mental:</strong> Nunca tente traduzir "em". Pergunte a si mesmo: <em>"qual é o tamanho do alvo?"</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: PREPOSIÇÕES DE TEMPO -->
+          <div class="slide-page" data-slide="2">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 02 // TIME PYRAMID</span>
+              <h2 class="slide-title">Preposições de TEMPO: Do Século ao Minuto Exato</h2>
+              <p class="slide-subtitle">
+                A pirâmide temporal determina a preposição com base na duração do período.
+              </p>
+            </div>
+
+            <div class="slide-columns-3">
+              <!-- Column IN (Time) -->
+              <div class="slide-col-card col-in">
+                <div class="col-pill in-pill">IN (Geral / Longo)</div>
+                <h4>Séculos, Anos, Meses & Períodos</h4>
+                <ul class="col-list">
+                  <li><code>in 2025</code> / <code>in 1999</code></li>
+                  <li><code>in November</code> / <code>in July</code></li>
+                  <li><code>in the summer</code> / <code>in winter</code></li>
+                  <li><code>in the morning</code></li>
+                  <li><code>in the afternoon</code></li>
+                  <li><code>in the evening</code></li>
+                </ul>
+                <div class="col-example">
+                  <em>"Our Q4 release happens <strong>in</strong> November."</em>
+                </div>
+              </div>
+
+              <!-- Column ON (Time) -->
+              <div class="slide-col-card col-on">
+                <div class="col-pill on-pill">ON (Médio / Dias)</div>
+                <h4>Dias da Semana & Datas do Calendário</h4>
+                <ul class="col-list">
+                  <li><code>on Monday</code> / <code>on Fridays</code></li>
+                  <li><code>on October 21st</code></li>
+                  <li><code>on my birthday</code></li>
+                  <li><code>on Christmas Day</code></li>
+                  <li><code>on weekdays</code></li>
+                  <li><code>on the weekend</code> (US)</li>
+                </ul>
+                <div class="col-example">
+                  <em>"Sprint planning is always <strong>on</strong> Mondays."</em>
+                </div>
+              </div>
+
+              <!-- Column AT (Time) -->
+              <div class="slide-col-card col-at">
+                <div class="col-pill at-pill">AT (Pontual / Exato)</div>
+                <h4>Horários de Relógio & Momentos Fixos</h4>
+                <ul class="col-list">
+                  <li><code>at 9:30 AM</code> / <code>at 4:00 PM</code></li>
+                  <li><code>at noon</code> / <code>at midday</code></li>
+                  <li><code>at midnight</code></li>
+                  <li><code>at lunchtime</code></li>
+                  <li><code>at the moment</code></li>
+                  <li class="highlight-exception"><code>at night</code> ⚠️ (Exceção clássica!)</li>
+                </ul>
+                <div class="col-example">
+                  <em>"Our standup begins sharp <strong>at</strong> 9:30 AM."</em>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: PREPOSIÇÕES DE LUGAR -->
+          <div class="slide-page" data-slide="3">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 03 // PLACE PYRAMID</span>
+              <h2 class="slide-title">Preposições de LUGAR: Do País ao Número do Prédio</h2>
+              <p class="slide-subtitle">
+                A geometria do espaço físico define se o local é 3D (dentro), 2D (superfície) ou 1D (alvo no mapa).
+              </p>
+            </div>
+
+            <div class="slide-columns-3">
+              <!-- Column IN (Place) -->
+              <div class="slide-col-card col-in">
+                <div class="col-pill in-pill">IN (3D / Fechado)</div>
+                <h4>Países, Cidades, Salas & Recipientes</h4>
+                <ul class="col-list">
+                  <li><code>in Brazil</code> / <code>in Canada</code></li>
+                  <li><code>in São Paulo</code> / <code>in London</code></li>
+                  <li><code>in the meeting room</code></li>
+                  <li><code>in the office building</code></li>
+                  <li><code>in the kitchen</code></li>
+                  <li><code>in the box / bag</code></li>
+                </ul>
+                <div class="col-example">
+                  <em>"Our frontend lead is based <strong>in</strong> Berlin."</em>
+                </div>
+              </div>
+
+              <!-- Column ON (Place) -->
+              <div class="slide-col-card col-on">
+                <div class="col-pill on-pill">ON (2D / Superfície)</div>
+                <h4>Ruas, Avenidas, Superfícies & Telas</h4>
+                <ul class="col-list">
+                  <li><code>on Paulista Avenue</code></li>
+                  <li><code>on 5th Street</code></li>
+                  <li><code>on the table / desk</code> (em cima)</li>
+                  <li><code>on the 3rd floor</code> (no andar)</li>
+                  <li><code>on the wall</code></li>
+                  <li><code>on the screen / on Slack</code></li>
+                </ul>
+                <div class="col-example">
+                  <em>"The office is located <strong>on</strong> Market Street."</em>
+                </div>
+              </div>
+
+              <!-- Column AT (Place) -->
+              <div class="slide-col-card col-at">
+                <div class="col-pill at-pill">AT (1D / Ponto Exato)</div>
+                <h4>Endereço com Número & Ponto de Encontro</h4>
+                <ul class="col-list">
+                  <li><code>at 450 Market St</code> (com número)</li>
+                  <li><code>at the bus stop</code></li>
+                  <li><code>at the airport</code></li>
+                  <li><code>at the entrance</code></li>
+                  <li><code>at home</code> (em casa)</li>
+                  <li><code>at work</code> (no trabalho)</li>
+                </ul>
+                <div class="col-example">
+                  <em>"The client meeting is <strong>at</strong> 100 Broadway."</em>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 4: "CHEAT CODES" DE TI & TRANSPORTE -->
+          <div class="slide-page" data-slide="4">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 04 // CHEAT CODES & TECH</span>
+              <h2 class="slide-title">Pegadinhas & Regras Rápidas: Transporte e TI</h2>
+              <p class="slide-subtitle">
+                Dois macetes mnemônicos definitivos para resolver as dúvidas mais frequentes de reuniões internacionais.
+              </p>
+            </div>
+
+            <div class="slide-cards-2">
+              <!-- Transport Hack -->
+              <div class="tech-hack-card">
+                <div class="hack-badge">🚌 MACETE DO TRANSPORTE</div>
+                <h3>A Regra da "Perna Esticada"</h3>
+                <div class="hack-comparison">
+                  <div class="hack-item on-item">
+                    <span class="hack-tag">USE ON</span>
+                    <p>Se você consegue <strong>ficar em pé e caminhar pelo corredor</strong> ou senta montado:</p>
+                    <div class="hack-pills">
+                      <code>on the bus</code>
+                      <code>on the train</code>
+                      <code>on the plane</code>
+                      <code>on the subway</code>
+                      <code>on a bike</code>
+                    </div>
+                  </div>
+                  <div class="hack-item in-item">
+                    <span class="hack-tag">USE IN</span>
+                    <p>Se você precisa se abaixar para entrar e <strong>fica apenas sentado</strong>:</p>
+                    <div class="hack-pills">
+                      <code>in the car</code>
+                      <code>in a taxi</code>
+                      <code>in an Uber</code>
+                      <code>in a helicopter</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tech & Dev Context Hack -->
+              <div class="tech-hack-card">
+                <div class="hack-badge">💻 NO MUNDO DEV & TI</div>
+                <h3>Infraestrutura, Código e Reuniões</h3>
+                <div class="hack-tech-list">
+                  <div class="tech-rule-row">
+                    <span class="tech-prep prep-in">IN</span>
+                    <div class="tech-rule-desc">
+                      <strong>Dentro de armazenamento ou código:</strong><br>
+                      <em>"Tokens stored <strong>in</strong> the database"</em> • <em>"Variable defined <strong>in</strong> config.json"</em>
+                    </div>
+                  </div>
+                  <div class="tech-rule-row">
+                    <span class="tech-prep prep-on">ON</span>
+                    <div class="tech-rule-desc">
+                      <strong>Plataformas, Nuvem, Máquinas e Telas:</strong><br>
+                      <em>"PR opened <strong>on</strong> GitHub"</em> • <em>"Deployed <strong>on</strong> AWS"</em> • <em>"Shown <strong>on</strong> screen"</em>
+                    </div>
+                  </div>
+                  <div class="tech-rule-row">
+                    <span class="tech-prep prep-at">AT</span>
+                    <div class="tech-rule-desc">
+                      <strong>Posição pontual de trabalho:</strong><br>
+                      <em>"Working <strong>at</strong> home"</em> • <em>"Sitting <strong>at</strong> my desk"</em>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 5: PRÁTICA GUIADA - FIX THE STANDUP TICKETS -->
+          <div class="slide-page" data-slide="5">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 05 // PRÁTICA GUIADA</span>
+              <h2 class="slide-title">Bug Hunting: Encontre o Erro nos Tickets da Daily</h2>
+              <p class="slide-subtitle">
+                Identifique a preposição errada nos 4 tickets abaixo. Clique no botão de cada ticket para debugar ao vivo!
+              </p>
+            </div>
+
+            <div class="tickets-debug-grid">
+              <!-- Ticket 1 -->
+              <div class="debug-ticket-card" id="ticketCard1">
+                <div class="debug-ticket-top">
+                  <span class="ticket-tag">TICKET #401 • SPRINT SYNC</span>
+                  <button class="ticket-reveal-btn" data-target="ticketSol1">🐛 Revelar Debug</button>
+                </div>
+                <div class="ticket-wrong-sentence">
+                  ❌ <em>"Our sprint retrospective is <span class="highlight-err">in Friday</span> <span class="highlight-err">at the morning</span>."</em>
+                </div>
+                <div class="ticket-solution hidden" id="ticketSol1">
+                  <div class="sol-correct">✅ <em>"Our sprint retrospective is <strong>on Friday</strong> <strong>in the morning</strong>."</em></div>
+                  <p class="sol-expl"><strong>Diagnóstico:</strong> Dias da semana exigem <code>on</code> (on Friday). Períodos do dia exigem <code>in</code> (in the morning).</p>
+                </div>
+              </div>
+
+              <!-- Ticket 2 -->
+              <div class="debug-ticket-card" id="ticketCard2">
+                <div class="debug-ticket-top">
+                  <span class="ticket-tag">TICKET #402 • DEPLOY LOG</span>
+                  <button class="ticket-reveal-btn" data-target="ticketSol2">🐛 Revelar Debug</button>
+                </div>
+                <div class="ticket-wrong-sentence">
+                  ❌ <em>"The critical hotfix was deployed <span class="highlight-err">in 10:15 AM</span> yesterday."</em>
+                </div>
+                <div class="ticket-solution hidden" id="ticketSol2">
+                  <div class="sol-correct">✅ <em>"The critical hotfix was deployed <strong>at 10:15 AM</strong> yesterday."</em></div>
+                  <p class="sol-expl"><strong>Diagnóstico:</strong> Horários pontuais no relógio sempre exigem <code>at</code> (at 10:15 AM).</p>
+                </div>
+              </div>
+
+              <!-- Ticket 3 -->
+              <div class="debug-ticket-card" id="ticketCard3">
+                <div class="debug-ticket-top">
+                  <span class="ticket-tag">TICKET #403 • ONSITE OPS</span>
+                  <button class="ticket-reveal-btn" data-target="ticketSol3">🐛 Revelar Debug</button>
+                </div>
+                <div class="ticket-wrong-sentence">
+                  ❌ <em>"She is working <span class="highlight-err">at London</span>, <span class="highlight-err">in the 4th floor</span>."</em>
+                </div>
+                <div class="ticket-solution hidden" id="ticketSol3">
+                  <div class="sol-correct">✅ <em>"She is working <strong>in London</strong>, <strong>on the 4th floor</strong>."</em></div>
+                  <p class="sol-expl"><strong>Diagnóstico:</strong> Cidades são áreas geográficas amplas (<code>in London</code>). Andares prediais são superfícies horizontais (<code>on the 4th floor</code>).</p>
+                </div>
+              </div>
+
+              <!-- Ticket 4 -->
+              <div class="debug-ticket-card" id="ticketCard4">
+                <div class="debug-ticket-top">
+                  <span class="ticket-tag">TICKET #404 • UI REVIEW</span>
+                  <button class="ticket-reveal-btn" data-target="ticketSol4">🐛 Revelar Debug</button>
+                </div>
+                <div class="ticket-wrong-sentence">
+                  ❌ <em>"Did you inspect the error logs <span class="highlight-err">in the screen</span> and <span class="highlight-err">in GitHub</span>?"</em>
+                </div>
+                <div class="ticket-solution hidden" id="ticketSol4">
+                  <div class="sol-correct">✅ <em>"Did you inspect the error logs <strong>on the screen</strong> and <strong>on GitHub</strong>?"</em></div>
+                  <p class="sol-expl"><strong>Diagnóstico:</strong> Telas, monitores e plataformas digitais como GitHub, AWS ou Slack são superfícies digitais: use <code>on</code>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 6: STANDUP ROLEPLAY & DRILL -->
+          <div class="slide-page" data-slide="6">
+            <div class="slide-header">
+              <span class="slide-step-tag">SLIDE 06 // SPEAKING DRILL</span>
+              <h2 class="slide-title">Daily Standup Speaking: Sua Rotina Real</h2>
+              <p class="slide-subtitle">
+                Hora de colocar a voz para jogo! Responda em voz alta como se o Tech Lead estivesse conduzindo a Daily agora:
+              </p>
+            </div>
+
+            <div class="speaking-prompts-grid">
+              <div class="prompt-box">
+                <div class="prompt-q">🎙️ Questão 1: "What time does your first meeting start today?"</div>
+                <div class="prompt-template">
+                  <span class="template-label">Template de resposta:</span>
+                  <p><em>"My first meeting starts <strong>at</strong> [ex: 9:00 AM], followed by our daily standup <strong>at</strong> [ex: 10:30 AM]."</em></p>
+                </div>
+              </div>
+
+              <div class="prompt-box">
+                <div class="prompt-q">🎙️ Questão 2: "What days of the week are usually best for deploys?"</div>
+                <div class="prompt-template">
+                  <span class="template-label">Template de resposta:</span>
+                  <p><em>"We usually release new versions <strong>on</strong> Tuesdays and Thursdays, and never <strong>on</strong> Fridays!"</em></p>
+                </div>
+              </div>
+
+              <div class="prompt-box">
+                <div class="prompt-q">🎙️ Questão 3: "Where are you working from this week?"</div>
+                <div class="prompt-template">
+                  <span class="template-label">Template de resposta:</span>
+                  <p><em>"I am working <strong>at</strong> home today sitting <strong>at</strong> my desk, but I will be <strong>in</strong> the office <strong>on</strong> Wednesday."</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide-action-banner">
+              <div class="action-banner-text">
+                <h3>Pronto para testar seus reflexos?</h3>
+                <p>Inicie a Sprint Quest interativa de Preposições com 10 níveis técnicos e diagnóstico em tempo real!</p>
+              </div>
+              <button class="btn btn-primary btn-large" id="startQuestFromSlidesBtn">
+                <span class="btn-text">INICIAR TESTE PRÁTICO (QUEST)</span>
+                <span class="btn-icon">⚡</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Slide Deck Navigation Footer -->
+      <div class="slide-deck-footer">
+        <button class="btn btn-secondary deck-nav-btn" id="prevSlideBtn">
+          <span>⬅ Anterior</span>
+        </button>
+
+        <div class="slide-dots" id="slideDotsContainer">
+          <span class="slide-dot active" data-index="1" title="Slide 1: A Pirâmide"></span>
+          <span class="slide-dot" data-index="2" title="Slide 2: Tempo"></span>
+          <span class="slide-dot" data-index="3" title="Slide 3: Lugar"></span>
+          <span class="slide-dot" data-index="4" title="Slide 4: Cheat Codes"></span>
+          <span class="slide-dot" data-index="5" title="Slide 5: Bug Hunting"></span>
+          <span class="slide-dot" data-index="6" title="Slide 6: Speaking Drill"></span>
+        </div>
+
+        <button class="btn btn-primary deck-nav-btn" id="nextSlideBtn">
+          <span>Próximo ➔</span>
+        </button>
+
+        <div class="deck-kbd-hint">
+          Navegue com <kbd>←</kbd> <kbd>→</kbd> ou <kbd>Espaço</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="quests_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
