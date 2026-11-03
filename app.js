@@ -306,6 +306,11 @@ class QuestApp {
 
     // Slide Deck Modal
     this.studyDeckModal = document.getElementById("studyDeckModal");
+    this.deckWindowTitle = document.getElementById("deckWindowTitle");
+    this.tabToFor = document.getElementById("tabToFor");
+    this.tabInOnAt = document.getElementById("tabInOnAt");
+    this.deckGroupToFor = document.getElementById("deckGroupToFor");
+    this.deckGroupInOnAt = document.getElementById("deckGroupInOnAt");
     this.closeStudyDeckBtn = document.getElementById("closeStudyDeckBtn");
     this.prevSlideBtn = document.getElementById("prevSlideBtn");
     this.nextSlideBtn = document.getElementById("nextSlideBtn");
@@ -313,9 +318,15 @@ class QuestApp {
     this.currentSlideNum = document.getElementById("currentSlideNum");
     this.slideFullscreenBtn = document.getElementById("slideFullscreenBtn");
     this.startQuestFromSlidesBtn = document.getElementById("startQuestFromSlidesBtn");
+    this.startQuestFromToForSlidesBtn = document.getElementById("startQuestFromToForSlidesBtn");
+    this.openToForSlidesBtn = document.getElementById("openToForSlidesBtn");
+    this.openInOnAtSlidesBtn = document.getElementById("openInOnAtSlidesBtn");
     this.slideDeckCard = document.querySelector(".slide-deck-card");
-    this.slidePages = document.querySelectorAll(".slide-page");
+    this.currentDeckId = "to-for";
+    const initialGroup = this.deckGroupToFor || this.deckGroupInOnAt;
+    this.slidePages = initialGroup ? initialGroup.querySelectorAll(".slide-page") : document.querySelectorAll(".slide-page");
     this.slideDots = document.querySelectorAll(".slide-dot");
+    this.totalSlides = this.slidePages.length || 6;
   }
 
   bindEvents() {
@@ -364,18 +375,40 @@ class QuestApp {
 
     // Slide Deck Events
     if (this.studyDeckBtn) {
-      this.studyDeckBtn.addEventListener("click", () => this.openStudyDeck());
+      this.studyDeckBtn.addEventListener("click", () => this.openStudyDeck(1, this.currentDeckId || "to-for"));
     }
 
     if (this.openSlidesBannerBtn) {
-      this.openSlidesBannerBtn.addEventListener("click", () => this.openStudyDeck());
+      this.openSlidesBannerBtn.addEventListener("click", () => this.openStudyDeck(1, "to-for"));
+    }
+
+    if (this.openToForSlidesBtn) {
+      this.openToForSlidesBtn.addEventListener("click", () => this.openStudyDeck(1, "to-for"));
+    }
+
+    if (this.openInOnAtSlidesBtn) {
+      this.openInOnAtSlidesBtn.addEventListener("click", () => this.openStudyDeck(1, "in-on-at"));
+    }
+
+    if (this.tabToFor) {
+      this.tabToFor.addEventListener("click", () => {
+        this.sound.playClick();
+        this.switchSlideDeck("to-for", 1);
+      });
+    }
+
+    if (this.tabInOnAt) {
+      this.tabInOnAt.addEventListener("click", () => {
+        this.sound.playClick();
+        this.switchSlideDeck("in-on-at", 1);
+      });
     }
 
     const openSlidesFromCheatSheet = document.getElementById("openSlidesFromCheatSheetBtn");
     if (openSlidesFromCheatSheet) {
       openSlidesFromCheatSheet.addEventListener("click", () => {
         this.cheatSheetModal.classList.add("hidden");
-        this.openStudyDeck();
+        this.openStudyDeck(1, "to-for");
       });
     }
 
@@ -415,6 +448,17 @@ class QuestApp {
         const prepQuest = QUESTS_CATALOG.find((q) => q.id === "in-on-at-prepositions");
         if (prepQuest) {
           this.selectQuest(prepQuest);
+          this.startCurrentQuest();
+        }
+      });
+    }
+
+    if (this.startQuestFromToForSlidesBtn) {
+      this.startQuestFromToForSlidesBtn.addEventListener("click", () => {
+        this.closeStudyDeck();
+        const toForQuest = QUESTS_CATALOG.find((q) => q.id === "to-vs-for-prepositions");
+        if (toForQuest) {
+          this.selectQuest(toForQuest);
           this.startCurrentQuest();
         }
       });
@@ -489,7 +533,7 @@ class QuestApp {
       })
       .catch(err => {
         console.warn("Could not fetch quest settings:", err);
-        this.questSettings = { "simple-past": true, "present-simple-continuous": false };
+        this.questSettings = { "simple-past": true, "simple-past-101": true, "present-simple-continuous": false, "in-on-at-prepositions": true, "to-vs-for-prepositions": true };
         this.renderCatalog();
       });
   }
@@ -524,9 +568,12 @@ class QuestApp {
             <span>⏱️ ~${quest.estimatedMinutes} min</span>
             <span>🎯 ${quest.totalQuestions} Níveis</span>
           </div>
-          <button class="btn btn-primary btn-launch-quest ${!isEnabled ? "btn-locked-quest" : ""}" data-id="${quest.id}" ${!isEnabled ? "disabled" : ""}>
-            ${isEnabled ? "INICIAR SPRINT ➔" : "BLOQUEADO 🔒"}
-          </button>
+          <div class="quest-card-actions">
+            ${quest.slideDeckId ? `<button class="btn btn-secondary btn-card-slides" data-deck="${quest.slideDeckId}">🖥️ Slides</button>` : ""}
+            <button class="btn btn-primary btn-launch-quest ${!isEnabled ? "btn-locked-quest" : ""}" data-id="${quest.id}" ${!isEnabled ? "disabled" : ""}>
+              ${isEnabled ? "INICIAR SPRINT ➔" : "BLOQUEADO 🔒"}
+            </button>
+          </div>
         </div>
       `;
 
@@ -534,6 +581,14 @@ class QuestApp {
         card.querySelector(".btn-launch-quest").addEventListener("click", () => {
           this.selectQuest(quest);
         });
+
+        const slidesBtn = card.querySelector(".btn-card-slides");
+        if (slidesBtn) {
+          slidesBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            this.openStudyDeck(1, quest.slideDeckId);
+          });
+        }
       } else {
         card.addEventListener("click", (e) => {
           if (e.target.tagName !== "BUTTON") {
@@ -969,9 +1024,38 @@ ${this.verdictDescription.textContent}
     });
   }
 
-  openStudyDeck(slideIdx = 1) {
-    this.sound.playClick();
+  switchSlideDeck(deckId = "to-for", slideIdx = 1) {
+    this.currentDeckId = deckId;
+
+    if (deckId === "to-for") {
+      if (this.deckWindowTitle) this.deckWindowTitle.textContent = "~/slides/prepositions-to-vs-for.deck";
+      if (this.tabToFor) this.tabToFor.classList.add("active");
+      if (this.tabInOnAt) this.tabInOnAt.classList.remove("active");
+      if (this.deckGroupToFor) this.deckGroupToFor.classList.remove("hidden");
+      if (this.deckGroupInOnAt) this.deckGroupInOnAt.classList.add("hidden");
+    } else {
+      if (this.deckWindowTitle) this.deckWindowTitle.textContent = "~/slides/prepositions-in-on-at.deck";
+      if (this.tabToFor) this.tabToFor.classList.remove("active");
+      if (this.tabInOnAt) this.tabInOnAt.classList.add("active");
+      if (this.deckGroupToFor) this.deckGroupToFor.classList.add("hidden");
+      if (this.deckGroupInOnAt) this.deckGroupInOnAt.classList.remove("hidden");
+    }
+
+    const activeGroup = deckId === "to-for" ? this.deckGroupToFor : this.deckGroupInOnAt;
+    if (activeGroup) {
+      this.slidePages = activeGroup.querySelectorAll(".slide-page");
+      this.totalSlides = this.slidePages.length || 6;
+    }
     this.goToSlide(slideIdx);
+  }
+
+  openStudyDeck(slideIdx = 1, deckId = null) {
+    this.sound.playClick();
+    if (deckId) {
+      this.switchSlideDeck(deckId, slideIdx);
+    } else {
+      this.switchSlideDeck(this.currentDeckId || "to-for", slideIdx);
+    }
     if (this.studyDeckModal) {
       this.studyDeckModal.classList.remove("hidden");
     }

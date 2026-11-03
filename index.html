@@ -135,23 +135,32 @@
               </div>
             </div>
 
-            <!-- Interactive Classroom Slide Deck Banner -->
-            <div class="study-slides-banner" id="catalogSlidesBanner">
-              <div class="slides-banner-glow"></div>
-              <div class="slides-banner-content">
-                <div class="slides-banner-badge">
-                  <span class="pulse-indicator"></span>
-                  SLIDE DECK DA AULA // PREPOSIÇÕES
+            <!-- Interactive Classroom Slide Decks Showcase -->
+            <div class="slides-decks-showcase">
+              <!-- Deck 1 (Featured New): TO vs FOR -->
+              <div class="study-slides-banner banner-to-for" id="catalogSlidesBanner">
+                <div class="slides-banner-glow glow-emerald"></div>
+                <div class="slides-banner-content">
+                  <div class="slides-banner-badge badge-emerald">
+                    <span class="pulse-indicator"></span>
+                    NOVO SLIDE DECK // PROPÓSITO & BENEFÍCIO
+                  </div>
+                  <h2 class="slides-banner-title">Guia & Slides da Aula: <span class="highlight-emerald">TO vs FOR</span></h2>
+                  <p class="slides-banner-desc">
+                    A regra de ouro do propósito (TO + verbo vs FOR + ing/noun), verbos de transferência, pedidos de favor e o bug do verbo "explain" com 4 tickets de debug!
+                  </p>
                 </div>
-                <h2 class="slides-banner-title">Guia & Slides da Aula: <span class="highlight-cyan">IN, ON, AT</span></h2>
-                <p class="slides-banner-desc">
-                  Material interativo para aula e estudo autônomo com a Pirâmide Invertida de Tempo e Lugar, segredos de Transporte, termos de TI e 4 tickets de Standup para debugar ao vivo.
-                </p>
+                <div class="banner-cta-group">
+                  <button class="btn btn-primary btn-slides-launch btn-launch-to-for" id="openToForSlidesBtn">
+                    <span class="btn-icon">🎯</span>
+                    <span class="btn-text">ABRIR SLIDES TO vs FOR (6 TELAS)</span>
+                  </button>
+                  <button class="btn btn-secondary btn-slides-launch" id="openInOnAtSlidesBtn">
+                    <span class="btn-icon">📍</span>
+                    <span class="btn-text">SLIDES IN, ON, AT (6 TELAS)</span>
+                  </button>
+                </div>
               </div>
-              <button class="btn btn-primary btn-slides-launch" id="openSlidesBannerBtn">
-                <span class="btn-icon">🖥️</span>
-                <span class="btn-text">ABRIR SLIDES (6 TELAS)</span>
-              </button>
             </div>
 
             <div class="catalog-header-text">
@@ -463,7 +472,7 @@
       </div>
       <div class="modal-body">
         <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 8px; padding: 10px 14px; gap: 10px; flex-wrap: wrap;">
-          <span style="font-size: 0.85rem; color: #d8b4fe;">📚 Procurando o material de aula das preposições <strong>IN, ON, AT</strong>?</span>
+          <span style="font-size: 0.85rem; color: #d8b4fe;">📚 Procurando os slides de aula das preposições (<strong>TO vs FOR</strong> & <strong>IN, ON, AT</strong>)?</span>
           <button class="btn btn-primary" id="openSlidesFromCheatSheetBtn" style="padding: 5px 12px; font-size: 0.78rem;">ABRIR SLIDES DE AULA ➔</button>
         </div>
         <h2>Guia de Bolso: Simple Past para Devs (A1 ➔ A2)</h2>
@@ -530,7 +539,7 @@
           <span class="dot dot-yellow"></span>
           <span class="dot dot-green"></span>
         </div>
-        <span class="window-title">~/slides/prepositions-in-on-at.deck</span>
+        <span class="window-title" id="deckWindowTitle">~/slides/prepositions-to-vs-for.deck</span>
         <div class="deck-top-actions">
           <span class="slide-counter-badge" id="slideCounterBadge">SLIDE <span id="currentSlideNum">1</span> / 6</span>
           <button class="btn-deck-util" id="slideFullscreenBtn" title="Alternar Tela Cheia">⛶</button>
@@ -538,12 +547,444 @@
         </div>
       </div>
 
+      <!-- Slide Deck Topic Switcher Tabs -->
+      <div class="deck-selector-bar" id="deckSelectorBar">
+        <button class="deck-tab-btn active" id="tabToFor" data-deck="to-for">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-text">TO vs FOR (Propósito & Benefício)</span>
+          <span class="deck-tab-badge">NOVO</span>
+        </button>
+        <button class="deck-tab-btn" id="tabInOnAt" data-deck="in-on-at">
+          <span class="tab-icon">📍</span>
+          <span class="tab-text">IN, ON, AT (Tempo & Lugar)</span>
+        </button>
+      </div>
+
       <!-- Slide Deck Viewport -->
       <div class="slide-deck-body">
         <div class="slide-pages-container" id="slidePagesContainer">
 
+          <!-- ===================================================================
+               DECK A: PREPOSIÇÕES TO vs FOR (NOVO)
+               =================================================================== -->
+          <div class="deck-group active" id="deckGroupToFor" data-deck-id="to-for">
+
+            <!-- SLIDE 1: O BUG COGNITIVO - VETOR (TO) vs BENEFÍCIO (FOR) -->
+            <div class="slide-page active" data-slide="1">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 01 // FUNDAMENTO VISUAL</span>
+                <h2 class="slide-title">O "Bug Mental" do Português: Vetor (TO) vs Benefício (FOR)</h2>
+                <p class="slide-subtitle">
+                  No português, usamos <em>"para"</em> (ou <em>"pra"</em>) para tudo: <em>"fui para casa"</em>, <em>"café para você"</em>, <em>"ferramenta para teste"</em>. Em inglês, a preposição expressa a <strong>natureza da relação</strong>: ou é <strong>Direção/Destino (TO)</strong> ou é <strong>Benefício/Favor (FOR)</strong>.
+                </p>
+              </div>
+
+              <div class="slide-content-grid">
+                <!-- Visual Interactive Contrast -->
+                <div class="vector-benefit-wrapper">
+                  <div class="concept-card concept-to">
+                    <div class="concept-badge-to">
+                      <span class="concept-icon">➔</span>
+                      <span>TO • VETOR, MOVIMENTO & DESTINO</span>
+                    </div>
+                    <p class="concept-desc">Indica deslocamento físico, envio de dados, comunicação direcionada ou término de percurso.</p>
+                    <div class="concept-examples">
+                      <code>go to the office</code>
+                      <code>send email to Carlos</code>
+                      <code>talk to the team</code>
+                      <code>connect to database</code>
+                    </div>
+                    <div class="concept-rule-anchor">
+                      <em>"The packet travels <strong>to</strong> the server."</em>
+                    </div>
+                  </div>
+
+                  <div class="concept-card concept-for">
+                    <div class="concept-badge-for">
+                      <span class="concept-icon">🎁</span>
+                      <span>FOR • BENEFÍCIO, FAVOR & UTILIDADE</span>
+                    </div>
+                    <p class="concept-desc">Indica quem recebe a vantagem, quem é ajudado/substituído ou a finalidade de um recurso.</p>
+                    <div class="concept-examples">
+                      <code>made coffee for you</code>
+                      <code>review the PR for Sarah</code>
+                      <code>good for production</code>
+                      <code>fixed it for the client</code>
+                    </div>
+                    <div class="concept-rule-anchor">
+                      <em>"The dev wrote a script <strong>for</strong> the team."</em>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Key Takeaway Card -->
+                <div class="slide-side-card">
+                  <div class="takeaway-badge">💡 O TESTE DO VETOR</div>
+                  <h3>Como decidir em 2 segundos:</h3>
+                  <ul class="slide-bullet-list">
+                    <li><strong>Há movimento ou transferência até alguém?</strong> Se algo viaja ou é entregue a um destino, use <strong>TO</strong>.</li>
+                    <li><strong>Alguém é beneficiado ou ajudado?</strong> Se alguém recebe o favor ou você faz a tarefa no lugar dela, use <strong>FOR</strong>.</li>
+                    <li><strong>Teste de substituição mental:</strong> Troque por <em>"em direção a"</em> (TO) ou <em>"em benefício de"</em> (FOR).</li>
+                  </ul>
+                  <div class="memory-anchor-box">
+                    <span class="anchor-icon">🧠</span>
+                    <span><strong>Âncora mental:</strong> <em>"I sent the ticket <strong>to</strong> Alex"</em> (Alex recebeu). <em>"I closed the ticket <strong>for</strong> Alex"</em> (Ajudei Alex fazendo por ele).</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 2: A REGRA DE OURO DO PROPÓSITO -->
+            <div class="slide-page" data-slide="2">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 02 // PURPOSE & INTENTION</span>
+                <h2 class="slide-title">A Regra de Ouro do Propósito: TO + Verbo vs FOR + -ing / Noun</h2>
+                <p class="slide-subtitle">
+                  O erro número 1 de brasileiros em reuniões internacionais é dizer <em>"I joined the call for discuss..." ❌</em>. Guarde esta distinção cirúrgica:
+                </p>
+              </div>
+
+              <div class="slide-cards-2">
+                <!-- Purpose with Verb (TO) -->
+                <div class="tech-hack-card border-cyan">
+                  <div class="hack-badge" style="color: var(--cyan-neon);">🎯 INTENÇÃO PESSOAL (AÇÃO)</div>
+                  <h3>TO + Verbo na Forma Base</h3>
+                  <p class="card-desc">Quando você explica <strong>por que VOCÊ realizou uma ação</strong> usando um verbo:</p>
+                  <div class="purpose-rules-box">
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"I opened a PR <strong>to fix</strong> the login bug."</em></span>
+                    </div>
+                    <div class="compare-row-item error-row">
+                      <span class="badge-err">❌</span>
+                      <span><del>for fix</del> / <del>for to fix</del> (Erro grave!)</span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"We scheduled a sync <strong>to align</strong> sprint goals."</em></span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"I logged in early <strong>to test</strong> the deploy pipeline."</em></span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"Refactored the query <strong>to reduce</strong> latency."</em></span>
+                    </div>
+                  </div>
+                  <div class="purpose-formula">
+                    <strong>Fórmula:</strong> Ação humana ➔ <code>TO + Base Verb</code>
+                  </div>
+                </div>
+
+                <!-- Purpose of Tool (FOR) -->
+                <div class="tech-hack-card border-purple">
+                  <div class="hack-badge" style="color: #d8b4fe;">⚙️ FUNÇÃO DE OBJETO / FERRAMENTA</div>
+                  <h3>FOR + Verbo em -ing ou Substantivo</h3>
+                  <p class="card-desc">Quando você explica <strong>para que serve uma ferramenta, serviço ou recurso</strong>:</p>
+                  <div class="purpose-rules-box">
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"This microservice is used <strong>for parsing</strong> logs."</em></span>
+                    </div>
+                    <div class="compare-row-item error-row">
+                      <span class="badge-err">❌</span>
+                      <span><del>to parsing</del> (Nunca misture to + -ing aqui!)</span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"Redis is an in-memory store <strong>for caching</strong>."</em></span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"We allocated budget <strong>for new servers</strong>."</em> (Substantivo)</span>
+                    </div>
+                    <div class="compare-row-item">
+                      <span class="badge-check">✅</span>
+                      <span><em>"I bought a headset <strong>for meetings</strong>."</em> (Substantivo)</span>
+                    </div>
+                  </div>
+                  <div class="purpose-formula">
+                    <strong>Fórmula:</strong> Utilidade de ferramenta ➔ <code>FOR + -ing / Noun</code>
+                  </div>
+                </div>
+              </div>
+
+              <div class="memory-anchor-banner">
+                <span class="anchor-glow">⚡</span>
+                <div>
+                  <strong>O Duelo Perfeito:</strong>
+                  <em>"I use Docker <strong>to containerize</strong> my apps."</em> (Minha ação pessoal)
+                  vs
+                  <em>"Docker is a tool <strong>for containerizing</strong> apps."</em> (Função da ferramenta)
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3: VERBOS DE TRANSFERÊNCIA vs SERVIÇO & O BUG DO EXPLAIN -->
+            <div class="slide-page" data-slide="3">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 03 // VERB PAIRINGS & THE EXPLAIN BUG</span>
+                <h2 class="slide-title">Verbos de Transferência vs Serviço & A Armadilha do "Explain"</h2>
+                <p class="slide-subtitle">
+                  Certos verbos em inglês são magneticamente ligados a <strong>TO</strong> ou <strong>FOR</strong>. Aprenda os padrões essenciais de engenharia de software:
+                </p>
+              </div>
+
+              <div class="slide-columns-3">
+                <!-- Column 1: Verbos com TO -->
+                <div class="slide-col-card col-in" style="border-color: rgba(6, 182, 212, 0.4);">
+                  <div class="col-pill in-pill">TO (Transferência / Destino)</div>
+                  <h4>Comunicação Direta & Movimento</h4>
+                  <ul class="col-list">
+                    <li><code>send to</code> (enviar para)</li>
+                    <li><code>give to</code> (entregar para)</li>
+                    <li><code>forward to</code> (encaminhar para)</li>
+                    <li><code>speak / talk to</code> (falar com)</li>
+                    <li><code>listen to</code> (ouvir a)</li>
+                    <li><code>reply to</code> (responder a)</li>
+                  </ul>
+                  <div class="col-example">
+                    <em>"I forwarded the AWS credentials <strong>to</strong> Felipe."</em>
+                  </div>
+                </div>
+
+                <!-- Column 2: Verbos com FOR -->
+                <div class="slide-col-card col-at" style="border-color: rgba(16, 185, 129, 0.4);">
+                  <div class="col-pill at-pill">FOR (Serviço & Favor)</div>
+                  <h4>Ajuda, Subrogação & Benefício</h4>
+                  <ul class="col-list">
+                    <li><code>do a favor for</code> (fazer favor)</li>
+                    <li><code>review PR for</code> (revisar por alguém)</li>
+                    <li><code>build / develop for</code> (criar para)</li>
+                    <li><code>buy / order for</code> (comprar para)</li>
+                    <li><code>save for</code> (guardar para)</li>
+                    <li><code>fix for</code> (consertar para)</li>
+                  </ul>
+                  <div class="col-example">
+                    <em>"Can you merge this hotfix <strong>for</strong> me while I'm away?"</em>
+                  </div>
+                </div>
+
+                <!-- Column 3: The EXPLAIN Bug -->
+                <div class="slide-col-card col-on" style="border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.05);">
+                  <div class="col-pill on-pill" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">⚠️ ALERTA VERMELHO</div>
+                  <h4 style="color: #f87171;">O Maior Bug: Verbo EXPLAIN</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
+                    Em inglês, o verbo <em>explain</em> <strong>NUNCA</strong> aceita <em>"explain me"</em> nem <em>"explain for me"</em>!
+                  </p>
+                  <div style="background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 6px; font-size: 0.78rem;">
+                    <div style="color: #f87171; margin-bottom: 4px;">❌ <em>"Explain for me this bug"</em></div>
+                    <div style="color: #f87171; margin-bottom: 4px;">❌ <em>"Explain me the code"</em></div>
+                    <div style="color: var(--green-neon); font-weight: 700;">✅ <em>"Explain this <strong>TO ME</strong>"</em></div>
+                  </div>
+                  <div class="col-example">
+                    <em>"Could you explain the Kafka architecture <strong>to</strong> the team?"</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 4: TEMPO & DURAÇÃO vs OPINIÃO (TO ME vs FOR ME) -->
+            <div class="slide-page" data-slide="4">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 04 // DURATION & OPINION</span>
+                <h2 class="slide-title">Duração de Tempo & A Nuance: "To me" vs "For me"</h2>
+                <p class="slide-subtitle">
+                  Como quantificar horas e minutos de incidentes, e como expressar opinião sem soar arrogante ou confuso.
+                </p>
+              </div>
+
+              <div class="slide-cards-2">
+                <!-- Time Duration Hack -->
+                <div class="tech-hack-card">
+                  <div class="hack-badge">⏱️ MEDIDAS DE TEMPO</div>
+                  <h3>Duração Contínua vs Ponto Limite</h3>
+                  <div class="hack-comparison">
+                    <div class="hack-item on-item" style="border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.08);">
+                      <span class="hack-tag" style="color: var(--green-neon);">FOR + DURAÇÃO / PERÍODO</span>
+                      <p>Expressa <strong>quanto tempo</strong> uma ação durou ou está em andamento contínuo:</p>
+                      <div class="hack-pills">
+                        <code>for 45 minutes</code>
+                        <code>for two hours</code>
+                        <code>for 3 days</code>
+                        <code>for five years</code>
+                      </div>
+                      <div style="font-size: 0.78rem; margin-top: 6px; color: var(--text-dim);">
+                        <em>"The payment service was offline <strong>for 30 minutes</strong>."</em>
+                      </div>
+                    </div>
+                    <div class="hack-item in-item">
+                      <span class="hack-tag">FROM ... TO ... (LIMITES)</span>
+                      <p>Expressa o marco inicial e o marco final de um intervalo:</p>
+                      <div class="hack-pills">
+                        <code>from 9 AM to 5 PM</code>
+                        <code>from sprint 1 to sprint 4</code>
+                      </div>
+                      <div style="font-size: 0.78rem; margin-top: 6px; color: var(--text-dim);">
+                        <em>"Our maintenance window is <strong>from midnight to 4 AM</strong>."</em>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- To Me vs For Me Hack -->
+                <div class="tech-hack-card">
+                  <div class="hack-badge">🧠 PONTO DE VISTA vs IMPACTO</div>
+                  <h3>"To me" vs "For me": O Teste da Opinião</h3>
+                  <div class="hack-tech-list">
+                    <div class="tech-rule-row">
+                      <span class="tech-prep prep-in" style="background: rgba(6, 182, 212, 0.2); color: var(--cyan-neon);">TO ME</span>
+                      <div class="tech-rule-desc">
+                        <strong>Na minha opinião / No meu julgamento (Subjetivo):</strong><br>
+                        <em>"<strong>To me</strong>, this design looks much cleaner."</em><br>
+                        <em>"It seems <strong>to me</strong> that the query is unindexed."</em>
+                      </div>
+                    </div>
+                    <div class="tech-rule-row">
+                      <span class="tech-prep prep-at" style="background: rgba(16, 185, 129, 0.2); color: var(--green-neon);">FOR ME</span>
+                      <div class="tech-rule-desc">
+                        <strong>No meu caso / Afeta a minha conveniência ou saúde:</strong><br>
+                        <em>"Does 2:30 PM work <strong>for you</strong>?"</em> (Na sua agenda?)<br>
+                        <em>"Working remotely is very productive <strong>for me</strong>."</em><br>
+                        <em>"This ticket is too difficult <strong>for me</strong> alone."</em>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 5: PRÁTICA GUIADA - FIX THE STANDUP TICKETS -->
+            <div class="slide-page" data-slide="5">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 05 // PRÁTICA GUIADA</span>
+                <h2 class="slide-title">Bug Hunting: Encontre o Erro nos Tickets da Daily</h2>
+                <p class="slide-subtitle">
+                  Identifique a preposição errada nos 4 tickets abaixo. Clique no botão de cada ticket para debugar ao vivo!
+                </p>
+              </div>
+
+              <div class="tickets-debug-grid">
+                <!-- Ticket 501 -->
+                <div class="debug-ticket-card" id="ticketCard501">
+                  <div class="debug-ticket-top">
+                    <span class="ticket-tag">TICKET #501 • SPRINT PLANNING</span>
+                    <button class="ticket-reveal-btn" data-target="ticketSol501">🐛 Revelar Debug</button>
+                  </div>
+                  <div class="ticket-wrong-sentence">
+                    ❌ <em>"We scheduled an emergency sync <span class="highlight-err">for align</span> the release timeline."</em>
+                  </div>
+                  <div class="ticket-solution hidden" id="ticketSol501">
+                    <div class="sol-correct">✅ <em>"We scheduled an emergency sync <strong>to align</strong> the release timeline."</em></div>
+                    <p class="sol-expl"><strong>Diagnóstico:</strong> A intenção da pessoa com verbo na forma base exige <code>to + base verb</code> (to align). Dizer "for align" é um dos erros mais comuns de tradução do português.</p>
+                  </div>
+                </div>
+
+                <!-- Ticket 502 -->
+                <div class="debug-ticket-card" id="ticketCard502">
+                  <div class="debug-ticket-top">
+                    <span class="ticket-tag">TICKET #502 • CODE REVIEW</span>
+                    <button class="ticket-reveal-btn" data-target="ticketSol502">🐛 Revelar Debug</button>
+                  </div>
+                  <div class="ticket-wrong-sentence">
+                    ❌ <em>"Could the senior engineer please <span class="highlight-err">explain for me</span> the OAuth callback flow?"</em>
+                  </div>
+                  <div class="ticket-solution hidden" id="ticketSol502">
+                    <div class="sol-correct">✅ <em>"Could the senior engineer please <strong>explain to me</strong> the OAuth callback flow?"</em></div>
+                    <p class="sol-expl"><strong>Diagnóstico:</strong> O verbo <em>explain</em> exige obrigatoriamente a preposição direcional <code>to</code> para introduzir quem escuta a explicação (explain to me).</p>
+                  </div>
+                </div>
+
+                <!-- Ticket 503 -->
+                <div class="debug-ticket-card" id="ticketCard503">
+                  <div class="debug-ticket-top">
+                    <span class="ticket-tag">TICKET #503 • OUTAGE POST-MORTEM</span>
+                    <button class="ticket-reveal-btn" data-target="ticketSol503">🐛 Revelar Debug</button>
+                  </div>
+                  <div class="ticket-wrong-sentence">
+                    ❌ <em>"The payment gateway was completely unresponsive <span class="highlight-err">to 45 minutes</span>."</em>
+                  </div>
+                  <div class="ticket-solution hidden" id="ticketSol503">
+                    <div class="sol-correct">✅ <em>"The payment gateway was completely unresponsive <strong>for 45 minutes</strong>."</em></div>
+                    <p class="sol-expl"><strong>Diagnóstico:</strong> A extensão contínua de um período de tempo exige <code>for</code> (for 45 minutes). <code>To</code> expressa destino ou marco final, não duração.</p>
+                  </div>
+                </div>
+
+                <!-- Ticket 504 -->
+                <div class="debug-ticket-card" id="ticketCard504">
+                  <div class="debug-ticket-top">
+                    <span class="ticket-tag">TICKET #504 • DEPLOYMENT HANDOFF</span>
+                    <button class="ticket-reveal-btn" data-target="ticketSol504">🐛 Revelar Debug</button>
+                  </div>
+                  <div class="ticket-wrong-sentence">
+                    ❌ <em>"I forwarded the new production API credentials <span class="highlight-err">for the frontend team</span>."</em>
+                  </div>
+                  <div class="ticket-solution hidden" id="ticketSol504">
+                    <div class="sol-correct">✅ <em>"I forwarded the new production API credentials <strong>to the frontend team</strong>."</em></div>
+                    <p class="sol-expl"><strong>Diagnóstico:</strong> Verbos de envio e transferência (forward, send, pass) usam <code>to</code> para o destinatário da entrega. Usar <code>for</code> significaria que você enviou no lugar da equipe ausente.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 6: STANDUP ROLEPLAY & DRILL -->
+            <div class="slide-page" data-slide="6">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 06 // SPEAKING DRILL</span>
+                <h2 class="slide-title">Daily Standup Speaking: Sua Rotina Real com TO e FOR</h2>
+                <p class="slide-subtitle">
+                  Hora de colocar a voz para jogo! Responda em voz alta como se o Tech Lead estivesse perguntando agora na reunião:
+                </p>
+              </div>
+
+              <div class="speaking-prompts-grid">
+                <div class="prompt-box">
+                  <div class="prompt-q">🎙️ Questão 1: "Why did you create that new feature branch yesterday?"</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Template de resposta:</span>
+                    <p><em>"I created the branch <strong>to</strong> fix a memory leak and <strong>to</strong> optimize our database queries."</em></p>
+                  </div>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-q">🎙️ Questão 2: "What is this new microservice used for in our cloud stack?"</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Template de resposta:</span>
+                    <p><em>"It is an event worker used <strong>for</strong> processing webhooks and <strong>for</strong> caching user sessions."</em></p>
+                  </div>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-q">🎙️ Questão 3: "Can you review my pull request before our afternoon release?"</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Template de resposta:</span>
+                    <p><em>"Sure, I can review it <strong>for</strong> you right after this call! Just send the PR link <strong>to</strong> me."</em></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-action-banner" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.12));">
+                <div class="action-banner-text">
+                  <h3>Pronto para testar seus reflexos?</h3>
+                  <p>Inicie a Sprint Quest interativa de TO vs FOR com 10 níveis técnicos, contexto de TI e diagnóstico cirúrgico em tempo real!</p>
+                </div>
+                <button class="btn btn-primary btn-large btn-launch-to-for" id="startQuestFromToForSlidesBtn">
+                  <span class="btn-text">INICIAR TESTE PRÁTICO (TO vs FOR)</span>
+                  <span class="btn-icon">⚡</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ===================================================================
+               DECK B: PREPOSIÇÕES IN, ON, AT (EXISTENTE)
+               =================================================================== -->
+          <div class="deck-group hidden" id="deckGroupInOnAt" data-deck-id="in-on-at">
+
           <!-- SLIDE 1: O BUG COGNITIVO & A PIRÂMIDE INVERTIDA -->
-          <div class="slide-page active" data-slide="1">
+          <div class="slide-page" data-slide="1">
             <div class="slide-header">
               <span class="slide-step-tag">SLIDE 01 // FUNDAMENTO VISUAL</span>
               <h2 class="slide-title">O "Bug Mental" do Português & A Pirâmide Invertida</h2>
@@ -907,6 +1348,7 @@
           </div>
 
         </div>
+      </div>
       </div>
 
       <!-- Slide Deck Navigation Footer -->

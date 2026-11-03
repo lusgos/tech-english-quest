@@ -81,7 +81,7 @@ class TeacherPortal {
       })
       .catch(err => {
         console.warn("Could not load quest settings, using defaults:", err);
-        this.questSettings = { "simple-past": true, "present-simple-continuous": false };
+        this.questSettings = { "simple-past": true, "simple-past-101": true, "present-simple-continuous": false, "in-on-at-prepositions": true, "to-vs-for-prepositions": true };
         this.renderQuestToggles();
       });
   }

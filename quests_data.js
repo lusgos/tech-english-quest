@@ -1057,6 +1057,7 @@ const QUESTS_CATALOG = [
     description: "Domine o uso cirúrgico de IN, ON e AT em reuniões diárias, agendamento de sprints, deploys em nuvem, comunicação remota e infraestrutura sem cair na armadilha de tradução do português.",
     estimatedMinutes: 6,
     totalQuestions: 10,
+    slideDeckId: "in-on-at",
     targetSkills: [
       "Preposições de Tempo (Horas pontuais vs Dias vs Meses)",
       "Preposições de Lugar (Países/Cidades vs Ruas vs Endereços)",
@@ -1513,6 +1514,476 @@ const QUESTS_CATALOG = [
           }
         ],
         rule: "Expressões fixas essenciais de rotina dev: <strong>at home</strong> (trabalhando de casa), <strong>at work</strong> (no trabalho físico), <strong>at my desk</strong> (na minha mesa de trabalho)."
+      }
+    ]
+  },
+  {
+    id: "to-vs-for-prepositions",
+    title: "Prepositions in Tech: TO vs FOR",
+    level: "A1 ➔ A2",
+    badge: "TO vs FOR",
+    color: "emerald",
+    icon: "🎯",
+    description: "Domine a diferença crucial entre TO e FOR em Daily Standups, Code Reviews e conversas com times internacionais: intenção pessoal (TO + verbo) vs função de ferramentas (FOR + noun/-ing), verbos de transferência, pedidos de favor e o bug clássico do verbo 'explain'.",
+    estimatedMinutes: 6,
+    totalQuestions: 10,
+    slideDeckId: "to-for",
+    targetSkills: [
+      "Propósito da Ação Pessoal (TO + Base Verb)",
+      "Função / Utilidade de Ferramenta (FOR + -ing / Noun)",
+      "Verbos de Transferência & Destinatário (send to, explain to)",
+      "Pedidos de Favor (for me) e Duração de Tempo (for 40 mins)"
+    ],
+    questions: [
+      {
+        id: 1,
+        level: 1,
+        categoryKey: "purpose_action",
+        categoryLabel: "Propósito de Ação (TO + Verbo)",
+        difficulty: "Nível 1 • Básico",
+        ticket: "DAILY-SYNC-01",
+        ticketFile: "auth-service.ts",
+        speakerRole: "Scrum Master",
+        speakerName: "Carlos (Tech Lead)",
+        scrumPrompt: '"Lucas, why did you create a new Git branch yesterday afternoon?"',
+        targetSentence: 'I created a new feature branch <span class="blank-slot">________</span> fix the memory leak in the login module.',
+        subtext: 'Preposição correta para expressar a intenção/propósito de uma ação com verbo na forma base (fix):',
+        options: [
+          {
+            text: "to",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Quando expressamos a intenção pessoal de realizar uma ação com verbo na forma base (fix), usamos sempre TO (to fix)."
+          },
+          {
+            text: "for",
+            isCorrect: false,
+            errorType: "CONFUSAO_FOR_COM_VERBO_BASE",
+            errorLabel: "Uso de FOR com Verbo na Forma Base",
+            diagnosticNote: "Vício clássico do português ('para corrigir'). Em inglês, NUNCA usamos 'for + verbo base'. A intenção da ação é expressa com 'to fix'."
+          },
+          {
+            text: "for to",
+            isCorrect: false,
+            errorType: "DUPLO_CONECTOR_FOR_TO",
+            errorLabel: "Duplo Conector Arcaico (For To)",
+            diagnosticNote: "Usou a composição 'for to', que é um erro gramatical no inglês moderno padrão."
+          },
+          {
+            text: "at",
+            isCorrect: false,
+            errorType: "PREPOSICAO_INCOMPATIVEL",
+            errorLabel: "Preposição Incompatível (At)",
+            diagnosticNote: "AT indica horário ou local pontual, sem relação com objetivo ou finalidade de uma ação."
+          }
+        ],
+        rule: "Regra de ouro do propósito: quando você explica por que realizou uma ação usando um verbo, use sempre <strong>TO + verbo na forma base</strong> (<em>to fix, to create, to deploy</em>), nunca <em>for + verbo</em>."
+      },
+      {
+        id: 2,
+        level: 2,
+        categoryKey: "tool_function",
+        categoryLabel: "Função de Ferramenta (FOR + -ing)",
+        difficulty: "Nível 2 • Básico",
+        ticket: "TOOLING-22",
+        ticketFile: "docker-compose.yml",
+        speakerRole: "DevOps Engineer",
+        speakerName: "Felipe (DevOps)",
+        scrumPrompt: '"What is this new Python microservice responsible for in our cluster?"',
+        targetSentence: 'This microservice is used <span class="blank-slot">________</span> parsing and aggregating real-time server logs.',
+        subtext: 'Preposição correta para descrever a função ou utilidade de um objeto/ferramenta com verbo no gerúndio (-ing):',
+        options: [
+          {
+            text: "for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Para descrever o propósito/função de uma ferramenta, serviço ou objeto acompanhado de verbo com terminação -ing (parsing), usamos FOR."
+          },
+          {
+            text: "to",
+            isCorrect: false,
+            errorType: "CONFUSAO_TO_COM_GERUNDIO",
+            errorLabel: "Uso de TO com Verbo em -ing",
+            diagnosticNote: "Se usar TO, o verbo deve estar na forma base ('to parse'). Com o verbo terminado em -ing ('parsing'), a estrutura correta para utilidade de ferramenta é 'for parsing'."
+          },
+          {
+            text: "in",
+            isCorrect: false,
+            errorType: "CONFUSAO_IN_FINALIDADE",
+            errorLabel: "Uso de IN para Finalidade",
+            diagnosticNote: "IN indica localização dentro de espaço ou período de tempo, não finalidade funcional."
+          },
+          {
+            text: "with",
+            isCorrect: false,
+            errorType: "PREPOSICAO_INSTRUMENTAL_ERRADA",
+            errorLabel: "Uso Inadequado de With",
+            diagnosticNote: "With expressa instrumento ou companhia ('with a tool'), não a função intrínseca do serviço."
+          }
+        ],
+        rule: "Para descrever a finalidade ou função de uma ferramenta/objeto: use <strong>FOR + verbo com -ing</strong> (<em>used for parsing logs</em>) ou <strong>TO + forma base</strong> (<em>used to parse logs</em>). Nunca misture <em>to + -ing</em> neste caso."
+      },
+      {
+        id: 3,
+        level: 3,
+        categoryKey: "transfer_verbs",
+        categoryLabel: "Verbos de Transferência & Destinatário",
+        difficulty: "Nível 3 • Básico",
+        ticket: "PR-REVIEW-04",
+        ticketFile: "slack-message.md",
+        speakerRole: "Product Owner",
+        speakerName: "Mariana (PO)",
+        scrumPrompt: '"Lucas, did you share the updated API payload specifications with the frontend team?"',
+        targetSentence: 'Yes, I sent the updated documentation and swagger links <span class="blank-slot">________</span> the frontend lead.',
+        subtext: 'Preposição correta para destinatário de envio/comunicação direta (send):',
+        options: [
+          {
+            text: "to",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Verbos de transferência e movimento de informação (send, give, forward, deliver) exigem TO para indicar o destino ou destinatário."
+          },
+          {
+            text: "for",
+            isCorrect: false,
+            errorType: "CONFUSAO_FOR_DESTINATARIO_DIRETO",
+            errorLabel: "Uso de FOR para Destino de Envio",
+            diagnosticNote: "Vício de tradução ('enviei para ele'). O alvo de movimento ou entrega direta de um objeto/mensagem recebe TO (sent to him). FOR significaria enviar 'no lugar dele'."
+          },
+          {
+            text: "at",
+            isCorrect: false,
+            errorType: "CONFUSAO_AT_DIRECAO",
+            errorLabel: "Uso de AT para Pessoa",
+            diagnosticNote: "AT indica ponto geográfico ou horário, não o destinatário de uma mensagem."
+          },
+          {
+            text: "into",
+            isCorrect: false,
+            errorType: "PREPOSICAO_INSERCAO_FISICA",
+            errorLabel: "Uso de Into para Destinatário",
+            diagnosticNote: "Into indica entrada física para dentro de algo fechado."
+          }
+        ],
+        rule: "Verbos de transferência física ou digital (<em>send, forward, give, deliver, pass</em>) exigem <strong>TO</strong> para indicar a pessoa ou destino final (<em>send an email to Carlos</em>)."
+      },
+      {
+        id: 4,
+        level: 4,
+        categoryKey: "favor_benefit",
+        categoryLabel: "Benefício & Pedido de Favor (FOR)",
+        difficulty: "Nível 4 • Intermediário",
+        ticket: "HOTFIX-78",
+        ticketFile: "code-review.ts",
+        speakerRole: "Senior Backend Dev",
+        speakerName: "Alex (Senior Dev)",
+        scrumPrompt: '"Lucas, I have an urgent doctor appointment in 10 minutes. Can you help me out?"',
+        targetSentence: 'Can you please review and merge this hotfix branch <span class="blank-slot">________</span> me while I am away?',
+        subtext: 'Preposição correta para pedir um favor ou agir no lugar/em benefício de alguém:',
+        options: [
+          {
+            text: "for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Quando alguém pede um favor, benefício ou para realizar uma tarefa no lugar de outra pessoa, usamos FOR (review this for me)."
+          },
+          {
+            text: "to",
+            isCorrect: false,
+            errorType: "CONFUSAO_TO_FAVOR",
+            errorLabel: "Uso de TO para Pedido de Favor",
+            diagnosticNote: "'Review this to me' é incorreto. 'To me' indicaria opinião (ex: to me, it looks good). Fazer um favor ou serviço para alguém exige FOR (do it for me)."
+          },
+          {
+            text: "by",
+            isCorrect: false,
+            errorType: "CONFUSAO_AGENTE_DA_PASSIVA",
+            errorLabel: "Uso de By como Agente",
+            diagnosticNote: "By me indicaria autoria ('feita por mim'), incompatível com a solicitação de favor da frase."
+          },
+          {
+            text: "with",
+            isCorrect: false,
+            errorType: "CONFUSAO_COMPANHIA",
+            errorLabel: "Uso de With (Companhia)",
+            diagnosticNote: "With me significaria revisar juntos em par, mas o colega está ausente ('while I am away')."
+          }
+        ],
+        rule: "Para favores, serviços feitos em benefício de alguém ou para substituir alguém ausente: use sempre <strong>FOR</strong> (<em>Can you do this for me? / I deployed it for Sarah</em>)."
+      },
+      {
+        id: 5,
+        level: 5,
+        categoryKey: "explain_trap",
+        categoryLabel: "O Bug Clássico do Verbo 'Explain'",
+        difficulty: "Nível 5 • Intermediário",
+        ticket: "ONBOARDING-15",
+        ticketFile: "architecture-overview.md",
+        speakerRole: "Junior Developer",
+        speakerName: "Gabriel (Junior Dev)",
+        scrumPrompt: '"I am new to the repository and having trouble following the microservices event bus."',
+        targetSentence: 'Could you please explain the Kafka event consumer logic <span class="blank-slot">________</span> me after the standup?',
+        subtext: 'Preposição exigida pelo verbo EXPLAIN ao indicar quem ouve a explicação:',
+        options: [
+          {
+            text: "to",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O verbo 'explain' exige obrigatoriamente a preposição TO antes do ouvinte: explain something TO someone."
+          },
+          {
+            text: "for",
+            isCorrect: false,
+            errorType: "CONFUSAO_EXPLAIN_FOR",
+            errorLabel: "Uso Incorreto de FOR com Explain",
+            diagnosticNote: "Vício clássico de tradução ('explicar para mim'). Em inglês, NUNCA se diz 'explain for me'. A direção da explicação exige 'explain to me'."
+          },
+          {
+            text: "at",
+            isCorrect: false,
+            errorType: "PREPOSICAO_HOSTIL_INADEQUADA",
+            errorLabel: "Uso de AT com Verbo de Comunicação",
+            diagnosticNote: "'Explain at me' não existe em inglês (at com verbos de comunicação como 'yell at' indica agressividade)."
+          },
+          {
+            text: "with",
+            isCorrect: false,
+            errorType: "CONFUSAO_WITH_COMUNICACAO",
+            errorLabel: "Uso de With com Explain",
+            diagnosticNote: "'Explain with me' significaria explicar em dupla com você, o que não faz sentido no contexto de pedir explicação."
+          }
+        ],
+        rule: "⚠️ <strong>Alerta Vermelho do Tech English:</strong> O verbo <em>explain</em> NUNCA aceita <em>for</em> ou ausência de preposição! Diga sempre: <strong>explain something TO someone</strong> (<em>Please explain this to me</em>, nunca <em>explain me</em> ou <em>explain for me</em>)."
+      },
+      {
+        id: 6,
+        level: 6,
+        categoryKey: "duration_vs_endpoint",
+        categoryLabel: "Duração de Tempo (FOR + Período)",
+        difficulty: "Nível 6 • Intermediário",
+        ticket: "INCIDENT-404",
+        ticketFile: "datadog-alerts.json",
+        speakerRole: "Site Reliability Engineer",
+        speakerName: "Sofia (SRE)",
+        scrumPrompt: '"How long was the Redis caching tier unresponsive during the overnight spike?"',
+        targetSentence: 'The primary Redis cluster was completely unresponsive <span class="blank-slot">________</span> 40 minutes before recovering.',
+        subtext: 'Preposição correta para expressar a duração total de um período de tempo:',
+        options: [
+          {
+            text: "for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Para indicar a extensão ou duração de um período de tempo (40 minutes, 2 days, 3 years), usamos a preposição FOR."
+          },
+          {
+            text: "to",
+            isCorrect: false,
+            errorType: "CONFUSAO_TO_DURACAO",
+            errorLabel: "Uso de TO para Duração Temporal",
+            diagnosticNote: "TO expressa o ponto final de um intervalo (from 2 PM to 3 PM), mas nunca a duração de tempo total contínua. Para duração, usa-se FOR."
+          },
+          {
+            text: "during",
+            isCorrect: false,
+            errorType: "DURING_COM_QUANTIDADE_NUMERICA",
+            errorLabel: "Uso de During com Quantidade de Tempo",
+            diagnosticNote: "During é usado com substantivos de eventos (during the meeting, during the night), nunca diretamente com unidades numéricas de tempo como '40 minutes'."
+          },
+          {
+            text: "since",
+            isCorrect: false,
+            errorType: "CONFUSAO_SINCE_PONTO_INICIAL",
+            errorLabel: "Uso de Since para Duração",
+            diagnosticNote: "Since indica o ponto inicial específico no passado (since 2 PM, since yesterday), não a duração total decorrida."
+          }
+        ],
+        rule: "Para expressar <strong>duração contínua de tempo</strong>, use sempre <strong>FOR</strong> (<em>for 40 minutes, for 2 weeks, for 5 years</em>). Para limites inicial e final, use <em>from ... to ...</em>."
+      },
+      {
+        id: 7,
+        level: 7,
+        categoryKey: "purpose_noun",
+        categoryLabel: "Finalidade com Substantivo (FOR + Noun)",
+        difficulty: "Nível 7 • Avançado",
+        ticket: "BUDGET-Q4",
+        ticketFile: "cloud-expenses.csv",
+        speakerRole: "Engineering Manager",
+        speakerName: "David (EM)",
+        scrumPrompt: '"Did finance approve our request for extra cloud infrastructure resources?"',
+        targetSentence: 'Yes, the management approved additional budget <span class="blank-slot">________</span> new staging servers and GPU clusters.',
+        subtext: 'Preposição correta para expressar finalidade ou destinação quando acompanhada de um substantivo (new staging servers):',
+        options: [
+          {
+            text: "for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Quando a finalidade é expressa por um substantivo (new staging servers, dinner, work), usamos FOR (budget for servers)."
+          },
+          {
+            text: "to",
+            isCorrect: false,
+            errorType: "CONFUSAO_TO_COM_SUBSTANTIVO_FINALIDADE",
+            errorLabel: "Uso de TO com Substantivo de Finalidade",
+            diagnosticNote: "Usamos 'to' com verbos (to buy servers). Mas quando o complemento é diretamente um substantivo (servers), usamos FOR (for servers)."
+          },
+          {
+            text: "at",
+            isCorrect: false,
+            errorType: "CONFUSAO_AT_DESTINACAO",
+            errorLabel: "Uso de AT para Alocação",
+            diagnosticNote: "AT indica localização pontual, não destinação orçamentária ou finalidade de recursos."
+          },
+          {
+            text: "in",
+            isCorrect: false,
+            errorType: "CONFUSAO_IN_DESTINACAO",
+            errorLabel: "Uso de IN para Finalidade",
+            diagnosticNote: "IN indica continência interna, não a finalidade da alocação."
+          }
+        ],
+        rule: "Contraste essencial de finalidade: use <strong>TO + verbo</strong> (<em>money to buy servers</em>) ou <strong>FOR + substantivo</strong> (<em>money for servers</em>)."
+      },
+      {
+        id: 8,
+        level: 8,
+        categoryKey: "transfer_vs_favor_contrast",
+        categoryLabel: "Contraste: Destinatário (TO) vs Beneficiário (FOR)",
+        difficulty: "Nível 8 • Avançado",
+        ticket: "SPRINT-COLLAB",
+        ticketFile: "git-workflow.md",
+        speakerRole: "Tech Lead",
+        speakerName: "Ana (Agile Coach)",
+        scrumPrompt: '"How did the sprint handoff go between the backend and QA teams yesterday?"',
+        targetSentence: 'I transferred the database migration scripts <span class="blank-slot">________</span> the QA team, and they ran the regression tests <span class="blank-slot">________</span> us.',
+        subtext: 'Selecione o par correto de preposições (destinatário de transferência vs serviço/favor prestado):',
+        options: [
+          {
+            text: "to / for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Perfeito! Você transferiu os scripts para o destino (to the QA team) e eles executaram os testes como um serviço benéfico para o time (for us)."
+          },
+          {
+            text: "for / to",
+            isCorrect: false,
+            errorType: "INVERSAO_TRANSFERENCIA_BENEFICIO",
+            errorLabel: "Inversão entre Transferência e Benefício",
+            diagnosticNote: "Inverteu a lógica: transferir algo em direção a um alvo exige TO, enquanto realizar um trabalho em benefício de alguém exige FOR."
+          },
+          {
+            text: "to / to",
+            isCorrect: false,
+            errorType: "USO_EXCESSIVO_TO",
+            errorLabel: "Uso Duplo de TO",
+            diagnosticNote: "'Ran the tests to us' soa antinatural em inglês. Fazer o serviço de testar em benefício do time exige FOR (for us)."
+          },
+          {
+            text: "for / for",
+            isCorrect: false,
+            errorType: "USO_EXCESSIVO_FOR",
+            errorLabel: "Uso Duplo de FOR",
+            diagnosticNote: "O verbo transfer indica movimento direto até um destinatário, logo requer TO na primeira lacuna."
+          }
+        ],
+        rule: "Fórmula mental rápida: <strong>Transfer / send / give ➔ TO</strong> (direção da entrega). <strong>Do a task / run tests in support ➔ FOR</strong> (benefício gerado para a pessoa/equipe)."
+      },
+      {
+        id: 9,
+        level: 9,
+        categoryKey: "to_me_vs_for_me",
+        categoryLabel: "Nuance Crítica: 'To me' (Opinião) vs 'For me' (Efeito Pessoal)",
+        difficulty: "Nível 9 • Avançado",
+        ticket: "ARCH-DESIGN",
+        ticketFile: "rfc-042.md",
+        speakerRole: "Principal Engineer",
+        speakerName: "Mateo (Staff Eng)",
+        scrumPrompt: '"What is your assessment of migrating our monolithic frontend to micro-frontends?"',
+        targetSentence: '<span class="blank-slot">________</span> me, this new architecture looks much cleaner, but this sprint is going to be tough <span class="blank-slot">________</span> our team.',
+        subtext: 'Preposições corretas para ponto de vista subjetivo (opinião) vs impacto/efeito em pessoas:',
+        options: [
+          {
+            text: "To / for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Exato! 'To me' expressa o ponto de vista subjetivo ('na minha visão/opinião') e 'tough for our team' expressa o impacto/dificuldade que recai sobre o time."
+          },
+          {
+            text: "For / to",
+            isCorrect: false,
+            errorType: "INVERSAO_OPINIAO_IMPACTO",
+            errorLabel: "Inversão de Opinião e Impacto",
+            diagnosticNote: "'To me' inicia frases para indicar ponto de vista opinativo. E adjetivos de dificuldade física/emocional exigem 'for' (tough for us, hard for me)."
+          },
+          {
+            text: "For / for",
+            isCorrect: false,
+            errorType: "FOR_ME_COMO_OPINIAO",
+            errorLabel: "Uso de For Me para Julgamento Estético/Técnico",
+            diagnosticNote: "Quando julgamos a aparência ou mérito de uma ideia abstrata ('looks cleaner'), o conector opinativo tradicional em inglês é 'To me' (in my view)."
+          },
+          {
+            text: "To / to",
+            isCorrect: false,
+            errorType: "TO_COM_ADJETIVO_DIFICULDADE",
+            errorLabel: "Uso de To com Adjetivo de Dificuldade Pessoal",
+            diagnosticNote: "Dizemos 'difficult/tough FOR someone', nunca 'tough TO someone'."
+          }
+        ],
+        rule: "<strong>TO ME</strong> = na minha opinião / do meu ponto de vista (<em>To me, this solution is better</em>). <strong>FOR ME / FOR US</strong> = no meu caso / afeta a minha vida ou rotina (<em>Working late is tough for me / Exercise is good for you</em>)."
+      },
+      {
+        id: 10,
+        level: 10,
+        categoryKey: "standup_synthesis",
+        categoryLabel: "Síntese em Daily Standup: Propósito + Duração",
+        difficulty: "Nível 10 • Síntese Avançada",
+        ticket: "DAILY-FINAL",
+        ticketFile: "daily-status.yaml",
+        speakerRole: "Engineering VP",
+        speakerName: "Beatriz (VP)",
+        scrumPrompt: '"Lucas, give us your complete status report from yesterday and the stability of the production release."',
+        targetSentence: 'Yesterday, I stayed online until 8 PM <span class="blank-slot">________</span> assist the team with the deployment, and the API has remained stable <span class="blank-slot">________</span> over twelve hours.',
+        subtext: 'Preposições corretas para propósito da ação pessoal (assist) e duração contínua de estabilidade (over 12 hours):',
+        options: [
+          {
+            text: "to / for",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Espetacular! Dominou completamente: 'to assist' expressa o propósito da ação com o verbo no infinitivo base, e 'for over twelve hours' expressa a duração contínua de tempo."
+          },
+          {
+            text: "for / to",
+            isCorrect: false,
+            errorType: "CONFUSAO_CRUZADA_PROPOSITO_DURACAO",
+            errorLabel: "Confusão Cruzada entre Propósito e Duração",
+            diagnosticNote: "Inverteu as duas regras fundamentais: intenção com verbo exige TO (to assist), e extensão temporal contínua exige FOR (for twelve hours)."
+          },
+          {
+            text: "for / for",
+            isCorrect: false,
+            errorType: "CONFUSAO_FOR_COM_VERBO",
+            errorLabel: "Uso de FOR com Verbo Base (assist)",
+            diagnosticNote: "Não podemos usar 'for assist'. A intenção da pessoa ao ficar online é expressa com 'to assist'."
+          },
+          {
+            text: "to / to",
+            isCorrect: false,
+            errorType: "CONFUSAO_TO_DURACAO_TEMPO",
+            errorLabel: "Uso de TO para Duração Contínua",
+            diagnosticNote: "TO não expressa duração contínua de horas. A duração temporal exige FOR."
+          }
+        ],
+        rule: "Síntese magistral da Daily: Ação e motivo pessoal ➔ <strong>TO + verbo base</strong> (<em>stayed late to assist</em>). Duração temporal decorrida ➔ <strong>FOR + período</strong> (<em>stable for twelve hours</em>)."
       }
     ]
   }
