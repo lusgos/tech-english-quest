@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261103_4">
 </head>
 <body>
   <!-- Ambient background glow effects -->
@@ -151,11 +151,11 @@
                   </p>
                 </div>
                 <div class="banner-cta-group">
-                  <button class="btn btn-primary btn-slides-launch btn-launch-to-for" id="openToForSlidesBtn">
+                  <button class="btn btn-primary btn-slides-launch btn-launch-to-for" id="openToForSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'to-for');">
                     <span class="btn-icon">🎯</span>
                     <span class="btn-text">ABRIR SLIDES TO vs FOR (6 TELAS)</span>
                   </button>
-                  <button class="btn btn-secondary btn-slides-launch" id="openInOnAtSlidesBtn">
+                  <button class="btn btn-secondary btn-slides-launch" id="openInOnAtSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'in-on-at');">
                     <span class="btn-icon">📍</span>
                     <span class="btn-text">SLIDES IN, ON, AT (6 TELAS)</span>
                   </button>
@@ -227,10 +227,16 @@
             </div>
 
             <div class="intro-actions">
-              <button class="btn btn-primary btn-large" id="startQuestBtn">
-                <span class="btn-text">INICIAR ESTA QUEST</span>
-                <span class="btn-icon">➔</span>
-              </button>
+              <div class="intro-buttons-row">
+                <button class="btn btn-primary btn-large" id="startQuestBtn">
+                  <span class="btn-text">INICIAR ESTA QUEST</span>
+                  <span class="btn-icon">➔</span>
+                </button>
+                <button class="btn btn-secondary btn-large" id="introViewSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, (window.questApp.activeQuest && window.questApp.activeQuest.slideDeckId) ? window.questApp.activeQuest.slideDeckId : 'to-for');">
+                  <span class="btn-icon">🖥️</span>
+                  <span class="btn-text" id="introViewSlidesText">VER SLIDES DA AULA</span>
+                </button>
+              </div>
               <div class="shortcut-tip">
                 Dica: Você pode usar as teclas <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> e <kbd>Espaço</kbd> no teclado.
               </div>
@@ -1377,7 +1383,7 @@
     </div>
   </div>
 
-  <script src="quests_data.js"></script>
-  <script src="app.js"></script>
+  <script src="quests_data.js?v=20261103_4"></script>
+  <script src="app.js?v=20261103_4"></script>
 </body>
 </html>

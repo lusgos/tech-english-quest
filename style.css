@@ -580,6 +580,14 @@ html, body {
   margin-top: 16px;
 }
 
+.intro-buttons-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .shortcut-tip {
   font-size: 0.82rem;
   color: var(--text-dim);

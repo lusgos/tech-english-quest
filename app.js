@@ -250,6 +250,8 @@ class QuestApp {
     this.introSkillsSummary = document.getElementById("introSkillsSummary");
     this.introWindowFile = document.getElementById("introWindowFile");
     this.startQuestBtn = document.getElementById("startQuestBtn");
+    this.introViewSlidesBtn = document.getElementById("introViewSlidesBtn");
+    this.introViewSlidesText = document.getElementById("introViewSlidesText");
     this.backToCatalogBtn = document.getElementById("backToCatalogBtn");
 
     // Game Screen
@@ -343,6 +345,14 @@ class QuestApp {
       this.sound.playClick();
       this.startCurrentQuest();
     });
+
+    if (this.introViewSlidesBtn) {
+      this.introViewSlidesBtn.addEventListener("click", () => {
+        this.sound.playClick();
+        const deck = (this.activeQuest && this.activeQuest.slideDeckId) ? this.activeQuest.slideDeckId : "to-for";
+        this.openStudyDeck(1, deck);
+      });
+    }
 
     this.nextQuestionBtn.addEventListener("click", () => {
       this.sound.playClick();
@@ -569,7 +579,7 @@ class QuestApp {
             <span>🎯 ${quest.totalQuestions} Níveis</span>
           </div>
           <div class="quest-card-actions">
-            ${quest.slideDeckId ? `<button class="btn btn-secondary btn-card-slides" data-deck="${quest.slideDeckId}">🖥️ Slides</button>` : ""}
+            ${quest.slideDeckId ? `<button class="btn btn-secondary btn-card-slides" data-deck="${quest.slideDeckId}" onclick="if(window.questApp) window.questApp.openStudyDeck(1, '${quest.slideDeckId}')">🖥️ Slides</button>` : ""}
             <button class="btn btn-primary btn-launch-quest ${!isEnabled ? "btn-locked-quest" : ""}" data-id="${quest.id}" ${!isEnabled ? "disabled" : ""}>
               ${isEnabled ? "INICIAR SPRINT ➔" : "BLOQUEADO 🔒"}
             </button>
@@ -611,6 +621,17 @@ class QuestApp {
     this.introQuestDesc.textContent = quest.description;
     this.introTotalQ.textContent = `${quest.totalQuestions} Níveis Progressivos`;
     this.introSkillsSummary.textContent = quest.targetSkills.join(", ");
+
+    if (this.introViewSlidesBtn) {
+      if (quest.slideDeckId) {
+        this.introViewSlidesBtn.classList.remove("hidden");
+        if (this.introViewSlidesText) {
+          this.introViewSlidesText.textContent = `VER SLIDES (${quest.badge})`;
+        }
+      } else {
+        this.introViewSlidesBtn.classList.add("hidden");
+      }
+    }
 
     this.showScreen("intro");
   }
