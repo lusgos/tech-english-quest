@@ -1986,6 +1986,584 @@ const QUESTS_CATALOG = [
         rule: "Síntese magistral da Daily: Ação e motivo pessoal ➔ <strong>TO + verbo base</strong> (<em>stayed late to assist</em>). Duração temporal decorrida ➔ <strong>FOR + período</strong> (<em>stable for twelve hours</em>)."
       }
     ]
+  },
+  {
+    id: "tech-reading-stress",
+    title: "Tech Reading & Word Stress (Sílaba Tônica)",
+    level: "A1 ➔ A2+",
+    badge: "LEITURA & SÍLABA TÔNICA",
+    color: "cyan",
+    icon: "📖",
+    description: "Aperfeiçoe sua leitura técnica de TI e elimine o vício de aplicar a sílaba tônica do português em palavras do inglês. São 3 textos de engenharia (Post-Mortem, CI/CD e AI Pair Programming) com botão interativo para revelar a sílaba tônica, pronúncia em áudio e 9 desafios (2 de gramática e 1 de interpretação por texto).",
+    estimatedMinutes: 8,
+    totalQuestions: 9,
+    slideDeckId: "word-stress",
+    targetSkills: [
+      "Sílaba Tônica em Termos de TI (Stress Patterns)",
+      "Interpretação de Relatórios e Artigos Técnicos",
+      "Gramática Contextual (Tenses, Passive, Modals, Prepositions)",
+      "Diferenças Fonéticas & Redução Vocálica (Schwa /ə/)"
+    ],
+    questions: [
+      {
+        id: 1,
+        level: 1,
+        categoryKey: "grammar_past_time",
+        categoryLabel: "Gramática: Marcadores de Passado",
+        difficulty: "Nível 1 • Texto 1 (INC-4091)",
+        ticket: "INC-4091",
+        ticketFile: "post-mortem-report.md",
+        speakerRole: "Reliability Lead",
+        speakerName: "Carlos (Lead Engineer)",
+        scrumPrompt: '"Carlos, what happened during the peak traffic window last night?"',
+        targetSentence: 'Last night at 21:00 UTC, our production cluster <span class="blank-slot">________</span> (suffer) a critical incident.',
+        subtext: 'Selecione o tempo verbal correto considerando o marcador temporal "Last night at 21:00 UTC":',
+        passageIndex: 0,
+        passage: {
+          id: "text-1",
+          index: 1,
+          totalTexts: 3,
+          badge: "INCIDENT POST-MORTEM // TICKET INC-4091",
+          title: "Incident Post-Mortem: Microservices Outage",
+          author: "Carlos (Lead Reliability Engineer)",
+          readTime: "2 min read",
+          questionType: "Gramática (1/2)",
+          questionNumberInText: "Texto 1 de 3 • Desafio 1 de 3",
+          paragraphs: [
+            'Last night at 21:00 UTC, our production cluster suffered a critical <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em português dizemos \'in-ci-DEN-te\' (3ª sílaba). Em inglês a força é na PRIMEIRA sílaba: IN-ci-dent!"><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> after a marketing campaign triggered 50,000 requests per minute. The legacy database <span class="stress-word" data-word="component" data-syllables="com-PO-nent" data-ipa="/kəmˈpəʊ.nənt/" data-tip="Em português dizemos \'com-po-NEN-te\'. Em inglês a tônica está na segunda sílaba: com-PO-nent!"><span class="stress-normal">component</span><span class="stress-highlighted">com-<span class="tonic-syllable">PO</span>-nent</span></span> exceeded its connection pool, creating a near <span class="stress-word" data-word="catastrophe" data-syllables="ca-TAS-tro-phe" data-ipa="/kəˈtæs.trə.fi/" data-tip="Em português dizemos \'ca-TÁS-tro-fe\'. Em inglês a tônica é na 2ª sílaba e o final soa como /fi/: ca-TAS-tro-phe!"><span class="stress-normal">catastrophe</span><span class="stress-highlighted">ca-<span class="tonic-syllable">TAS</span>-tro-phe</span></span> for our payment gateway.',
+            'Every backend <span class="stress-word" data-word="developer" data-syllables="de-VEL-op-er" data-ipa="/dɪˈvel.ə.pər/" data-tip="Em português dizemos \'de-sen-vol-ve-DOR\' ou \'de-ve-lo-PER\'. Em inglês a força é sempre na 2ª sílaba: de-VEL-op-er!"><span class="stress-normal">developer</span><span class="stress-highlighted">de-<span class="tonic-syllable">VEL</span>-op-er</span></span> was alerted immediately. To solve the bottleneck, the platform team decided to <span class="stress-word" data-word="prioritize" data-syllables="pri-OR-i-tize" data-ipa="/praɪˈɔːr.ə.taɪz/" data-tip="Em português dizemos \'pri-o-ri-ZAR\'. Em inglês a tônica é na 2ª sílaba: pri-OR-i-tize!"><span class="stress-normal">prioritize</span><span class="stress-highlighted">pri-<span class="tonic-syllable">OR</span>-i-tize</span></span> a query cache optimization. We inspected our cloud <span class="stress-word" data-word="architecture" data-syllables="AR-chi-tec-ture" data-ipa="/ˈɑːr.kə.tek.tʃər/" data-tip="Em português dizemos \'ar-qui-te-TU-ra\'. Em inglês a tônica salta para a PRIMEIRA sílaba: AR-chi-tec-ture!"><span class="stress-normal">architecture</span><span class="stress-highlighted"><span class="tonic-syllable">AR</span>-chi-tec-ture</span></span> and discovered that three microservices were sending duplicate queries.',
+            'After deploying the hotfix, the latency dropped from 4,800ms to 42ms. Although this <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em inglês a tônica é na primeira sílaba: IN-ci-dent."><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> was stressful, our system is now much more <span class="stress-word" data-word="reliable" data-syllables="re-LI-a-ble" data-ipa="/rɪˈlaɪ.ə.bəl/" data-tip="Em português dizemos \'re-li-Á-vel\' ou \'con-fi-Á-vel\'. Em inglês a tônica é na 2ª sílaba: re-LI-a-ble!"><span class="stress-normal">reliable</span><span class="stress-highlighted">re-<span class="tonic-syllable">LI</span>-a-ble</span></span>. Moving forward, our engineers must follow strict caching standards to prevent similar outages.'
+          ]
+        },
+        options: [
+          {
+            text: "suffered",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Expressões com ponto específico no passado ('Last night at 21:00 UTC') exigem obrigatoriamente o Simple Past (suffered)."
+          },
+          {
+            text: "has suffered",
+            isCorrect: false,
+            errorType: "PRESENTE_PERFEITO_COM_TEMPO_DEFINIDO",
+            errorLabel: "Present Perfect com Marcador Temporal Definido",
+            diagnosticNote: "Usou Present Perfect com um ponto temporal passado específico ('Last night at 21:00 UTC'). Em inglês, tempo determinado no passado exige Simple Past."
+          },
+          {
+            text: "suffer",
+            isCorrect: false,
+            errorType: "OMISSAO_CONJUGACAO_PASSADO",
+            errorLabel: "Omissão de Conjugação no Passado",
+            diagnosticNote: "Não flexionou o verbo no passado simples, mantendo a forma de infinitivo/presente para um evento concluído ontem à noite."
+          },
+          {
+            text: "is suffering",
+            isCorrect: false,
+            errorType: "PRESENTE_CONTINUO_INDEVIDO",
+            errorLabel: "Present Continuous em Ação Já Finalizada",
+            diagnosticNote: "Usou presente contínuo para descrever um incidente que ocorreu e terminou na noite anterior."
+          }
+        ],
+        rule: "Com marcadores de tempo passado específicos (<em>last night, yesterday, at 21:00 UTC</em>), usa-se obrigatoriamente o <strong>Simple Past</strong> (<em>suffered</em>), e nunca o Present Perfect."
+      },
+      {
+        id: 2,
+        level: 2,
+        categoryKey: "grammar_verb_complement",
+        categoryLabel: "Gramática: Regência Verbal (decide + to)",
+        difficulty: "Nível 2 • Texto 1 (INC-4091)",
+        ticket: "INC-4091",
+        ticketFile: "post-mortem-report.md",
+        speakerRole: "Reliability Lead",
+        speakerName: "Carlos (Lead Engineer)",
+        scrumPrompt: '"How did the platform team address the database connection bottleneck?"',
+        targetSentence: 'To solve the bottleneck, the platform team decided <span class="blank-slot">________</span> (prioritize) a query cache optimization.',
+        subtext: 'Selecione a forma verbal correta exigida pelo verbo "decided":',
+        passageIndex: 0,
+        passage: {
+          id: "text-1",
+          index: 1,
+          totalTexts: 3,
+          badge: "INCIDENT POST-MORTEM // TICKET INC-4091",
+          title: "Incident Post-Mortem: Microservices Outage",
+          author: "Carlos (Lead Reliability Engineer)",
+          readTime: "2 min read",
+          questionType: "Gramática (2/2)",
+          questionNumberInText: "Texto 1 de 3 • Desafio 2 de 3",
+          paragraphs: [
+            'Last night at 21:00 UTC, our production cluster suffered a critical <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em português dizemos \'in-ci-DEN-te\' (3ª sílaba). Em inglês a força é na PRIMEIRA sílaba: IN-ci-dent!"><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> after a marketing campaign triggered 50,000 requests per minute. The legacy database <span class="stress-word" data-word="component" data-syllables="com-PO-nent" data-ipa="/kəmˈpəʊ.nənt/" data-tip="Em português dizemos \'com-po-NEN-te\'. Em inglês a tônica está na segunda sílaba: com-PO-nent!"><span class="stress-normal">component</span><span class="stress-highlighted">com-<span class="tonic-syllable">PO</span>-nent</span></span> exceeded its connection pool, creating a near <span class="stress-word" data-word="catastrophe" data-syllables="ca-TAS-tro-phe" data-ipa="/kəˈtæs.trə.fi/" data-tip="Em português dizemos \'ca-TÁS-tro-fe\'. Em inglês a tônica é na 2ª sílaba e o final soa como /fi/: ca-TAS-tro-phe!"><span class="stress-normal">catastrophe</span><span class="stress-highlighted">ca-<span class="tonic-syllable">TAS</span>-tro-phe</span></span> for our payment gateway.',
+            'Every backend <span class="stress-word" data-word="developer" data-syllables="de-VEL-op-er" data-ipa="/dɪˈvel.ə.pər/" data-tip="Em português dizemos \'de-sen-vol-ve-DOR\' ou \'de-ve-lo-PER\'. Em inglês a força é sempre na 2ª sílaba: de-VEL-op-er!"><span class="stress-normal">developer</span><span class="stress-highlighted">de-<span class="tonic-syllable">VEL</span>-op-er</span></span> was alerted immediately. To solve the bottleneck, the platform team decided to <span class="stress-word" data-word="prioritize" data-syllables="pri-OR-i-tize" data-ipa="/praɪˈɔːr.ə.taɪz/" data-tip="Em português dizemos \'pri-o-ri-ZAR\'. Em inglês a tônica é na 2ª sílaba: pri-OR-i-tize!"><span class="stress-normal">prioritize</span><span class="stress-highlighted">pri-<span class="tonic-syllable">OR</span>-i-tize</span></span> a query cache optimization. We inspected our cloud <span class="stress-word" data-word="architecture" data-syllables="AR-chi-tec-ture" data-ipa="/ˈɑːr.kə.tek.tʃər/" data-tip="Em português dizemos \'ar-qui-te-TU-ra\'. Em inglês a tônica salta para a PRIMEIRA sílaba: AR-chi-tec-ture!"><span class="stress-normal">architecture</span><span class="stress-highlighted"><span class="tonic-syllable">AR</span>-chi-tec-ture</span></span> and discovered that three microservices were sending duplicate queries.',
+            'After deploying the hotfix, the latency dropped from 4,800ms to 42ms. Although this <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em inglês a tônica é na primeira sílaba: IN-ci-dent."><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> was stressful, our system is now much more <span class="stress-word" data-word="reliable" data-syllables="re-LI-a-ble" data-ipa="/rɪˈlaɪ.ə.bəl/" data-tip="Em português dizemos \'re-li-Á-vel\' ou \'con-fi-Á-vel\'. Em inglês a tônica é na 2ª sílaba: re-LI-a-ble!"><span class="stress-normal">reliable</span><span class="stress-highlighted">re-<span class="tonic-syllable">LI</span>-a-ble</span></span>. Moving forward, our engineers must follow strict caching standards to prevent similar outages.'
+          ]
+        },
+        options: [
+          {
+            text: "to prioritize",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O verbo 'decide' rege complemento no infinitivo com 'to' (decide to do something)."
+          },
+          {
+            text: "for prioritize",
+            isCorrect: false,
+            errorType: "PREPOSICAO_FOR_VERBO_BASE",
+            errorLabel: "Uso de FOR com Verbo na Forma Base",
+            diagnosticNote: "Erro comum de tradução literal ('para priorizar'). Em inglês, a preposição 'for' nunca é seguida de verbo na forma base."
+          },
+          {
+            text: "for prioritizing",
+            isCorrect: false,
+            errorType: "FOR_ING_APOS_DECIDE",
+            errorLabel: "Uso Incorreto de FOR + -ING após Verbo de Decisão",
+            diagnosticNote: "O verbo 'decide' não aceita complemento com 'for + -ing'; a estrutura gramatical padrão exige infinitivo com 'to' (to prioritize)."
+          },
+          {
+            text: "prioritizing",
+            isCorrect: false,
+            errorType: "GERUNDIO_DIRETO_INDEVIDO",
+            errorLabel: "Gerúndio Direto sem Verbo de Preferência",
+            diagnosticNote: "Usou gerúndio solto. Verbos de intenção ou decisão futura (decide, plan, hope, choose) exigem o infinitivo com 'to'."
+          }
+        ],
+        rule: "Verbos que expressam decisão ou plano (como <strong>decide, plan, choose, agree</strong>) exigem sempre o complemento com <strong>infinitivo com TO</strong> (<em>decided to prioritize</em>)."
+      },
+      {
+        id: 3,
+        level: 3,
+        categoryKey: "reading_comprehension",
+        categoryLabel: "Interpretação: Causa Raiz do Incidente",
+        difficulty: "Nível 3 • Texto 1 (INC-4091)",
+        ticket: "INC-4091",
+        ticketFile: "post-mortem-report.md",
+        speakerRole: "Product Manager",
+        speakerName: "Juliana (Product Manager)",
+        scrumPrompt: '"Carlos, based on the post-mortem analysis, what was the primary architectural root cause of the outage?"',
+        targetSentence: 'According to the post-mortem report, what caused the database connection pool to exceed its capacity?',
+        subtext: 'Identifique a causa raiz exata descrita no relatório técnico:',
+        passageIndex: 0,
+        passage: {
+          id: "text-1",
+          index: 1,
+          totalTexts: 3,
+          badge: "INCIDENT POST-MORTEM // TICKET INC-4091",
+          title: "Incident Post-Mortem: Microservices Outage",
+          author: "Carlos (Lead Reliability Engineer)",
+          readTime: "2 min read",
+          questionType: "Interpretação de Texto",
+          questionNumberInText: "Texto 1 de 3 • Desafio 3 de 3",
+          paragraphs: [
+            'Last night at 21:00 UTC, our production cluster suffered a critical <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em português dizemos \'in-ci-DEN-te\' (3ª sílaba). Em inglês a força é na PRIMEIRA sílaba: IN-ci-dent!"><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> after a marketing campaign triggered 50,000 requests per minute. The legacy database <span class="stress-word" data-word="component" data-syllables="com-PO-nent" data-ipa="/kəmˈpəʊ.nənt/" data-tip="Em português dizemos \'com-po-NEN-te\'. Em inglês a tônica está na segunda sílaba: com-PO-nent!"><span class="stress-normal">component</span><span class="stress-highlighted">com-<span class="tonic-syllable">PO</span>-nent</span></span> exceeded its connection pool, creating a near <span class="stress-word" data-word="catastrophe" data-syllables="ca-TAS-tro-phe" data-ipa="/kəˈtæs.trə.fi/" data-tip="Em português dizemos \'ca-TÁS-tro-fe\'. Em inglês a tônica é na 2ª sílaba e o final soa como /fi/: ca-TAS-tro-phe!"><span class="stress-normal">catastrophe</span><span class="stress-highlighted">ca-<span class="tonic-syllable">TAS</span>-tro-phe</span></span> for our payment gateway.',
+            'Every backend <span class="stress-word" data-word="developer" data-syllables="de-VEL-op-er" data-ipa="/dɪˈvel.ə.pər/" data-tip="Em português dizemos \'de-sen-vol-ve-DOR\' ou \'de-ve-lo-PER\'. Em inglês a força é sempre na 2ª sílaba: de-VEL-op-er!"><span class="stress-normal">developer</span><span class="stress-highlighted">de-<span class="tonic-syllable">VEL</span>-op-er</span></span> was alerted immediately. To solve the bottleneck, the platform team decided to <span class="stress-word" data-word="prioritize" data-syllables="pri-OR-i-tize" data-ipa="/praɪˈɔːr.ə.taɪz/" data-tip="Em português dizemos \'pri-o-ri-ZAR\'. Em inglês a tônica é na 2ª sílaba: pri-OR-i-tize!"><span class="stress-normal">prioritize</span><span class="stress-highlighted">pri-<span class="tonic-syllable">OR</span>-i-tize</span></span> a query cache optimization. We inspected our cloud <span class="stress-word" data-word="architecture" data-syllables="AR-chi-tec-ture" data-ipa="/ˈɑːr.kə.tek.tʃər/" data-tip="Em português dizemos \'ar-qui-te-TU-ra\'. Em inglês a tônica salta para a PRIMEIRA sílaba: AR-chi-tec-ture!"><span class="stress-normal">architecture</span><span class="stress-highlighted"><span class="tonic-syllable">AR</span>-chi-tec-ture</span></span> and discovered that three microservices were sending duplicate queries.',
+            'After deploying the hotfix, the latency dropped from 4,800ms to 42ms. Although this <span class="stress-word" data-word="incident" data-syllables="IN-ci-dent" data-ipa="/ˈɪn.sɪ.dənt/" data-tip="Em inglês a tônica é na primeira sílaba: IN-ci-dent."><span class="stress-normal">incident</span><span class="stress-highlighted"><span class="tonic-syllable">IN</span>-ci-dent</span></span> was stressful, our system is now much more <span class="stress-word" data-word="reliable" data-syllables="re-LI-a-ble" data-ipa="/rɪˈlaɪ.ə.bəl/" data-tip="Em português dizemos \'re-li-Á-vel\' ou \'con-fi-Á-vel\'. Em inglês a tônica é na 2ª sílaba: re-LI-a-ble!"><span class="stress-normal">reliable</span><span class="stress-highlighted">re-<span class="tonic-syllable">LI</span>-a-ble</span></span>. Moving forward, our engineers must follow strict caching standards to prevent similar outages.'
+          ]
+        },
+        options: [
+          {
+            text: "Three microservices were sending duplicate queries that overloaded the database connection pool.",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O relatório indica expressamente que três microsserviços estavam emitindo queries duplicadas durante o pico de tráfego."
+          },
+          {
+            text: "A backend developer accidentally deleted the payment gateway database schema at 21:00 UTC.",
+            isCorrect: false,
+            errorType: "INTERPRETACAO_FALSA",
+            errorLabel: "Interpretação Falsa / Distorção de Fatos",
+            diagnosticNote: "O relatório não menciona deleção de banco por desenvolvedor; o problema foi de concorrência e queries redundantes."
+          },
+          {
+            text: "The marketing campaign failed completely because the hotfix increased latency to 4,800ms.",
+            isCorrect: false,
+            errorType: "INVERSAO_CAUSAL",
+            errorLabel: "Inversão de Causa e Efeito",
+            diagnosticNote: "4,800ms foi a latência ANTES do hotfix. Depois do hotfix, a latência caiu para 42ms e o sistema se estabilizou."
+          },
+          {
+            text: "The engineering team had no monitoring tools or cloud infrastructure configured in production.",
+            isCorrect: false,
+            errorType: "EXTRAPOLACAO_INDEVIDA",
+            errorLabel: "Extrapolação não Apoiada no Texto",
+            diagnosticNote: "O texto afirma que inspecionaram a arquitetura em nuvem e alertaram todos os desenvolvedores imediatamente."
+          }
+        ],
+        rule: "Em relatórios de Post-Mortem, a <strong>Root Cause</strong> aponta a falha estrutural primária: no texto, <em>'three microservices were sending duplicate queries'</em> que saturaram o pool de conexões."
+      },
+      {
+        id: 4,
+        level: 4,
+        categoryKey: "grammar_passive_voice",
+        categoryLabel: "Gramática: Voz Passiva em Pipelines",
+        difficulty: "Nível 4 • Texto 2 (DEVOPS-204)",
+        ticket: "DEVOPS-204",
+        ticketFile: "ci-cd-pipeline.yaml",
+        speakerRole: "DevOps Engineer",
+        speakerName: "Mariana (DevOps Lead)",
+        scrumPrompt: '"Mariana, what happens automatically once code is merged into the main branch?"',
+        targetSentence: 'Next, Docker containers <span class="blank-slot">________</span> (push) to our production environment.',
+        subtext: 'Selecione a voz passiva correta para o sujeito no plural "Docker containers":',
+        passageIndex: 1,
+        passage: {
+          id: "text-2",
+          index: 2,
+          totalTexts: 3,
+          badge: "DEVOPS ENGINEERING // TICKET DEVOPS-204",
+          title: "Modernizing DevOps: Automated CI/CD Pipelines",
+          author: "Mariana (DevOps Lead)",
+          readTime: "2 min read",
+          questionType: "Gramática (1/2)",
+          questionNumberInText: "Texto 2 de 3 • Desafio 1 de 3",
+          paragraphs: [
+            'In modern software engineering, companies must continuously adopt newer <span class="stress-word" data-word="technology" data-syllables="tech-NOL-o-gy" data-ipa="/tekˈnɒl.ə.dʒi/" data-tip="Em português dizemos \'tec-no-lo-GI-a\'. Em palavras com -logy em inglês, a tônica cai sempre na sílaba imediatamente anterior: tech-NOL-o-gy!"><span class="stress-normal">technology</span><span class="stress-highlighted">tech-<span class="tonic-syllable">NOL</span>-o-gy</span></span> to stay competitive. Two years ago, our release cycle was slow because engineers manually tested every deployment.',
+            'To solve this problem, we decided to <span class="stress-word" data-word="automate" data-syllables="AU-to-mate" data-ipa="/ˈɔː.tə.meɪt/" data-tip="Em português dizemos \'au-to-ma-TI-zar\'. Em inglês, verbos com -ate de 3 sílabas têm a tônica na antepenúltima (1ª sílaba): AU-to-mate!"><span class="stress-normal">automate</span><span class="stress-highlighted"><span class="tonic-syllable">AU</span>-to-mate</span></span> our deployment pipeline. Now, every time code is merged into the <code>main</code> branch, an automated security scanner validates the SSL <span class="stress-word" data-word="certificate" data-syllables="cer-TIF-i-cate" data-ipa="/sərˈtɪf.ɪ.kət/" data-tip="Em português dizemos \'cer-ti-fi-CA-do\'. No substantivo em inglês a força é na 2ª sílaba e o final soa como /kət/: cer-TIF-i-cate!"><span class="stress-normal">certificate</span><span class="stress-highlighted">cer-<span class="tonic-syllable">TIF</span>-i-cate</span></span> and checks dependencies for vulnerabilities.',
+            'Next, Docker containers are pushed to our production <span class="stress-word" data-word="environment" data-syllables="en-VI-ron-ment" data-ipa="/ɪnˈvaɪ.rən.mənt/" data-tip="Em português dizemos \'am-bi-EN-te\'. Em inglês a tônica está na 2ª sílaba com som de ditongo /vaɪ/: en-VI-ron-ment!"><span class="stress-normal">environment</span><span class="stress-highlighted">en-<span class="tonic-syllable">VI</span>-ron-ment</span></span>. The system automatically measures server <span class="stress-word" data-word="capacity" data-syllables="ca-PAC-i-ty" data-ipa="/kəˈpæs.ə.ti/" data-tip="Em português dizemos \'ca-pa-ci-DA-de\'. Em palavras com -ity em inglês, a tônica cai sempre na sílaba anterior: ca-PAC-i-ty!"><span class="stress-normal">capacity</span><span class="stress-highlighted">ca-<span class="tonic-syllable">PAC</span>-i-ty</span></span> and scales up new nodes if traffic spikes. Thanks to this modern setup, the <span class="stress-word" data-word="delivery" data-syllables="de-LIV-er-y" data-ipa="/dɪˈlɪv.ər.i/" data-tip="Em inglês a força está na 2ª sílaba: de-LIV-er-y, e não no final \'de-li-ve-RY\'!"><span class="stress-normal">delivery</span><span class="stress-highlighted">de-<span class="tonic-syllable">LIV</span>-er-y</span></span> of new features takes only twelve minutes instead of three days.'
+          ]
+        },
+        options: [
+          {
+            text: "are pushed",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Na voz passiva no Simple Present com sujeito plural (containers), usamos 'are + particípio' (are pushed)."
+          },
+          {
+            text: "is pushed",
+            isCorrect: false,
+            errorType: "ERRO_CONCORDANCIA_NUMERO",
+            errorLabel: "Erro de Concordância de Número (Singular com Plural)",
+            diagnosticNote: "Usou 'is' com o sujeito plural 'Docker containers'. Deveria ter usado 'are pushed'."
+          },
+          {
+            text: "push",
+            isCorrect: false,
+            errorType: "VOZ_ATIVA_INADEQUADA",
+            errorLabel: "Voz Ativa em Ação Passiva",
+            diagnosticNote: "Usou voz ativa simples. Containers não empurram a si mesmos; eles 'são enviados/empurrados' (are pushed)."
+          },
+          {
+            text: "are pushing",
+            isCorrect: false,
+            errorType: "GERUNDIO_ATIVO_INDEVIDO",
+            errorLabel: "Present Continuous Ativo em vez de Passivo",
+            diagnosticNote: "Usou 'are pushing' (gerúndio ativo: 'estão empurrando'). Na voz passiva técnica, exige-se o particípio passado (pushed)."
+          }
+        ],
+        rule: "Na <strong>voz passiva</strong> em inglês, a fórmula é <strong>verbo to be + particípio passado</strong>. Com sujeito no plural (<em>Docker containers</em>), usa-se <strong>are pushed</strong>."
+      },
+      {
+        id: 5,
+        level: 5,
+        categoryKey: "grammar_third_person",
+        categoryLabel: "Gramática: 3ª Pessoa do Singular (The system measures)",
+        difficulty: "Nível 5 • Texto 2 (DEVOPS-204)",
+        ticket: "DEVOPS-204",
+        ticketFile: "autoscaler-policy.json",
+        speakerRole: "Cloud Architect",
+        speakerName: "Felipe (Cloud Architect)",
+        scrumPrompt: '"How does the cloud cluster know when to scale up new instances?"',
+        targetSentence: 'The system automatically <span class="blank-slot">________</span> (measure) server capacity and scales up new nodes if traffic spikes.',
+        subtext: 'Selecione a flexão correta do verbo para o sujeito na 3ª pessoa do singular (The system):',
+        passageIndex: 1,
+        passage: {
+          id: "text-2",
+          index: 2,
+          totalTexts: 3,
+          badge: "DEVOPS ENGINEERING // TICKET DEVOPS-204",
+          title: "Modernizing DevOps: Automated CI/CD Pipelines",
+          author: "Mariana (DevOps Lead)",
+          readTime: "2 min read",
+          questionType: "Gramática (2/2)",
+          questionNumberInText: "Texto 2 de 3 • Desafio 2 de 3",
+          paragraphs: [
+            'In modern software engineering, companies must continuously adopt newer <span class="stress-word" data-word="technology" data-syllables="tech-NOL-o-gy" data-ipa="/tekˈnɒl.ə.dʒi/" data-tip="Em português dizemos \'tec-no-lo-GI-a\'. Em palavras com -logy em inglês, a tônica cai sempre na sílaba imediatamente anterior: tech-NOL-o-gy!"><span class="stress-normal">technology</span><span class="stress-highlighted">tech-<span class="tonic-syllable">NOL</span>-o-gy</span></span> to stay competitive. Two years ago, our release cycle was slow because engineers manually tested every deployment.',
+            'To solve this problem, we decided to <span class="stress-word" data-word="automate" data-syllables="AU-to-mate" data-ipa="/ˈɔː.tə.meɪt/" data-tip="Em português dizemos \'au-to-ma-TI-zar\'. Em inglês, verbos com -ate de 3 sílabas têm a tônica na antepenúltima (1ª sílaba): AU-to-mate!"><span class="stress-normal">automate</span><span class="stress-highlighted"><span class="tonic-syllable">AU</span>-to-mate</span></span> our deployment pipeline. Now, every time code is merged into the <code>main</code> branch, an automated security scanner validates the SSL <span class="stress-word" data-word="certificate" data-syllables="cer-TIF-i-cate" data-ipa="/sərˈtɪf.ɪ.kət/" data-tip="Em português dizemos \'cer-ti-fi-CA-do\'. No substantivo em inglês a força é na 2ª sílaba e o final soa como /kət/: cer-TIF-i-cate!"><span class="stress-normal">certificate</span><span class="stress-highlighted">cer-<span class="tonic-syllable">TIF</span>-i-cate</span></span> and checks dependencies for vulnerabilities.',
+            'Next, Docker containers are pushed to our production <span class="stress-word" data-word="environment" data-syllables="en-VI-ron-ment" data-ipa="/ɪnˈvaɪ.rən.mənt/" data-tip="Em português dizemos \'am-bi-EN-te\'. Em inglês a tônica está na 2ª sílaba com som de ditongo /vaɪ/: en-VI-ron-ment!"><span class="stress-normal">environment</span><span class="stress-highlighted">en-<span class="tonic-syllable">VI</span>-ron-ment</span></span>. The system automatically measures server <span class="stress-word" data-word="capacity" data-syllables="ca-PAC-i-ty" data-ipa="/kəˈpæs.ə.ti/" data-tip="Em português dizemos \'ca-pa-ci-DA-de\'. Em palavras com -ity em inglês, a tônica cai sempre na sílaba anterior: ca-PAC-i-ty!"><span class="stress-normal">capacity</span><span class="stress-highlighted">ca-<span class="tonic-syllable">PAC</span>-i-ty</span></span> and scales up new nodes if traffic spikes. Thanks to this modern setup, the <span class="stress-word" data-word="delivery" data-syllables="de-LIV-er-y" data-ipa="/dɪˈlɪv.ər.i/" data-tip="Em inglês a força está na 2ª sílaba: de-LIV-er-y, e não no final \'de-li-ve-RY\'!"><span class="stress-normal">delivery</span><span class="stress-highlighted">de-<span class="tonic-syllable">LIV</span>-er-y</span></span> of new features takes only twelve minutes instead of three days.'
+          ]
+        },
+        options: [
+          {
+            text: "measures",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! 'The system' equivale ao pronome 'it' (3ª pessoa do singular), exigindo a desinência -s no Simple Present (measures)."
+          },
+          {
+            text: "measure",
+            isCorrect: false,
+            errorType: "OMISSAO_DESINENCIA_3_PESSOA",
+            errorLabel: "Omissão do -s na 3ª Pessoa do Singular",
+            diagnosticNote: "Esqueceu de adicionar '-s' ao verbo no presente simples com sujeito singular (The system = it)."
+          },
+          {
+            text: "is measure",
+            isCorrect: false,
+            errorType: "COMBINACAO_INVALIDA_BE_BASE",
+            errorLabel: "Construção Agramatical (Be + Forma Base)",
+            diagnosticNote: "O verbo 'to be' (is) nunca se conecta diretamente à forma base de outro verbo. O correto é apenas 'measures'."
+          },
+          {
+            text: "measuring",
+            isCorrect: false,
+            errorType: "GERUNDIO_SOLTO_SEM_BE",
+            errorLabel: "Gerúndio sem Verbo Auxiliar",
+            diagnosticNote: "Usou -ing sem verbo auxiliar 'is' e sem sentido contínuo. Trata-se de uma rotina automatizada que exige Simple Present."
+          }
+        ],
+        rule: "No Simple Present, quando o sujeito for 3ª pessoa do singular (<em>he, she, it</em> ou qualquer substantivo singular como <em>the system</em>), adiciona-se <strong>-s</strong> ao verbo: <em>The system measures</em>."
+      },
+      {
+        id: 6,
+        level: 6,
+        categoryKey: "reading_comprehension",
+        categoryLabel: "Interpretação: Benefício Quantitativo de DevOps",
+        difficulty: "Nível 6 • Texto 2 (DEVOPS-204)",
+        ticket: "DEVOPS-204",
+        ticketFile: "ci-cd-pipeline.yaml",
+        speakerRole: "Agile Coach",
+        speakerName: "Mariana (DevOps Lead)",
+        scrumPrompt: '"What measurable business outcome was achieved by automating this deployment workflow?"',
+        targetSentence: 'Based on the article, what quantitative improvement resulted from automating the pipeline?',
+        subtext: 'Identifique o resultado mensurável destacado no texto:',
+        passageIndex: 1,
+        passage: {
+          id: "text-2",
+          index: 2,
+          totalTexts: 3,
+          badge: "DEVOPS ENGINEERING // TICKET DEVOPS-204",
+          title: "Modernizing DevOps: Automated CI/CD Pipelines",
+          author: "Mariana (DevOps Lead)",
+          readTime: "2 min read",
+          questionType: "Interpretação de Texto",
+          questionNumberInText: "Texto 2 de 3 • Desafio 3 de 3",
+          paragraphs: [
+            'In modern software engineering, companies must continuously adopt newer <span class="stress-word" data-word="technology" data-syllables="tech-NOL-o-gy" data-ipa="/tekˈnɒl.ə.dʒi/" data-tip="Em português dizemos \'tec-no-lo-GI-a\'. Em palavras com -logy em inglês, a tônica cai sempre na sílaba imediatamente anterior: tech-NOL-o-gy!"><span class="stress-normal">technology</span><span class="stress-highlighted">tech-<span class="tonic-syllable">NOL</span>-o-gy</span></span> to stay competitive. Two years ago, our release cycle was slow because engineers manually tested every deployment.',
+            'To solve this problem, we decided to <span class="stress-word" data-word="automate" data-syllables="AU-to-mate" data-ipa="/ˈɔː.tə.meɪt/" data-tip="Em português dizemos \'au-to-ma-TI-zar\'. Em inglês, verbos com -ate de 3 sílabas têm a tônica na antepenúltima (1ª sílaba): AU-to-mate!"><span class="stress-normal">automate</span><span class="stress-highlighted"><span class="tonic-syllable">AU</span>-to-mate</span></span> our deployment pipeline. Now, every time code is merged into the <code>main</code> branch, an automated security scanner validates the SSL <span class="stress-word" data-word="certificate" data-syllables="cer-TIF-i-cate" data-ipa="/sərˈtɪf.ɪ.kət/" data-tip="Em português dizemos \'cer-ti-fi-CA-do\'. No substantivo em inglês a força é na 2ª sílaba e o final soa como /kət/: cer-TIF-i-cate!"><span class="stress-normal">certificate</span><span class="stress-highlighted">cer-<span class="tonic-syllable">TIF</span>-i-cate</span></span> and checks dependencies for vulnerabilities.',
+            'Next, Docker containers are pushed to our production <span class="stress-word" data-word="environment" data-syllables="en-VI-ron-ment" data-ipa="/ɪnˈvaɪ.rən.mənt/" data-tip="Em português dizemos \'am-bi-EN-te\'. Em inglês a tônica está na 2ª sílaba com som de ditongo /vaɪ/: en-VI-ron-ment!"><span class="stress-normal">environment</span><span class="stress-highlighted">en-<span class="tonic-syllable">VI</span>-ron-ment</span></span>. The system automatically measures server <span class="stress-word" data-word="capacity" data-syllables="ca-PAC-i-ty" data-ipa="/kəˈpæs.ə.ti/" data-tip="Em português dizemos \'ca-pa-ci-DA-de\'. Em palavras com -ity em inglês, a tônica cai sempre na sílaba anterior: ca-PAC-i-ty!"><span class="stress-normal">capacity</span><span class="stress-highlighted">ca-<span class="tonic-syllable">PAC</span>-i-ty</span></span> and scales up new nodes if traffic spikes. Thanks to this modern setup, the <span class="stress-word" data-word="delivery" data-syllables="de-LIV-er-y" data-ipa="/dɪˈlɪv.ər.i/" data-tip="Em inglês a força está na 2ª sílaba: de-LIV-er-y, e não no final \'de-li-ve-RY\'!"><span class="stress-normal">delivery</span><span class="stress-highlighted">de-<span class="tonic-syllable">LIV</span>-er-y</span></span> of new features takes only twelve minutes instead of three days.'
+          ]
+        },
+        options: [
+          {
+            text: "The delivery time of new features dropped from three days to just twelve minutes.",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O texto conclui que o tempo de entrega passou de três dias para doze minutos graças ao pipeline moderno."
+          },
+          {
+            text: "The development team completely stopped deploying updates to avoid overloading server capacity.",
+            isCorrect: false,
+            errorType: "INTERPRETACAO_OPOSITORA",
+            errorLabel: "Interpretação Inversa à Realidade do Texto",
+            diagnosticNote: "O time não parou de implantar; pelo contrário, o processo ficou contínuo, rápido e seguro."
+          },
+          {
+            text: "Engineers disabled the automated SSL certificate checker to speed up compilation.",
+            isCorrect: false,
+            errorType: "FALSA_PREMISSA",
+            errorLabel: "Premissa Técnica Incorreta",
+            diagnosticNote: "O texto afirma que o scanner de segurança valida ativamente os certificados SSL a cada merge no main branch."
+          },
+          {
+            text: "Deployments now require 50,000 manual approvals from QA engineers before releasing.",
+            isCorrect: false,
+            errorType: "CONFUSAO_DADOS_NUMERICOS",
+            errorLabel: "Mistura com Dados de Outro Contexto",
+            diagnosticNote: "50,000 foi o número de requisições por minuto do Texto 1. O pipeline deste texto eliminou etapas manuais lentas."
+          }
+        ],
+        rule: "Interpretação de métricas de CI/CD: o ganho quantitativo comprovado no texto foi a redução do tempo de entrega de <strong>três dias</strong> para <strong>doze minutos</strong>."
+      },
+      {
+        id: 7,
+        level: 7,
+        categoryKey: "grammar_modal_verbs",
+        categoryLabel: "Gramática: Verbos Modais e Recomendações (should never)",
+        difficulty: "Nível 7 • Texto 3 (AI-GOV-501)",
+        ticket: "AI-GOV-501",
+        ticketFile: "engineering-handbook.md",
+        speakerRole: "VP of Engineering",
+        speakerName: "Alex (Engineering Director)",
+        scrumPrompt: '"Alex, what is our team policy regarding commits generated directly by AI tools?"',
+        targetSentence: 'Code reviews require human vigilance: developers <span class="blank-slot">________</span> (never / commit) generated code without verifying edge cases.',
+        subtext: 'Selecione a estrutura gramatical correta com o verbo modal "should" e o advérbio "never":',
+        passageIndex: 2,
+        passage: {
+          id: "text-3",
+          index: 3,
+          totalTexts: 3,
+          badge: "ENGINEERING LEADERSHIP // MEMO AI-GOV-501",
+          title: "AI Pair Programming: Speed vs Code Quality",
+          author: "Alex (Engineering Director)",
+          readTime: "2 min read",
+          questionType: "Gramática (1/2)",
+          questionNumberInText: "Texto 3 de 3 • Desafio 1 de 3",
+          paragraphs: [
+            'Our engineering team recently adopted AI coding assistants to accelerate daily development. At first, many engineers thought the tool would instantly solve all programming challenges.',
+            'However, my senior <span class="stress-word" data-word="colleague" data-syllables="COL-league" data-ipa="/ˈkɒl.iːɡ/" data-tip="Em português dizemos \'co-LE-ga\' (tônica no \'LE\'). Em inglês a tônica é na PRIMEIRA sílaba: COL-league!"><span class="stress-normal">colleague</span><span class="stress-highlighted"><span class="tonic-syllable">COL</span>-league</span></span> reminded us that AI is an assistant, not an architect. While an AI tool is remarkably <span class="stress-word" data-word="efficient" data-syllables="ef-FI-cient" data-ipa="/ɪˈfɪʃ.ənt/" data-tip="Em português dizemos \'e-fi-ci-EN-te\'. Em inglês a tônica é na 2ª sílaba: ef-FI-cient!"><span class="stress-normal">efficient</span><span class="stress-highlighted">ef-<span class="tonic-syllable">FI</span>-cient</span></span> at generating repetitive boilerplate code, it cannot <span class="stress-word" data-word="communicate" data-syllables="com-MU-ni-cate" data-ipa="/kəˈmjuː.nɪ.keɪt/" data-tip="Em português dizemos \'co-mu-ni-CAR\' (no final). Em inglês a força é na 2ª sílaba: com-MU-ni-cate!"><span class="stress-normal">communicate</span><span class="stress-highlighted">com-<span class="tonic-syllable">MU</span>-ni-cate</span></span> with product managers or understand complex business trade-offs.',
+            'We observed a <span class="stress-word" data-word="significant" data-syllables="sig-NIF-i-cant" data-ipa="/sɪɡˈnɪf.ɪ.kənt/" data-tip="Em português dizemos \'sig-ni-fi-ca-TI-vo\'. Em inglês a tônica é na 2ª sílaba: sig-NIF-i-cant!"><span class="stress-normal">significant</span><span class="stress-highlighted">sig-<span class="tonic-syllable">NIF</span>-i-cant</span></span> boost in developer <span class="stress-word" data-word="productivity" data-syllables="pro-duc-TIV-i-ty" data-ipa="/ˌprɒd.ʌkˈtɪv.ə.ti/" data-tip="Em português dizemos \'pro-du-ti-vi-DA-de\'. Em inglês com sufixo -ity, a tônica recai antes: pro-duc-TIV-i-ty!"><span class="stress-normal">productivity</span><span class="stress-highlighted">pro-duc-<span class="tonic-syllable">TIV</span>-i-ty</span></span>, but engineers must remain vigilant. Code reviews require <span class="stress-word" data-word="continuous" data-syllables="con-TIN-u-ous" data-ipa="/kənˈtɪn.ju.əs/" data-tip="Em português dizemos \'con-TÍ-nuo\' ou \'con-ti-nu-I-da-de\'. Em inglês a tônica é na 2ª sílaba: con-TIN-u-ous!"><span class="stress-normal">continuous</span><span class="stress-highlighted">con-<span class="tonic-syllable">TIN</span>-u-ous</span></span> human attention: developers should never commit generated code without verifying tests, security vulnerabilities, and edge cases.'
+          ]
+        },
+        options: [
+          {
+            text: "should never commit",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O modal 'should' é seguido do advérbio 'never' e do verbo na forma base sem 'to' (should never commit)."
+          },
+          {
+            text: "should never to commit",
+            isCorrect: false,
+            errorType: "MODAL_COM_INFINITIVO_TO",
+            errorLabel: "Uso de 'TO' após Verbo Modal",
+            diagnosticNote: "Verbos modais (should, must, can, could) NUNCA admitem a partícula 'to' antes do verbo principal."
+          },
+          {
+            text: "must never commiting",
+            isCorrect: false,
+            errorType: "MODAL_COM_GERUNDIO_ING",
+            errorLabel: "Uso de Gerúndio (-ing) após Modal",
+            diagnosticNote: "Modais exigem a forma base do verbo (bare infinitive), e nunca formas com -ing (commiting)."
+          },
+          {
+            text: "don't should commit",
+            isCorrect: false,
+            errorType: "NEGACAO_AUXILIAR_COM_MODAL",
+            errorLabel: "Uso de 'don't' com Verbo Modal",
+            diagnosticNote: "Verbos modais não utilizam o auxiliar do/don't para negação. A negação é incorporada ao próprio modal (should not) ou com advérbio (should never)."
+          }
+        ],
+        rule: "Verbos modais como <strong>should</strong> e <strong>must</strong> são seguidos diretamente da <strong>forma base sem TO</strong>: <em>should never commit</em>."
+      },
+      {
+        id: 8,
+        level: 8,
+        categoryKey: "grammar_preposition_gerund",
+        categoryLabel: "Gramática: Preposição + Gerúndio (before merging)",
+        difficulty: "Nível 8 • Texto 3 (AI-GOV-501)",
+        ticket: "AI-GOV-501",
+        ticketFile: "pr-checklist.md",
+        speakerRole: "Tech Lead",
+        speakerName: "Carlos (Tech Lead)",
+        scrumPrompt: '"What must a developer complete before hitting the merge button on a pull request?"',
+        targetSentence: 'Developers should always verify unit test assertions before <span class="blank-slot">________</span> (merge) their pull requests.',
+        subtext: 'Selecione a terminação verbal correta após a preposição temporal "before":',
+        passageIndex: 2,
+        passage: {
+          id: "text-3",
+          index: 3,
+          totalTexts: 3,
+          badge: "ENGINEERING LEADERSHIP // MEMO AI-GOV-501",
+          title: "AI Pair Programming: Speed vs Code Quality",
+          author: "Alex (Engineering Director)",
+          readTime: "2 min read",
+          questionType: "Gramática (2/2)",
+          questionNumberInText: "Texto 3 de 3 • Desafio 2 de 3",
+          paragraphs: [
+            'Our engineering team recently adopted AI coding assistants to accelerate daily development. At first, many engineers thought the tool would instantly solve all programming challenges.',
+            'However, my senior <span class="stress-word" data-word="colleague" data-syllables="COL-league" data-ipa="/ˈkɒl.iːɡ/" data-tip="Em português dizemos \'co-LE-ga\' (tônica no \'LE\'). Em inglês a tônica é na PRIMEIRA sílaba: COL-league!"><span class="stress-normal">colleague</span><span class="stress-highlighted"><span class="tonic-syllable">COL</span>-league</span></span> reminded us that AI is an assistant, not an architect. While an AI tool is remarkably <span class="stress-word" data-word="efficient" data-syllables="ef-FI-cient" data-ipa="/ɪˈfɪʃ.ənt/" data-tip="Em português dizemos \'e-fi-ci-EN-te\'. Em inglês a tônica é na 2ª sílaba: ef-FI-cient!"><span class="stress-normal">efficient</span><span class="stress-highlighted">ef-<span class="tonic-syllable">FI</span>-cient</span></span> at generating repetitive boilerplate code, it cannot <span class="stress-word" data-word="communicate" data-syllables="com-MU-ni-cate" data-ipa="/kəˈmjuː.nɪ.keɪt/" data-tip="Em português dizemos \'co-mu-ni-CAR\' (no final). Em inglês a força é na 2ª sílaba: com-MU-ni-cate!"><span class="stress-normal">communicate</span><span class="stress-highlighted">com-<span class="tonic-syllable">MU</span>-ni-cate</span></span> with product managers or understand complex business trade-offs.',
+            'We observed a <span class="stress-word" data-word="significant" data-syllables="sig-NIF-i-cant" data-ipa="/sɪɡˈnɪf.ɪ.kənt/" data-tip="Em português dizemos \'sig-ni-fi-ca-TI-vo\'. Em inglês a tônica é na 2ª sílaba: sig-NIF-i-cant!"><span class="stress-normal">significant</span><span class="stress-highlighted">sig-<span class="tonic-syllable">NIF</span>-i-cant</span></span> boost in developer <span class="stress-word" data-word="productivity" data-syllables="pro-duc-TIV-i-ty" data-ipa="/ˌprɒd.ʌkˈtɪv.ə.ti/" data-tip="Em português dizemos \'pro-du-ti-vi-DA-de\'. Em inglês com sufixo -ity, a tônica recai antes: pro-duc-TIV-i-ty!"><span class="stress-normal">productivity</span><span class="stress-highlighted">pro-duc-<span class="tonic-syllable">TIV</span>-i-ty</span></span>, but engineers must remain vigilant. Code reviews require <span class="stress-word" data-word="continuous" data-syllables="con-TIN-u-ous" data-ipa="/kənˈtɪn.ju.əs/" data-tip="Em português dizemos \'con-TÍ-nuo\' ou \'con-ti-nu-I-da-de\'. Em inglês a tônica é na 2ª sílaba: con-TIN-u-ous!"><span class="stress-normal">continuous</span><span class="stress-highlighted">con-<span class="tonic-syllable">TIN</span>-u-ous</span></span> human attention: developers should never commit generated code without verifying tests, security vulnerabilities, and edge cases.'
+          ]
+        },
+        options: [
+          {
+            text: "merging",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! Em inglês, qualquer verbo imediatamente precedido por preposição (before, after, without, for) deve estar no gerúndio (-ing)."
+          },
+          {
+            text: "to merge",
+            isCorrect: false,
+            errorType: "PREPOSICAO_COM_TO_INFINITIVO",
+            errorLabel: "Infinitivo com 'to' após Preposição",
+            diagnosticNote: "Erro comum de tradução literal ('antes de mesclar'). Em inglês, não se usa infinitivo após preposição temporal."
+          },
+          {
+            text: "merge",
+            isCorrect: false,
+            errorType: "FORMA_BASE_APOS_PREPOSICAO",
+            errorLabel: "Forma Base após Preposição",
+            diagnosticNote: "Em inglês, uma preposição nunca pode ser sucedida diretamente por um verbo na sua forma base."
+          },
+          {
+            text: "merged",
+            isCorrect: false,
+            errorType: "PARTICIPIO_APOS_PREPOSICAO",
+            errorLabel: "Particípio Passado após Preposição",
+            diagnosticNote: "Usou terminação de passado (-ed). A regra de regência preposicional exige a terminação -ing (before merging)."
+          }
+        ],
+        rule: "<strong>Regra universal de regência preposicional:</strong> todo verbo imediatamente após preposição (<em>before, after, without, instead of, by</em>) deve vir no <strong>gerúndio (-ing)</strong>: <em>before merging</em>."
+      },
+      {
+        id: 9,
+        level: 9,
+        categoryKey: "reading_comprehension",
+        categoryLabel: "Interpretação: Limitações da IA e Julgamento Humano",
+        difficulty: "Nível 9 • Texto 3 (AI-GOV-501)",
+        ticket: "AI-GOV-501",
+        ticketFile: "engineering-handbook.md",
+        speakerRole: "VP of Engineering",
+        speakerName: "Alex (Engineering Director)",
+        scrumPrompt: '"What is the primary trade-off and risk when developers use AI code assistants without critical review?"',
+        targetSentence: 'According to the memo, why is continuous human code review mandatory when using AI coding assistants?',
+        subtext: 'Identifique o argumento central apresentado pela liderança de engenharia:',
+        passageIndex: 2,
+        passage: {
+          id: "text-3",
+          index: 3,
+          totalTexts: 3,
+          badge: "ENGINEERING LEADERSHIP // MEMO AI-GOV-501",
+          title: "AI Pair Programming: Speed vs Code Quality",
+          author: "Alex (Engineering Director)",
+          readTime: "2 min read",
+          questionType: "Interpretação de Texto",
+          questionNumberInText: "Texto 3 de 3 • Desafio 3 de 3",
+          paragraphs: [
+            'Our engineering team recently adopted AI coding assistants to accelerate daily development. At first, many engineers thought the tool would instantly solve all programming challenges.',
+            'However, my senior <span class="stress-word" data-word="colleague" data-syllables="COL-league" data-ipa="/ˈkɒl.iːɡ/" data-tip="Em português dizemos \'co-LE-ga\' (tônica no \'LE\'). Em inglês a tônica é na PRIMEIRA sílaba: COL-league!"><span class="stress-normal">colleague</span><span class="stress-highlighted"><span class="tonic-syllable">COL</span>-league</span></span> reminded us that AI is an assistant, not an architect. While an AI tool is remarkably <span class="stress-word" data-word="efficient" data-syllables="ef-FI-cient" data-ipa="/ɪˈfɪʃ.ənt/" data-tip="Em português dizemos \'e-fi-ci-EN-te\'. Em inglês a tônica é na 2ª sílaba: ef-FI-cient!"><span class="stress-normal">efficient</span><span class="stress-highlighted">ef-<span class="tonic-syllable">FI</span>-cient</span></span> at generating repetitive boilerplate code, it cannot <span class="stress-word" data-word="communicate" data-syllables="com-MU-ni-cate" data-ipa="/kəˈmjuː.nɪ.keɪt/" data-tip="Em português dizemos \'co-mu-ni-CAR\' (no final). Em inglês a força é na 2ª sílaba: com-MU-ni-cate!"><span class="stress-normal">communicate</span><span class="stress-highlighted">com-<span class="tonic-syllable">MU</span>-ni-cate</span></span> with product managers or understand complex business trade-offs.',
+            'We observed a <span class="stress-word" data-word="significant" data-syllables="sig-NIF-i-cant" data-ipa="/sɪɡˈnɪf.ɪ.kənt/" data-tip="Em português dizemos \'sig-ni-fi-ca-TI-vo\'. Em inglês a tônica é na 2ª sílaba: sig-NIF-i-cant!"><span class="stress-normal">significant</span><span class="stress-highlighted">sig-<span class="tonic-syllable">NIF</span>-i-cant</span></span> boost in developer <span class="stress-word" data-word="productivity" data-syllables="pro-duc-TIV-i-ty" data-ipa="/ˌprɒd.ʌkˈtɪv.ə.ti/" data-tip="Em português dizemos \'pro-du-ti-vi-DA-de\'. Em inglês com sufixo -ity, a tônica recai antes: pro-duc-TIV-i-ty!"><span class="stress-normal">productivity</span><span class="stress-highlighted">pro-duc-<span class="tonic-syllable">TIV</span>-i-ty</span></span>, but engineers must remain vigilant. Code reviews require <span class="stress-word" data-word="continuous" data-syllables="con-TIN-u-ous" data-ipa="/kənˈtɪn.ju.əs/" data-tip="Em português dizemos \'con-TÍ-nuo\' ou \'con-ti-nu-I-da-de\'. Em inglês a tônica é na 2ª sílaba: con-TIN-u-ous!"><span class="stress-normal">continuous</span><span class="stress-highlighted">con-<span class="tonic-syllable">TIN</span>-u-ous</span></span> human attention: developers should never commit generated code without verifying tests, security vulnerabilities, and edge cases.'
+          ]
+        },
+        options: [
+          {
+            text: "While AI generates boilerplate quickly, it cannot understand complex business trade-offs, security vulnerabilities, or edge cases.",
+            isCorrect: true,
+            errorType: null,
+            errorLabel: null,
+            diagnosticNote: "Correto! O texto destaca que a IA é rápida em tarefas repetitivas, mas carece de visão arquitetural, segurança e julgamento de negócios."
+          },
+          {
+            text: "AI coding assistants are completely incapable of producing any valid syntax or boilerplate code.",
+            isCorrect: false,
+            errorType: "CONTRADICAO_DIRETA",
+            errorLabel: "Contradição Direta ao Texto",
+            diagnosticNote: "O texto afirma expressamente o oposto: a ferramenta é 'remarkably efficient at generating repetitive boilerplate code'."
+          },
+          {
+            text: "Senior engineers decided to ban all pull requests and delete all automated test suites.",
+            isCorrect: false,
+            errorType: "AFIRMACAO_ABSURDA",
+            errorLabel: "Afirmação Absurda / Não Baseada no Texto",
+            diagnosticNote: "O texto reforça que revisões de código e suítes de testes são indispensáveis e devem ser mantidas rigorosamente."
+          },
+          {
+            text: "The engineering team observed a severe drop in developer productivity after enabling the tool.",
+            isCorrect: false,
+            errorType: "INVERSAO_DE_METRICA",
+            errorLabel: "Inversão de Métrica Relatada",
+            diagnosticNote: "O texto relata um 'significant boost in developer productivity', e não uma queda."
+          }
+        ],
+        rule: "Interpretação crítica em TI: a IA acelera a escrita de código básico, mas <strong>não substitui a responsabilidade humana</strong> na análise de segurança, edge cases e regras de negócio."
+      }
+    ]
   }
 ];
 

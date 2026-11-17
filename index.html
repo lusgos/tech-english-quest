@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=20261103_4">
+  <link rel="stylesheet" href="style.css?v=20261117_1">
 </head>
 <body>
   <!-- Ambient background glow effects -->
@@ -155,6 +155,10 @@
                     <span class="btn-icon">🎯</span>
                     <span class="btn-text">ABRIR SLIDES TO vs FOR (6 TELAS)</span>
                   </button>
+                  <button class="btn btn-secondary btn-slides-launch btn-launch-word-stress" id="openWordStressSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'word-stress');">
+                    <span class="btn-icon">🗣️</span>
+                    <span class="btn-text">SLIDES SÍLABA TÔNICA EM TI (6 TELAS)</span>
+                  </button>
                   <button class="btn btn-secondary btn-slides-launch" id="openInOnAtSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'in-on-at');">
                     <span class="btn-icon">📍</span>
                     <span class="btn-text">SLIDES IN, ON, AT (6 TELAS)</span>
@@ -262,6 +266,65 @@
               <span class="category-chip" id="categoryBadge">Verbos Regulares (-ed)</span>
             </div>
             <div class="terminal-diff-tag" id="difficultyTag">Nível 1 • Básico</div>
+          </div>
+
+          <!-- Reading Passage Container (Rendered when question belongs to a reading text) -->
+          <div class="reading-passage-section hidden" id="readingPassageSection">
+            <div class="reading-passage-header">
+              <div class="reading-passage-meta">
+                <div class="reading-meta-top">
+                  <span class="reading-badge" id="passageBadge">TEXTO 1 DE 3</span>
+                  <span class="reading-progress-tag" id="passageProgressTag">Texto 1 de 3 • Desafio 1 de 3 • Gramática (1/2)</span>
+                </div>
+                <h2 class="reading-title" id="passageTitle">Incident Post-Mortem: Microservices Outage</h2>
+                <div class="reading-author-line">
+                  <span class="author-icon">✍️</span>
+                  <span class="reading-author" id="passageAuthor">Carlos (Lead Reliability Engineer)</span>
+                  <span class="reading-meta-sep">•</span>
+                  <span class="reading-readtime" id="passageReadTime">⏱️ 2 min read</span>
+                </div>
+              </div>
+
+              <!-- Interactive Tonic Syllable Toggle Toolbar -->
+              <div class="reading-controls-toolbar">
+                <button type="button" class="btn-stress-toggle" id="stressToggleBtn" title="Clique para alternar a exibição da divisão silábica e tônica em inglês">
+                  <span class="toggle-indicator-dot"></span>
+                  <span class="toggle-btn-label" id="stressToggleStateText">SÍLABA TÔNICA: OCULTA</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Stressed Words Feedback / Audio Banner (Updates on word click) -->
+            <div class="stress-tip-banner hidden" id="stressTipBanner">
+              <div class="stress-tip-left">
+                <span class="stress-tip-speaker-icon" id="stressTipAudioIcon">🗣️</span>
+                <div class="stress-tip-info">
+                  <div class="stress-tip-top">
+                    <span class="stress-tip-word" id="stressTipWordTitle">developer</span>
+                    <span class="stress-tip-ipa" id="stressTipIpa">/dɪˈvel.ə.pər/</span>
+                    <span class="stress-tip-syllables" id="stressTipSyllables">de-VEL-op-er</span>
+                  </div>
+                  <div class="stress-tip-desc" id="stressTipDesc">Em português: de-ve-lo-PER ➔ Em inglês: de-VEL-op-er (força na 2ª sílaba)</div>
+                </div>
+              </div>
+              <div class="stress-tip-actions">
+                <button type="button" class="btn-play-word" id="stressTipAudioBtn" title="Ouvir pronúncia nativa em inglês">
+                  <span>🔊 Ouvir</span>
+                </button>
+                <button type="button" class="btn-close-tip" id="stressTipCloseBtn" title="Fechar dica">
+                  &times;
+                </button>
+              </div>
+            </div>
+
+            <!-- Reading Passage Body / Paragraphs -->
+            <div class="reading-passage-body" id="passageContent">
+              <!-- Dynamically populated paragraphs with interactive stress words -->
+            </div>
+
+            <div class="reading-passage-footer">
+              <span class="reading-hint">💡 <em>Dica de Pronúncia:</em> Clique em qualquer palavra pontilhada para ver a tônica, ouvir a pronúncia e entender por que nós brasileiros erramos a força!</span>
+            </div>
           </div>
 
           <!-- Standup Dialogue / Context Area -->
@@ -559,6 +622,11 @@
           <span class="tab-icon">🎯</span>
           <span class="tab-text">TO vs FOR (Propósito & Benefício)</span>
           <span class="deck-tab-badge">NOVO</span>
+        </button>
+        <button class="deck-tab-btn" id="tabWordStress" data-deck="word-stress">
+          <span class="tab-icon">🗣️</span>
+          <span class="tab-text">Sílaba Tônica em TI (Inglês vs PT)</span>
+          <span class="deck-tab-badge badge-cyan">NOVO</span>
         </button>
         <button class="deck-tab-btn" id="tabInOnAt" data-deck="in-on-at">
           <span class="tab-icon">📍</span>
@@ -1353,6 +1421,266 @@
             </div>
           </div>
 
+          <!-- ===================================================================
+               DECK C: SÍLABA TÔNICA EM TI (INGLÊS vs PORTUGUÊS)
+               =================================================================== -->
+          <div class="deck-group hidden" id="deckGroupWordStress" data-deck-id="word-stress">
+
+            <!-- SLIDE 1: O BUG DO PORTUGUÊS NA SÍLABA TÔNICA -->
+            <div class="slide-page active" data-slide="1">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 01 // VÍCIO FONÉTICO</span>
+                <h2 class="slide-title">O "Bug do Português" na Sílaba Tônica em TI</h2>
+                <p class="slide-subtitle">
+                  Por que desenvolvedores brasileiros dizem <em>"de-ve-lo-PER"</em> ou <em>"tech-no-LO-gy"</em>? No português, quase todos os termos técnicos são paroxítonas ou oxítonas que colocam a força no final. Em inglês, a tônica salta para trás!
+                </p>
+              </div>
+
+              <div class="slide-content-grid">
+                <div class="concept-card concept-to">
+                  <div class="concept-badge-to">
+                    <span class="concept-icon">🇧🇷</span>
+                    <span>O HÁBITO DO PORTUGUÊS (FORÇA NO FINAL)</span>
+                  </div>
+                  <p class="concept-desc">No português, acentuamos o sufixo ou a última sílaba:</p>
+                  <div class="concept-examples">
+                    <code>de-sen-vol-ve-<strong>DOR</strong> ➔ fala "de-ve-lo-PER" ❌</code>
+                    <code>tec-no-lo-<strong>GI</strong>-a ➔ fala "tech-no-LO-gy" ❌</code>
+                    <code>ar-qui-te-<strong>TU</strong>-ra ➔ fala "ar-chi-TEC-ture" ❌</code>
+                  </div>
+                </div>
+
+                <div class="concept-card concept-for">
+                  <div class="concept-badge-for">
+                    <span class="concept-icon">🇺🇸</span>
+                    <span>A REGRA DO INGLÊS (FORÇA ANTERIOR)</span>
+                  </div>
+                  <p class="concept-desc">Em inglês, o centro de gravidade fonético recua:</p>
+                  <div class="concept-examples">
+                    <code>de-<strong>VEL</strong>-op-er /dɪˈvel.ə.pər/ ✅</code>
+                    <code>tech-<strong>NOL</strong>-o-gy /tekˈnɒl.ə.dʒi/ ✅</code>
+                    <code><strong>AR</strong>-chi-tec-ture /ˈɑːr.kə.tek.tʃər/ ✅</code>
+                  </div>
+                </div>
+              </div>
+
+              <div class="memory-anchor-banner">
+                <span class="anchor-glow">💡</span>
+                <span><strong>Regra de Ouro:</strong> Se você errar a sílaba tônica em inglês, o falante nativo muitas vezes <strong>não reconhece a palavra</strong>, mesmo que as letras estejam certas!</span>
+              </div>
+            </div>
+
+            <!-- SLIDE 2: SUFIXOS -LOGY E -ITY -->
+            <div class="slide-page" data-slide="2">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 02 // A REGRA DE OURO</span>
+                <h2 class="slide-title">Sufixos Magnéticos: A Sílaba Anterior ao -LOGY e -ITY</h2>
+                <p class="slide-subtitle">
+                  Sempre que uma palavra terminar em <strong>-logy</strong> ou <strong>-ity</strong>, a tônica é puxada <em>obrigatoriamente</em> para a sílaba imediatamente anterior ao sufixo!
+                </p>
+              </div>
+
+              <div class="tickets-debug-grid">
+                <div class="debug-ticket-card">
+                  <div class="ticket-header">
+                    <span class="ticket-id">SUFIXO -LOGY</span>
+                    <span class="ticket-status fixed">TÔNICA IMEDIATAMENTE ANTERIOR</span>
+                  </div>
+                  <div class="ticket-code">
+                    tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(não tech-no-LO-gy!)</span><br>
+                    meth-od-<strong>OL</strong>-o-gy<br>
+                    bi-<strong>OL</strong>-o-gy
+                  </div>
+                  <div class="ticket-why">
+                    <strong>Por que erramos?</strong> Em português dizemos <em>"tec-no-lo-GI-a"</em> com força no final. Em inglês, a força fica no <strong>NOL</strong>!
+                  </div>
+                </div>
+
+                <div class="debug-ticket-card">
+                  <div class="ticket-header">
+                    <span class="ticket-id">SUFIXO -ITY</span>
+                    <span class="ticket-status fixed">TÔNICA IMEDIATAMENTE ANTERIOR</span>
+                  </div>
+                  <div class="ticket-code">
+                    ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(não ca-pa-CI-ty!)</span><br>
+                    pro-duc-<strong>TIV</strong>-i-ty <span class="syntax-correct">(não pro-duc-ti-VI-ty!)</span><br>
+                    se-<strong>CUR</strong>-i-ty<br>
+                    re-li-a-<strong>BIL</strong>-i-ty
+                  </div>
+                  <div class="ticket-why">
+                    <strong>Atenção:</strong> Em português dizemos <em>"ca-pa-ci-DA-de"</em> e <em>"pro-du-ti-vi-DA-de"</em>. No inglês, a força é puxada para trás: <strong>PAC</strong> e <strong>TIV</strong>!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3: VERBOS EM -ATE E -IZE -->
+            <div class="slide-page" data-slide="3">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 03 // VERBOS TÉCNICOS</span>
+                <h2 class="slide-title">Verbos em -ATE e -IZE: A Antepenúltima Sílaba</h2>
+                <p class="slide-subtitle">
+                  Para verbos com 3 sílabas ou mais terminados em <strong>-ate</strong> ou <strong>-ize</strong>, a força recai duas sílabas antes do final (proparoxítona).
+                </p>
+              </div>
+
+              <div class="speaking-prompts-grid">
+                <div class="prompt-box">
+                  <div class="prompt-q">⚙️ AU-to-mate (e não au-to-MATE)</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Exemplo Prático:</span>
+                    <p><em>"We must <strong>AU</strong>-to-mate the test execution in CI/CD."</em></p>
+                    <span class="template-context">Em PT: "au-to-ma-TI-zar". Em inglês: <strong>AU</strong>-to-mate!</span>
+                  </div>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-q">💬 com-MU-ni-cate (e não com-mu-ni-CATE)</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Exemplo Prático:</span>
+                    <p><em>"Devs must <strong>com-MU-ni-cate</strong> async on Slack."</em></p>
+                    <span class="template-context">Em PT: "co-mu-ni-CAR". Em inglês a força é no <strong>MU</strong>!</span>
+                  </div>
+                </div>
+
+                <div class="prompt-box">
+                  <div class="prompt-q">🎯 pri-OR-i-tize (e não pri-o-ri-TIZE)</div>
+                  <div class="prompt-template">
+                    <span class="template-label">Exemplo Prático:</span>
+                    <p><em>"The team decided to <strong>pri-OR-i-tize</strong> the critical bug."</em></p>
+                    <span class="template-context">Em PT: "pri-o-ri-ZAR". Em inglês a força é no <strong>OR</strong>!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 4: SUBSTANTIVOS DE 2 SÍLABAS -->
+            <div class="slide-page" data-slide="4">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 04 // NOMES DE 2 SÍLABAS</span>
+                <h2 class="slide-title">Substantivos Técnicos de 2 Sílabas: Força no Começo!</h2>
+                <p class="slide-subtitle">
+                  Cerca de 85% dos substantivos em inglês de duas sílabas têm a tônica na <strong>primeira sílaba</strong>. Veja os que mais confundem desenvolvedores:
+                </p>
+              </div>
+
+              <div class="slide-cards-2">
+                <div class="card-prep card-to-prep">
+                  <div class="card-prep-header">
+                    <span class="card-prep-icon">👥</span>
+                    <h3>COL-league /ˈkɒl.iːɡ/</h3>
+                  </div>
+                  <p class="card-prep-core">Em português falamos <em>"co-LE-ga"</em> (com força na 2ª sílaba). No inglês, a palavra é pronunciada com força na PRIMEIRA sílaba e o final é quase mudo: <strong>COL</strong>-league!</p>
+                  <div class="card-prep-rules">
+                    <div class="rule-item">
+                      <span class="rule-check">❌ Erro comum:</span>
+                      <code>falar "col-LEAGUE" ou "co-LE-ga"</code>
+                    </div>
+                    <div class="rule-item">
+                      <span class="rule-check">✅ Correto:</span>
+                      <code>my senior <strong>COL</strong>-league explained it to me</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-prep card-for-prep">
+                  <div class="card-prep-header">
+                    <span class="card-prep-icon">🚨</span>
+                    <h3>IN-ci-dent /ˈɪn.sɪ.dənt/</h3>
+                  </div>
+                  <p class="card-prep-core">Em português dizemos <em>"in-ci-DEN-te"</em>. Em inglês, a força está no <strong>IN</strong>, e as sílabas seguintes reduzem suavemente.</p>
+                  <div class="card-prep-rules">
+                    <div class="rule-item">
+                      <span class="rule-check">❌ Erro comum:</span>
+                      <code>falar "in-ci-DENT" com força no final</code>
+                    </div>
+                    <div class="rule-item">
+                      <span class="rule-check">✅ Correto:</span>
+                      <code>we opened a high-priority <strong>IN</strong>-ci-dent</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 5: O EFEITO SCHWA -->
+            <div class="slide-page" data-slide="5">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 05 // O SEGREDO DO SCHWA</span>
+                <h2 class="slide-title">O Som Neutro Schwa (/ə/): O Ritmo do Inglês</h2>
+                <p class="slide-subtitle">
+                  No português falamos quase todas as vogais abertas (ritmo silábico). No inglês (ritmo acentual), <strong>toda sílaba que NÃO é a tônica vira um som fraco e neutro</strong> (/ə/ - schwa)!
+                </p>
+              </div>
+
+              <div class="concept-card" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.08); padding: 20px;">
+                <h3 style="color: var(--cyan-neon); margin-bottom: 12px;">Exemplo Prático: de-VEL-op-er (/dɪˈvel.ə.pər/)</h3>
+                <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 14px;">
+                  1. A primeira sílaba <code>de-</code> é fraca e soa como /dɪ/<br>
+                  2. A segunda sílaba <strong style="color: var(--amber-neon); font-size: 1.2rem;">VEL</strong> é a tônica: longa, alta e nítida!<br>
+                  3. A terceira sílaba <code>-op-</code> vira schwa /ə/<br>
+                  4. A quarta sílaba <code>-er</code> vira schwa r-colorido /pər/
+                </p>
+                <div class="memory-anchor-banner" style="background: rgba(15, 23, 42, 0.8);">
+                  <span>Se você disser <em>"de-ve-lo-PER"</em>, os sons fracos não acontecem, o ritmo do idioma quebra e o ouvido do gringo trava!</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 6: CHEAT SHEET RÁPIDA -->
+            <div class="slide-page" data-slide="6">
+              <div class="slide-header">
+                <span class="slide-step-tag">SLIDE 06 // CHEAT SHEET RÁPIDA</span>
+                <h2 class="slide-title">Top 10 Termos de TI com Sílaba Tônica em Inglês</h2>
+                <p class="slide-subtitle">
+                  Guarde esta tabela de bolso para suas próximas Dailies, Code Reviews e reuniões técnicas:
+                </p>
+              </div>
+
+              <div class="tickets-debug-grid">
+                <div class="debug-ticket-card">
+                  <div class="ticket-header">
+                    <span class="ticket-id">TERMOS 1 A 5</span>
+                    <span class="ticket-status fixed">TÔNICA REAL</span>
+                  </div>
+                  <div class="ticket-code">
+                    1. de-<strong>VEL</strong>-op-er <span class="syntax-correct">(2ª sílaba)</span><br>
+                    2. <strong>AR</strong>-chi-tec-ture <span class="syntax-correct">(1ª sílaba)</span><br>
+                    3. tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(2ª sílaba)</span><br>
+                    4. cer-<strong>TIF</strong>-i-cate <span class="syntax-correct">(2ª sílaba)</span><br>
+                    5. <strong>COL</strong>-league <span class="syntax-correct">(1ª sílaba)</span>
+                  </div>
+                </div>
+
+                <div class="debug-ticket-card">
+                  <div class="ticket-header">
+                    <span class="ticket-id">TERMOS 6 A 10</span>
+                    <span class="ticket-status fixed">TÔNICA REAL</span>
+                  </div>
+                  <div class="ticket-code">
+                    6. <strong>AU</strong>-to-mate <span class="syntax-correct">(1ª sílaba)</span><br>
+                    7. ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(2ª sílaba)</span><br>
+                    8. pri-<strong>OR</strong>-i-tize <span class="syntax-correct">(2ª sílaba)</span><br>
+                    9. ca-<strong>TAS</strong>-tro-phe <span class="syntax-correct">(2ª sílaba)</span><br>
+                    10. re-<strong>LI</strong>-a-ble <span class="syntax-correct">(2ª sílaba)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-action-banner">
+                <div class="action-banner-text">
+                  <h3>Pronto para a Atividade de Leitura?</h3>
+                  <p>Leia os 3 textos técnicos de TI, ative a exibição da sílaba tônica e responda aos 9 desafios!</p>
+                </div>
+                <button class="btn btn-primary btn-large" onclick="if(window.questApp) { window.questApp.closeStudyDeck(); const q = QUESTS_CATALOG.find(x => x.id === 'tech-reading-stress'); if(q) window.questApp.selectQuest(q); }">
+                  <span class="btn-text">INICIAR ATIVIDADE DE LEITURA</span>
+                  <span class="btn-icon">📖</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
       </div>
@@ -1383,7 +1711,7 @@
     </div>
   </div>
 
-  <script src="quests_data.js?v=20261103_4"></script>
-  <script src="app.js?v=20261103_4"></script>
+  <script src="quests_data.js?v=20261117_1"></script>
+  <script src="app.js?v=20261117_1"></script>
 </body>
 </html>

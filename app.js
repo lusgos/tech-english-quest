@@ -203,6 +203,8 @@ class QuestApp {
     this.startTime = null;
     this.currentSlide = 1;
     this.totalSlides = 6;
+    this.showStressSyllables = false;
+    this.currentActiveStressWord = null;
 
     this.cacheDom();
     this.bindEvents();
@@ -265,6 +267,24 @@ class QuestApp {
     this.questionSubtext = document.getElementById("questionSubtext");
     this.optionsGrid = document.getElementById("optionsGrid");
 
+    // Reading Passage Section
+    this.readingPassageSection = document.getElementById("readingPassageSection");
+    this.passageBadge = document.getElementById("passageBadge");
+    this.passageProgressTag = document.getElementById("passageProgressTag");
+    this.passageTitle = document.getElementById("passageTitle");
+    this.passageAuthor = document.getElementById("passageAuthor");
+    this.passageReadTime = document.getElementById("passageReadTime");
+    this.passageContent = document.getElementById("passageContent");
+    this.stressToggleBtn = document.getElementById("stressToggleBtn");
+    this.stressToggleStateText = document.getElementById("stressToggleStateText");
+    this.stressTipBanner = document.getElementById("stressTipBanner");
+    this.stressTipWordTitle = document.getElementById("stressTipWordTitle");
+    this.stressTipIpa = document.getElementById("stressTipIpa");
+    this.stressTipSyllables = document.getElementById("stressTipSyllables");
+    this.stressTipDesc = document.getElementById("stressTipDesc");
+    this.stressTipAudioBtn = document.getElementById("stressTipAudioBtn");
+    this.stressTipCloseBtn = document.getElementById("stressTipCloseBtn");
+
     // Feedback Drawer
     this.feedbackDrawer = document.getElementById("feedbackDrawer");
     this.feedbackStatusBadge = document.getElementById("feedbackStatusBadge");
@@ -310,8 +330,10 @@ class QuestApp {
     this.studyDeckModal = document.getElementById("studyDeckModal");
     this.deckWindowTitle = document.getElementById("deckWindowTitle");
     this.tabToFor = document.getElementById("tabToFor");
+    this.tabWordStress = document.getElementById("tabWordStress");
     this.tabInOnAt = document.getElementById("tabInOnAt");
     this.deckGroupToFor = document.getElementById("deckGroupToFor");
+    this.deckGroupWordStress = document.getElementById("deckGroupWordStress");
     this.deckGroupInOnAt = document.getElementById("deckGroupInOnAt");
     this.closeStudyDeckBtn = document.getElementById("closeStudyDeckBtn");
     this.prevSlideBtn = document.getElementById("prevSlideBtn");
@@ -322,6 +344,7 @@ class QuestApp {
     this.startQuestFromSlidesBtn = document.getElementById("startQuestFromSlidesBtn");
     this.startQuestFromToForSlidesBtn = document.getElementById("startQuestFromToForSlidesBtn");
     this.openToForSlidesBtn = document.getElementById("openToForSlidesBtn");
+    this.openWordStressSlidesBtn = document.getElementById("openWordStressSlidesBtn");
     this.openInOnAtSlidesBtn = document.getElementById("openInOnAtSlidesBtn");
     this.slideDeckCard = document.querySelector(".slide-deck-card");
     this.currentDeckId = "to-for";
@@ -396,6 +419,10 @@ class QuestApp {
       this.openToForSlidesBtn.addEventListener("click", () => this.openStudyDeck(1, "to-for"));
     }
 
+    if (this.openWordStressSlidesBtn) {
+      this.openWordStressSlidesBtn.addEventListener("click", () => this.openStudyDeck(1, "word-stress"));
+    }
+
     if (this.openInOnAtSlidesBtn) {
       this.openInOnAtSlidesBtn.addEventListener("click", () => this.openStudyDeck(1, "in-on-at"));
     }
@@ -407,10 +434,36 @@ class QuestApp {
       });
     }
 
+    if (this.tabWordStress) {
+      this.tabWordStress.addEventListener("click", () => {
+        this.sound.playClick();
+        this.switchSlideDeck("word-stress", 1);
+      });
+    }
+
     if (this.tabInOnAt) {
       this.tabInOnAt.addEventListener("click", () => {
         this.sound.playClick();
         this.switchSlideDeck("in-on-at", 1);
+      });
+    }
+
+    // Reading Passage events
+    if (this.stressToggleBtn) {
+      this.stressToggleBtn.addEventListener("click", () => this.toggleStressSyllables());
+    }
+
+    if (this.stressTipAudioBtn) {
+      this.stressTipAudioBtn.addEventListener("click", () => {
+        if (this.currentActiveStressWord) {
+          this.playWordAudio(this.currentActiveStressWord);
+        }
+      });
+    }
+
+    if (this.stressTipCloseBtn) {
+      this.stressTipCloseBtn.addEventListener("click", () => {
+        if (this.stressTipBanner) this.stressTipBanner.classList.add("hidden");
       });
     }
 
@@ -543,7 +596,7 @@ class QuestApp {
       })
       .catch(err => {
         console.warn("Could not fetch quest settings:", err);
-        this.questSettings = { "simple-past": true, "simple-past-101": true, "present-simple-continuous": false, "in-on-at-prepositions": true, "to-vs-for-prepositions": true };
+        this.questSettings = { "simple-past": true, "simple-past-101": true, "present-simple-continuous": false, "in-on-at-prepositions": true, "to-vs-for-prepositions": true, "tech-reading-stress": true };
         this.renderCatalog();
       });
   }
@@ -692,6 +745,17 @@ class QuestApp {
     this.scrumPromptText.textContent = q.scrumPrompt;
     this.questionSentence.innerHTML = `"${q.targetSentence}"`;
     this.questionSubtext.textContent = q.subtext;
+
+    // Handle Reading Passage if question is part of a reading text
+    if (q.passage) {
+      this.renderPassage(q.passage, q);
+    } else if (this.readingPassageSection) {
+      this.readingPassageSection.classList.add("hidden");
+    }
+
+    if (this.stressTipBanner) {
+      this.stressTipBanner.classList.add("hidden");
+    }
 
     this.feedbackDrawer.classList.add("hidden");
     this.feedbackDiagnosticBanner.classList.add("hidden");
@@ -1048,26 +1112,131 @@ ${this.verdictDescription.textContent}
   switchSlideDeck(deckId = "to-for", slideIdx = 1) {
     this.currentDeckId = deckId;
 
-    if (deckId === "to-for") {
-      if (this.deckWindowTitle) this.deckWindowTitle.textContent = "~/slides/prepositions-to-vs-for.deck";
-      if (this.tabToFor) this.tabToFor.classList.add("active");
-      if (this.tabInOnAt) this.tabInOnAt.classList.remove("active");
-      if (this.deckGroupToFor) this.deckGroupToFor.classList.remove("hidden");
-      if (this.deckGroupInOnAt) this.deckGroupInOnAt.classList.add("hidden");
-    } else {
-      if (this.deckWindowTitle) this.deckWindowTitle.textContent = "~/slides/prepositions-in-on-at.deck";
-      if (this.tabToFor) this.tabToFor.classList.remove("active");
-      if (this.tabInOnAt) this.tabInOnAt.classList.add("active");
-      if (this.deckGroupToFor) this.deckGroupToFor.classList.add("hidden");
-      if (this.deckGroupInOnAt) this.deckGroupInOnAt.classList.remove("hidden");
-    }
+    const decks = [
+      { id: "to-for", tab: this.tabToFor, group: this.deckGroupToFor, title: "~/slides/prepositions-to-vs-for.deck" },
+      { id: "word-stress", tab: this.tabWordStress, group: this.deckGroupWordStress, title: "~/slides/tech-word-stress.deck" },
+      { id: "in-on-at", tab: this.tabInOnAt, group: this.deckGroupInOnAt, title: "~/slides/prepositions-in-on-at.deck" }
+    ];
 
-    const activeGroup = deckId === "to-for" ? this.deckGroupToFor : this.deckGroupInOnAt;
+    decks.forEach(d => {
+      const isCurrent = d.id === deckId;
+      if (d.tab) d.tab.classList.toggle("active", isCurrent);
+      if (d.group) {
+        d.group.classList.toggle("hidden", !isCurrent);
+        d.group.classList.toggle("active", isCurrent);
+      }
+      if (isCurrent && this.deckWindowTitle) {
+        this.deckWindowTitle.textContent = d.title;
+      }
+    });
+
+    const activeGroupEntry = decks.find(d => d.id === deckId) || decks[0];
+    const activeGroup = activeGroupEntry ? activeGroupEntry.group : null;
     if (activeGroup) {
       this.slidePages = activeGroup.querySelectorAll(".slide-page");
       this.totalSlides = this.slidePages.length || 6;
     }
     this.goToSlide(slideIdx);
+  }
+
+  // ==========================================================================
+  // READING PASSAGE & WORD STRESS HANDLERS
+  // ==========================================================================
+
+  renderPassage(passage, q) {
+    if (!this.readingPassageSection) return;
+    this.readingPassageSection.classList.remove("hidden");
+
+    if (this.passageBadge) this.passageBadge.textContent = passage.badge;
+    if (this.passageProgressTag) this.passageProgressTag.textContent = `${passage.questionNumberInText} • ${passage.questionType}`;
+    if (this.passageTitle) this.passageTitle.textContent = passage.title;
+    if (this.passageAuthor) this.passageAuthor.textContent = passage.author;
+    if (this.passageReadTime) this.passageReadTime.textContent = `⏱️ ${passage.readTime}`;
+
+    if (this.passageContent) {
+      this.passageContent.innerHTML = passage.paragraphs
+        .map(p => `<p class="passage-paragraph">${p}</p>`)
+        .join("");
+
+      // Bind click listeners on all stress words in the passage
+      const words = this.passageContent.querySelectorAll(".stress-word");
+      words.forEach(wordEl => {
+        wordEl.addEventListener("click", () => {
+          this.handleStressWordClick(wordEl);
+        });
+      });
+    }
+
+    this.updateStressToggleVisuals();
+  }
+
+  handleStressWordClick(wordEl) {
+    this.sound.playClick();
+    const word = wordEl.getAttribute("data-word") || wordEl.textContent.trim();
+    const syllables = wordEl.getAttribute("data-syllables") || "";
+    const ipa = wordEl.getAttribute("data-ipa") || "";
+    const tip = wordEl.getAttribute("data-tip") || "";
+
+    // Toggle force-stress on this word if global stress is off
+    if (!this.showStressSyllables) {
+      wordEl.classList.toggle("force-stress");
+    }
+
+    // Play native speech pronunciation
+    this.playWordAudio(word);
+
+    // Display phonetic info banner
+    if (this.stressTipBanner) {
+      this.currentActiveStressWord = word;
+      if (this.stressTipWordTitle) this.stressTipWordTitle.textContent = word;
+      if (this.stressTipIpa) this.stressTipIpa.textContent = ipa;
+      if (this.stressTipSyllables) this.stressTipSyllables.textContent = syllables;
+      if (this.stressTipDesc) this.stressTipDesc.textContent = tip;
+      this.stressTipBanner.classList.remove("hidden");
+    }
+  }
+
+  toggleStressSyllables() {
+    this.sound.playClick();
+    this.showStressSyllables = !this.showStressSyllables;
+    this.updateStressToggleVisuals();
+  }
+
+  updateStressToggleVisuals() {
+    if (!this.readingPassageSection) return;
+
+    if (this.showStressSyllables) {
+      this.readingPassageSection.classList.add("show-stress");
+      if (this.stressToggleStateText) {
+        this.stressToggleStateText.textContent = "SÍLABA TÔNICA: ATIVADA";
+      }
+      if (this.stressToggleBtn) {
+        this.stressToggleBtn.classList.add("active");
+      }
+    } else {
+      this.readingPassageSection.classList.remove("show-stress");
+      if (this.stressToggleStateText) {
+        this.stressToggleStateText.textContent = "SÍLABA TÔNICA: OCULTA";
+      }
+      if (this.stressToggleBtn) {
+        this.stressToggleBtn.classList.remove("active");
+      }
+    }
+  }
+
+  playWordAudio(word) {
+    if (!word) return;
+    if ("speechSynthesis" in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = "en-US";
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn("SpeechSynthesis error:", err);
+      }
+    }
   }
 
   openStudyDeck(slideIdx = 1, deckId = null) {

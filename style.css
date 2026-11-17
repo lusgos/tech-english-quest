@@ -3319,3 +3319,386 @@ html, body {
   }
 }
 
+/* ==========================================================================
+   READING PASSAGE & TONIC SYLLABLE (WORD STRESS) STYLES
+   ========================================================================== */
+
+.reading-passage-section {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--cyan-neon);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin: 16px 28px 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: border-color var(--transition-normal);
+}
+
+.reading-passage-section.show-stress {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 8px 28px rgba(6, 182, 212, 0.12);
+}
+
+.reading-passage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.reading-passage-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reading-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reading-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cyan-neon);
+  background: rgba(6, 182, 212, 0.14);
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.reading-progress-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.reading-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.reading-author-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.reading-meta-sep {
+  opacity: 0.4;
+}
+
+.reading-readtime {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--amber-neon);
+}
+
+/* Stress toggle button */
+.reading-controls-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.btn-stress-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-stress-toggle:hover {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: var(--cyan-neon);
+  color: #fff;
+}
+
+.btn-stress-toggle.active {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: var(--cyan-neon);
+  color: var(--cyan-neon);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+}
+
+.toggle-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.btn-stress-toggle.active .toggle-indicator-dot {
+  background: var(--cyan-neon);
+  box-shadow: 0 0 8px var(--cyan-neon);
+}
+
+/* Interactive stress tip banner */
+.stress-tip-banner {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(245, 158, 11, 0.12));
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  animation: fadeInDown 0.25s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stress-tip-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stress-tip-speaker-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.stress-tip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stress-tip-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stress-tip-word {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.stress-tip-ipa {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--cyan-neon);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.stress-tip-syllables {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--amber-neon);
+}
+
+.stress-tip-desc {
+  font-size: 0.82rem;
+  color: var(--text-main);
+}
+
+.stress-tip-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-play-word {
+  background: rgba(6, 182, 212, 0.18);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  color: var(--cyan-neon);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-play-word:hover {
+  background: var(--cyan-neon);
+  color: #0b1120;
+}
+
+.btn-close-tip {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.btn-close-tip:hover {
+  color: #fff;
+}
+
+/* Passage body & paragraphs */
+.reading-passage-body {
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--text-main);
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.reading-passage-body::-webkit-scrollbar {
+  width: 6px;
+}
+.reading-passage-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.passage-paragraph {
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+.passage-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.passage-paragraph code {
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--cyan-neon);
+  font-size: 0.85em;
+}
+
+/* Stress word styling */
+.stress-word {
+  display: inline-block;
+  padding: 0 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  border-bottom: 2px dashed rgba(6, 182, 212, 0.55);
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.stress-word:hover {
+  background: rgba(6, 182, 212, 0.18);
+  border-bottom-color: var(--cyan-neon);
+  transform: translateY(-1px);
+}
+
+.stress-word .stress-normal {
+  display: inline;
+}
+
+.stress-word .stress-highlighted {
+  display: none;
+}
+
+/* When stress mode is ON or individual word has force-stress */
+.reading-passage-section.show-stress .stress-word .stress-normal,
+.stress-word.force-stress .stress-normal {
+  display: none;
+}
+
+.reading-passage-section.show-stress .stress-word .stress-highlighted,
+.stress-word.force-stress .stress-highlighted {
+  display: inline;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.tonic-syllable {
+  color: var(--amber-neon) !important;
+  background: rgba(245, 158, 11, 0.22);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border-bottom: 2px solid var(--amber-neon);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+  font-weight: 800;
+}
+
+/* Reading footer hint */
+.reading-passage-footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.reading-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.btn-launch-word-stress {
+  border-color: rgba(6, 182, 212, 0.35) !important;
+}
+
+.btn-launch-word-stress:hover {
+  border-color: var(--cyan-neon) !important;
+  color: var(--cyan-neon) !important;
+  background: rgba(6, 182, 212, 0.12) !important;
+}
+
+/* Mobile responsive for reading passage */
+@media (max-width: 768px) {
+  .reading-passage-section {
+    margin: 12px 14px 4px;
+    padding: 16px 18px;
+  }
+  .reading-passage-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-stress-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  .stress-tip-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stress-tip-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
