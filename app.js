@@ -615,7 +615,7 @@ class QuestApp {
         <div class="quest-card-top">
           <div class="quest-icon-badge">${quest.icon}</div>
           <div style="display: flex; gap: 6px; align-items: center;">
-            ${!isEnabled ? '<span class="quest-locked-tag">🔒 INDISPONÍVEL</span>' : ""}
+            ${!isEnabled ? '<span class="quest-locked-tag">🔒 LOCKED</span>' : ""}
             <span class="quest-level-badge">${quest.level}</span>
           </div>
         </div>
@@ -629,12 +629,12 @@ class QuestApp {
         <div class="quest-card-bottom">
           <div class="quest-metrics">
             <span>⏱️ ~${quest.estimatedMinutes} min</span>
-            <span>🎯 ${quest.totalQuestions} Níveis</span>
+            <span>🎯 ${quest.totalQuestions} Levels</span>
           </div>
           <div class="quest-card-actions">
             ${quest.slideDeckId ? `<button class="btn btn-secondary btn-card-slides" data-deck="${quest.slideDeckId}" onclick="if(window.questApp) window.questApp.openStudyDeck(1, '${quest.slideDeckId}')">🖥️ Slides</button>` : ""}
             <button class="btn btn-primary btn-launch-quest ${!isEnabled ? "btn-locked-quest" : ""}" data-id="${quest.id}" ${!isEnabled ? "disabled" : ""}>
-              ${isEnabled ? "INICIAR SPRINT ➔" : "BLOQUEADO 🔒"}
+              ${isEnabled ? "START SPRINT ➔" : "LOCKED 🔒"}
             </button>
           </div>
         </div>
@@ -655,7 +655,7 @@ class QuestApp {
       } else {
         card.addEventListener("click", (e) => {
           if (e.target.tagName !== "BUTTON") {
-            alert("🔒 Este teste ainda não foi liberado pelo seu professor para esta sprint.");
+            alert("🔒 This test has not been unlocked by your teacher for this sprint yet.");
           }
         });
       }
@@ -672,14 +672,14 @@ class QuestApp {
     this.introQuestBadge.textContent = `${quest.badge} // ${quest.level} DRILL`;
     this.introQuestTitle.innerHTML = `${quest.title}`;
     this.introQuestDesc.textContent = quest.description;
-    this.introTotalQ.textContent = `${quest.totalQuestions} Níveis Progressivos`;
+    this.introTotalQ.textContent = `${quest.totalQuestions} Progressive Levels`;
     this.introSkillsSummary.textContent = quest.targetSkills.join(", ");
 
     if (this.introViewSlidesBtn) {
       if (quest.slideDeckId) {
         this.introViewSlidesBtn.classList.remove("hidden");
         if (this.introViewSlidesText) {
-          this.introViewSlidesText.textContent = `VER SLIDES (${quest.badge})`;
+          this.introViewSlidesText.textContent = `VIEW SLIDES (${quest.badge})`;
         }
       } else {
         this.introViewSlidesBtn.classList.add("hidden");
@@ -853,9 +853,9 @@ class QuestApp {
       this.feedbackStatusIcon.textContent = "❌";
       this.feedbackStatusTitle.textContent = "SYNTAX ERROR / BUILD FAILED!";
       this.feedbackXpGain.className = "feedback-xp-gain wrong";
-      this.feedbackXpGain.textContent = "-1 VIDA";
+      this.feedbackXpGain.textContent = "-1 LIFE";
 
-      this.errorDiagLabel.textContent = `TIPO DE ERRO DETECTADO: ${chosenOption.errorLabel || "ERRO GRAMATICAL"}`;
+      this.errorDiagLabel.textContent = `DETECTED ERROR TYPE: ${chosenOption.errorLabel || "GRAMMATICAL ERROR"}`;
       this.errorDiagDesc.textContent = chosenOption.diagnosticNote;
       this.feedbackDiagnosticBanner.classList.remove("hidden");
     }
@@ -866,11 +866,11 @@ class QuestApp {
     const isLastQuestion = this.currentIndex >= this.activeQuest.questions.length - 1;
 
     if (isGameOver) {
-      this.nextBtnText.textContent = "SISTEMA FORA DO AR (VER DIAGNÓSTICO)";
+      this.nextBtnText.textContent = "SYSTEM CRASH (VIEW DIAGNOSTIC)";
     } else if (isLastQuestion) {
-      this.nextBtnText.textContent = "CONCLUIR SPRINT & SALVAR";
+      this.nextBtnText.textContent = "CONCLUDE SPRINT & SAVE";
     } else {
-      this.nextBtnText.textContent = "PRÓXIMO TICKET";
+      this.nextBtnText.textContent = "NEXT TICKET";
     }
 
     this.updateHud();
@@ -893,7 +893,7 @@ class QuestApp {
   }
 
   updateHud() {
-    this.xpCounter.textContent = this.xp.toLocaleString("pt-BR");
+    this.xpCounter.textContent = this.xp.toLocaleString("en-US");
     this.streakCounter.textContent = `${this.streak}x`;
 
     if (this.streak >= 2) {
@@ -929,38 +929,38 @@ class QuestApp {
     this.resultWindowTag.textContent = isWin ? "DEPLOY SUCCESSFUL" : "SYSTEM CRASH // SPRINT HALTED";
     this.resultWindowTag.style.color = isWin ? "var(--green-neon)" : "var(--red-neon)";
 
-    this.resultFinalXp.textContent = `${this.xp.toLocaleString("pt-BR")} XP`;
-    this.resultBonusSub.textContent = `Max Streak: ${this.maxStreak}x • Tempo: ${durationSeconds}s`;
+    this.resultFinalXp.textContent = `${this.xp.toLocaleString("en-US")} XP`;
+    this.resultBonusSub.textContent = `Max Streak: ${this.maxStreak}x • Time: ${durationSeconds}s`;
     this.resultAccuracy.textContent = `${accuracy}%`;
-    this.resultScoreRatio.textContent = `${totalCorrect} / ${totalAnswered} acertos`;
+    this.resultScoreRatio.textContent = `${totalCorrect} / ${totalAnswered} correct`;
     this.resultLivesLeft.textContent = `${this.lives} / ${this.maxLives}`;
-    this.resultSprintStatus.textContent = isWin ? "COMPLETA" : "FALHA";
+    this.resultSprintStatus.textContent = isWin ? "COMPLETED" : "FAILED";
     this.resultSprintStatus.style.color = isWin ? "var(--green-neon)" : "var(--red-neon)";
 
-    let verdictKey = "A1 Inicial";
-    let verdictTitle = "A1 INICIAL";
+    let verdictKey = "A1 Novice";
+    let verdictTitle = "A1 NOVICE";
     let verdictClass = "initial-a1";
     let verdictIcon = "🥉";
     let verdictDesc = "";
 
     if (!isWin || accuracy < 60) {
-      verdictKey = "A1 Inicial";
-      verdictTitle = "A1 INICIAL";
+      verdictKey = "A1 Novice";
+      verdictTitle = "A1 NOVICE";
       verdictClass = "initial-a1";
       verdictIcon = "🧱";
-      verdictDesc = "Estágio inicial de consolidação. Atenção às regras de sufixação e eliminação do duplo passado (*didn't + verbo base*). O professor receberá o diagnóstico detalhado para orientar a próxima aula.";
+      verdictDesc = "Foundational stage. Review suffix rules (-ed/-d) and eliminate double past errors (*didn't + base verb*). A detailed diagnostic report has been logged for teacher review.";
     } else if (accuracy >= 60 && accuracy <= 85) {
-      verdictKey = "A1 Consolidado";
-      verdictTitle = "A1 CONSOLIDADO";
+      verdictKey = "A1 Consolidated";
+      verdictTitle = "A1 CONSOLIDATED";
       verdictClass = "consolidated-a1";
       verdictIcon = "🥈";
-      verdictDesc = "Boa base gramatical com pequenos pontos de atenção. Você reporta tarefas do dia a dia com boa fluidez, mas teve pequenas oscilações em auxiliares ou verbos irregulares.";
+      verdictDesc = "Solid grammatical foundation with minor points for improvement. You report daily tasks clearly, with minor slips on auxiliary verbs or irregular past forms.";
     } else {
-      verdictKey = "Pronto para A2";
-      verdictTitle = "PRONTO PARA A2";
+      verdictKey = "Ready for A2";
+      verdictTitle = "READY FOR A2";
       verdictClass = "ready-a2";
       verdictIcon = "🏆";
-      verdictDesc = "Excelente domínio técnico! Você construiu afirmativas, negativas e perguntas com precisão cirúrgica, evitou o duplo passado e dominou os verbos essenciais de TI.";
+      verdictDesc = "Outstanding technical mastery! You constructed statements, negatives, and questions accurately, avoided double past traps, and commanded essential IT verbs.";
     }
 
     this.verdictBanner.className = `verdict-banner ${verdictClass}`;
@@ -1030,13 +1030,13 @@ class QuestApp {
       item.className = `audit-item ${ans.isCorrect ? "correct" : "wrong"}`;
       item.innerHTML = `
         <div class="audit-item-top">
-          <span class="audit-item-title">Nível ${ans.level} • ${ans.categoryLabel}</span>
-          <span class="audit-item-badge">${ans.isCorrect ? "✔ ACERTO (+XP)" : "✖ ERRO (-1 VIDA)"}</span>
+          <span class="audit-item-title">Level ${ans.level} • ${ans.categoryLabel}</span>
+          <span class="audit-item-badge">${ans.isCorrect ? "✔ CORRECT (+XP)" : "✖ INCORRECT (-1 LIFE)"}</span>
         </div>
         <div class="audit-item-context">"${ans.context.replace('<span class="blank-slot">________</span>', '<u>' + ans.chosenText + '</u>')}"</div>
         <div class="audit-item-answers">
-          <span>Resposta escolhida: <strong class="audit-user-ans">${ans.chosenText}</strong></span>
-          ${!ans.isCorrect ? `<span>Resposta correta: <strong style="color:var(--green-neon);">${ans.correctText}</strong></span>` : ""}
+          <span>Selected Answer: <strong class="audit-user-ans">${ans.chosenText}</strong></span>
+          ${!ans.isCorrect ? `<span>Correct Answer: <strong style="color:var(--green-neon);">${ans.correctText}</strong></span>` : ""}
         </div>
         ${!ans.isCorrect && ans.errorLabel ? `<div style="color:var(--red-neon);font-size:0.8rem;font-weight:700;">⚠️ ${ans.errorLabel}: ${ans.diagnosticNote}</div>` : ""}
         <div class="audit-rule-text">💡 ${ans.rule}</div>
@@ -1064,12 +1064,12 @@ class QuestApp {
         return res.json();
       })
       .then(data => {
-        this.syncStatusText.textContent = `💾 Respostas de ${this.studentName} registradas no banco de dados do professor! (ID: ${data.id})`;
+        this.syncStatusText.textContent = `💾 Responses for ${this.studentName} logged in teacher database! (ID: ${data.id})`;
         this.serverSyncStatus.style.display = "flex";
       })
       .catch(err => {
         console.warn("Server sync fallback:", err);
-        this.syncStatusText.textContent = `💾 Respostas salvas localmente!`;
+        this.syncStatusText.textContent = `💾 Responses saved locally!`;
         this.serverSyncStatus.style.display = "flex";
       });
   }
@@ -1080,31 +1080,31 @@ class QuestApp {
     const totalCorrect = this.userAnswers.filter(a => a.isCorrect).length;
     const accuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
 
-    const reportMarkdown = `# 🚀 RELATÓRIO DIAGNÓSTICO DO ESTUDANTE // TECH ENGLISH QUEST
-**Estudante:** ${this.studentName}
+    const reportMarkdown = `# 🚀 STUDENT DIAGNOSTIC REPORT // TECH ENGLISH QUEST
+**Student:** ${this.studentName}
 **Quest:** ${this.activeQuest.title} (${this.activeQuest.level})
-**Data:** ${new Date().toLocaleDateString("pt-BR")}
-**Status:** ${isWin ? "SPRINT CONCLUÍDA" : "FALHA / VIDAS ESGOTADAS"}
+**Date:** ${new Date().toLocaleDateString("en-US")}
+**Status:** ${isWin ? "SPRINT COMPLETED" : "FAILED / LIVES DEPLETED"}
 
 ---
 
-### 📊 Desempenho Geral
-- **Pontuação:** ${this.xp} XP (Max Combo: ${this.maxStreak}x)
-- **Precisão:** ${accuracy}% (${totalCorrect} de ${totalAnswered} acertos)
-- **Vidas Restantes:** ${this.lives}/3
-- **Veredito:** **${this.verdictTitle.textContent}**
+### 📊 Overall Performance
+- **Score:** ${this.xp} XP (Max Combo: ${this.maxStreak}x)
+- **Accuracy:** ${accuracy}% (${totalCorrect} of ${totalAnswered} correct)
+- **Lives Left:** ${this.lives}/3
+- **Verdict:** **${this.verdictTitle.textContent}**
 
-### 💡 Diagnóstico Pedagógico:
+### 💡 Pedagogical Diagnostic:
 ${this.verdictDescription.textContent}
 
 ---
-*Gerado via Tech Daily Standup Quest*
+*Generated via Tech Daily Standup Quest*
 `;
 
     navigator.clipboard.writeText(reportMarkdown).then(() => {
       this.sound.playClick();
       const orig = this.copyBtnText.textContent;
-      this.copyBtnText.textContent = "COPIADO! ✔";
+      this.copyBtnText.textContent = "COPIED! ✔";
       setTimeout(() => (this.copyBtnText.textContent = orig), 2500);
     });
   }
@@ -1208,7 +1208,7 @@ ${this.verdictDescription.textContent}
     if (this.showStressSyllables) {
       this.readingPassageSection.classList.add("show-stress");
       if (this.stressToggleStateText) {
-        this.stressToggleStateText.textContent = "SÍLABA TÔNICA: ATIVADA";
+        this.stressToggleStateText.textContent = "WORD STRESS: ENABLED";
       }
       if (this.stressToggleBtn) {
         this.stressToggleBtn.classList.add("active");
@@ -1216,7 +1216,7 @@ ${this.verdictDescription.textContent}
     } else {
       this.readingPassageSection.classList.remove("show-stress");
       if (this.stressToggleStateText) {
-        this.stressToggleStateText.textContent = "SÍLABA TÔNICA: OCULTA";
+        this.stressToggleStateText.textContent = "WORD STRESS: HIDDEN";
       }
       if (this.stressToggleBtn) {
         this.stressToggleBtn.classList.remove("active");
@@ -1289,7 +1289,7 @@ ${this.verdictDescription.textContent}
     }
 
     if (this.nextSlideBtn) {
-      this.nextSlideBtn.textContent = this.currentSlide === this.totalSlides ? "Concluir ✔" : "Próximo ➔";
+      this.nextSlideBtn.textContent = this.currentSlide === this.totalSlides ? "Finish ✔" : "Next ➔";
     }
   }
 

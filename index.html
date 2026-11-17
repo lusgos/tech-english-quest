@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Daily Standup Quest | Plataforma de Testes de Inglês para Devs (A1 ➔ A2)</title>
-  <meta name="description" content="Plataforma gamificada de avaliação de inglês técnico com menu de testes, diagnóstico cirúrgico de erros e painel do professor.">
+  <title>Tech Daily Standup Quest | Technical English Assessment for Devs (A1 ➔ A2)</title>
+  <meta name="description" content="Gamified technical English assessment platform with sprint quests, surgical error diagnostics, and teacher portal.">
   
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=20261117_1">
+  <link rel="stylesheet" href="style.css?v=20261117_2">
 </head>
 <body>
   <!-- Ambient background glow effects -->
@@ -23,7 +23,7 @@
     <!-- Top HUD Navigation / Dashboard Header -->
     <header class="hud-header">
       <div class="hud-left">
-        <div class="brand-tag" id="hudHomeBtn" style="cursor: pointer;" title="Voltar ao Catálogo de Testes">
+        <div class="brand-tag" id="hudHomeBtn" style="cursor: pointer;" title="Back to Quests Catalog">
           <span class="pulse-indicator"></span>
           <span class="brand-title">STANDUP QUEST</span>
           <span class="brand-badge" id="hudActiveQuestBadge">A1 ➔ A2</span>
@@ -54,7 +54,7 @@
 
       <div class="hud-right">
         <!-- XP Points Counter -->
-        <div class="stat-pill xp-pill" title="Pontos de Experiência (XP)">
+        <div class="stat-pill xp-pill" title="Experience Points (XP)">
           <span class="stat-icon">⚡</span>
           <span class="stat-val" id="xpCounter">0</span>
           <span class="stat-label">XP</span>
@@ -62,13 +62,13 @@
         </div>
 
         <!-- Combo Streak Multiplier -->
-        <div class="stat-pill streak-pill" id="streakPill" title="Sequência de Acertos">
+        <div class="stat-pill streak-pill" id="streakPill" title="Streak Multiplier">
           <span class="stat-icon">🔥</span>
           <span class="stat-val" id="streakCounter">0x</span>
         </div>
 
         <!-- Lives (3 Hearts) -->
-        <div class="stat-pill lives-pill" id="livesPill" title="Vidas Restantes">
+        <div class="stat-pill lives-pill" id="livesPill" title="Remaining Lives">
           <div class="hearts-wrapper" id="heartsContainer">
             <span class="heart active" data-index="0">♥</span>
             <span class="heart active" data-index="1">♥</span>
@@ -77,23 +77,23 @@
         </div>
 
         <!-- Catalog / Menu Button -->
-        <button class="nav-hud-btn" id="menuToggleBtn" title="Ver Catálogo de Testes">
+        <button class="nav-hud-btn" id="menuToggleBtn" title="View Quests Catalog">
           <span>📋 Menu</span>
         </button>
 
         <!-- Audio Mute/Unmute Toggle -->
-        <button class="sound-toggle-btn" id="soundToggleBtn" title="Alternar Efeitos Sonoros (M)">
+        <button class="sound-toggle-btn" id="soundToggleBtn" title="Toggle Sound Effects (M)">
           <span id="soundIcon">🔊</span>
         </button>
 
         <!-- Slide Deck Toggle -->
-        <button class="nav-hud-btn study-deck-btn" id="studyDeckBtn" title="Slides de Aula: Preposições IN, ON, AT">
-          <span>🖥️ Slides de Aula</span>
+        <button class="nav-hud-btn study-deck-btn" id="studyDeckBtn" title="Classroom Slides: Prepositions & Word Stress">
+          <span>🖥️ Class Slides</span>
         </button>
 
         <!-- Help / Rules Modal Toggle -->
-        <button class="cheat-sheet-btn" id="cheatSheetBtn" title="Cheat Sheet de Regras">
-          <span>📖 Regras</span>
+        <button class="cheat-sheet-btn" id="cheatSheetBtn" title="Grammar Rules Cheat Sheet">
+          <span>📖 Rules</span>
         </button>
       </div>
     </header>
@@ -113,7 +113,7 @@
               <span class="dot dot-green"></span>
             </div>
             <span class="window-title">~/quest-hub/available-sprints.yaml</span>
-            <span class="window-tag">CATÁLOGO DE SPRINT QUESTS</span>
+            <span class="window-tag">SPRINT QUESTS CATALOG</span>
           </div>
 
           <div class="catalog-body">
@@ -121,17 +121,17 @@
             <div class="student-id-banner">
               <div class="student-input-group">
                 <label for="studentNameInput" class="student-label">
-                  <span class="label-icon">👤</span> IDENTIFICAÇÃO DO DEV / ESTUDANTE:
+                  <span class="label-icon">👤</span> DEV / STUDENT IDENTIFICATION:
                 </label>
                 <div class="input-with-button">
-                  <input type="text" id="studentNameInput" placeholder="Ex: Lucas Chagas" value="Lucas" class="cyber-input" maxlength="40">
-                  <span class="input-hint">Suas respostas serão registradas para diagnóstico do professor</span>
+                  <input type="text" id="studentNameInput" placeholder="e.g. Lucas Chagas" value="Lucas" class="cyber-input" maxlength="40">
+                  <span class="input-hint">Your answers are recorded for teacher diagnostic review</span>
                 </div>
               </div>
 
-              <div class="remote-share-badge" title="Disponível via Cloudflare Tunnel para acesso remoto">
+              <div class="remote-share-badge" title="Accessible remotely for student practice">
                 <span class="globe-pulse"></span>
-                <span>LINK COMPARTILHÁVEL ATIVO</span>
+                <span>ACTIVE SHAREABLE LINK</span>
               </div>
             </div>
 
@@ -143,34 +143,34 @@
                 <div class="slides-banner-content">
                   <div class="slides-banner-badge badge-emerald">
                     <span class="pulse-indicator"></span>
-                    NOVO SLIDE DECK // PROPÓSITO & BENEFÍCIO
+                    FEATURED CLASS SLIDES // CORE TECH GRAMMAR
                   </div>
-                  <h2 class="slides-banner-title">Guia & Slides da Aula: <span class="highlight-emerald">TO vs FOR</span></h2>
+                  <h2 class="slides-banner-title">Interactive Class Slides: <span class="highlight-emerald">TO vs FOR</span> & <span class="highlight-cyan">Word Stress</span></h2>
                   <p class="slides-banner-desc">
-                    A regra de ouro do propósito (TO + verbo vs FOR + ing/noun), verbos de transferência, pedidos de favor e o bug do verbo "explain" com 4 tickets de debug!
+                    The golden rule of purpose (TO + verb vs FOR + -ing/noun), transfer verbs, favor requests, and word stress patterns in tech vocabulary!
                   </p>
                 </div>
                 <div class="banner-cta-group">
                   <button class="btn btn-primary btn-slides-launch btn-launch-to-for" id="openToForSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'to-for');">
                     <span class="btn-icon">🎯</span>
-                    <span class="btn-text">ABRIR SLIDES TO vs FOR (6 TELAS)</span>
+                    <span class="btn-text">TO vs FOR SLIDES (6 SCREENS)</span>
                   </button>
                   <button class="btn btn-secondary btn-slides-launch btn-launch-word-stress" id="openWordStressSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'word-stress');">
                     <span class="btn-icon">🗣️</span>
-                    <span class="btn-text">SLIDES SÍLABA TÔNICA EM TI (6 TELAS)</span>
+                    <span class="btn-text">WORD STRESS SLIDES (6 SCREENS)</span>
                   </button>
                   <button class="btn btn-secondary btn-slides-launch" id="openInOnAtSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, 'in-on-at');">
                     <span class="btn-icon">📍</span>
-                    <span class="btn-text">SLIDES IN, ON, AT (6 TELAS)</span>
+                    <span class="btn-text">IN, ON, AT SLIDES (6 SCREENS)</span>
                   </button>
                 </div>
               </div>
             </div>
 
             <div class="catalog-header-text">
-              <h1 class="catalog-title">Escolha o seu Teste Técnico em Inglês</h1>
+              <h1 class="catalog-title">Choose Your Technical English Assessment</h1>
               <p class="catalog-subtitle">
-                Selecione uma sprint quest para avaliar seu domínio em situações reais de engenharia de software (Daily Standups, Bug Triage e Code Reviews).
+                Select a sprint quest to assess your English proficiency in real software engineering scenarios (Daily Standups, Bug Triage, and Code Reviews).
               </p>
             </div>
 
@@ -194,55 +194,55 @@
               <span class="dot dot-green"></span>
             </div>
             <span class="window-title" id="introWindowFile">~/standup/daily-sync-briefing.sh</span>
-            <button class="btn-text-only" id="backToCatalogBtn">⬅ Voltar ao Menu</button>
+            <button class="btn-text-only" id="backToCatalogBtn">⬅ Back to Menu</button>
           </div>
 
           <div class="intro-body">
             <div class="intro-badge" id="introQuestBadge">STANDUP SPRINT // A1 ➔ A2 ENGLISH DRILL</div>
             <h1 class="intro-title" id="introQuestTitle">Daily Standup Quest:<br><span class="highlight-cyan">Mastering the Simple Past</span></h1>
             <p class="intro-desc" id="introQuestDesc">
-              Você é um dev em transição do <strong>A1 para A2</strong> e precisa reportar com precisão o que fez ontem na Daily Standup com o time internacional. Evite o temido <em>duplo passado</em> e domine verbos regulares, irregulares, o verbo <em>to be</em> e perguntas com <em>did</em>!
+              You are a developer transitioning from <strong>A1 to A2</strong> and need to report with surgical precision what you did yesterday in international Daily Standups. Eliminate the dreaded <em>double past</em> and master regular verbs, irregular verbs, verb <em>to be</em>, and questions with <em>did</em>!
             </p>
 
             <div class="mission-rules-grid">
               <div class="rule-box">
                 <div class="rule-icon">🎯</div>
-                <div class="rule-title" id="introTotalQ">10 Níveis Progressivos</div>
-                <div class="rule-desc" id="introSkillsSummary">De verbos regulares com <code>-ed</code> até perguntas Wh- e síntese em reuniões reais.</div>
+                <div class="rule-title" id="introTotalQ">10 Progressive Levels</div>
+                <div class="rule-desc" id="introSkillsSummary">From regular verbs with <code>-ed</code> to Wh- questions and real meeting synthesis.</div>
               </div>
 
               <div class="rule-box">
                 <div class="rule-icon">❤️</div>
-                <div class="rule-title">3 Vidas de Produção</div>
-                <div class="rule-desc">Cada erro consome 1 vida de deploy. Mantenha os serviços operacionais!</div>
+                <div class="rule-title">3 Production Lives</div>
+                <div class="rule-desc">Each mistake costs 1 deploy life. Keep production services online!</div>
               </div>
 
               <div class="rule-box">
                 <div class="rule-icon">🔬</div>
-                <div class="rule-title">Diagnóstico Cirúrgico</div>
-                <div class="rule-desc">Cada alternativa errada diagnostica o padrão exato da sua falha cognitiva.</div>
+                <div class="rule-title">Surgical Diagnostics</div>
+                <div class="rule-desc">Every wrong option diagnoses your specific cognitive misconception.</div>
               </div>
 
               <div class="rule-box">
                 <div class="rule-icon">💾</div>
-                <div class="rule-title">Registro Automático</div>
-                <div class="rule-desc">Suas respostas são salvas no banco de dados para feedback personalizado do professor.</div>
+                <div class="rule-title">Automated Recording</div>
+                <div class="rule-desc">Your answers are logged to the database for personalized teacher feedback.</div>
               </div>
             </div>
 
             <div class="intro-actions">
               <div class="intro-buttons-row">
                 <button class="btn btn-primary btn-large" id="startQuestBtn">
-                  <span class="btn-text">INICIAR ESTA QUEST</span>
+                  <span class="btn-text">START THIS QUEST</span>
                   <span class="btn-icon">➔</span>
                 </button>
                 <button class="btn btn-secondary btn-large" id="introViewSlidesBtn" onclick="if(window.questApp) window.questApp.openStudyDeck(1, (window.questApp.activeQuest && window.questApp.activeQuest.slideDeckId) ? window.questApp.activeQuest.slideDeckId : 'to-for');">
                   <span class="btn-icon">🖥️</span>
-                  <span class="btn-text" id="introViewSlidesText">VER SLIDES DA AULA</span>
+                  <span class="btn-text" id="introViewSlidesText">VIEW CLASS SLIDES</span>
                 </button>
               </div>
               <div class="shortcut-tip">
-                Dica: Você pode usar as teclas <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> e <kbd>Espaço</kbd> no teclado.
+                Tip: You can use keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> and <kbd>Space</kbd> on your keyboard.
               </div>
             </div>
           </div>
@@ -263,9 +263,9 @@
             </div>
             <div class="terminal-center-info">
               <span class="terminal-file" id="ticketFilename">ticket-AUTH-101.md</span>
-              <span class="category-chip" id="categoryBadge">Verbos Regulares (-ed)</span>
+              <span class="category-chip" id="categoryBadge">Regular Verbs (-ed)</span>
             </div>
-            <div class="terminal-diff-tag" id="difficultyTag">Nível 1 • Básico</div>
+            <div class="terminal-diff-tag" id="difficultyTag">Level 1 • Basic</div>
           </div>
 
           <!-- Reading Passage Container (Rendered when question belongs to a reading text) -->
@@ -273,8 +273,8 @@
             <div class="reading-passage-header">
               <div class="reading-passage-meta">
                 <div class="reading-meta-top">
-                  <span class="reading-badge" id="passageBadge">TEXTO 1 DE 3</span>
-                  <span class="reading-progress-tag" id="passageProgressTag">Texto 1 de 3 • Desafio 1 de 3 • Gramática (1/2)</span>
+                  <span class="reading-badge" id="passageBadge">TEXT 1 OF 3</span>
+                  <span class="reading-progress-tag" id="passageProgressTag">Text 1 of 3 • Challenge 1 of 3 • Grammar (1/2)</span>
                 </div>
                 <h2 class="reading-title" id="passageTitle">Incident Post-Mortem: Microservices Outage</h2>
                 <div class="reading-author-line">
@@ -287,9 +287,9 @@
 
               <!-- Interactive Tonic Syllable Toggle Toolbar -->
               <div class="reading-controls-toolbar">
-                <button type="button" class="btn-stress-toggle" id="stressToggleBtn" title="Clique para alternar a exibição da divisão silábica e tônica em inglês">
+                <button type="button" class="btn-stress-toggle" id="stressToggleBtn" title="Click to toggle word stress display in English">
                   <span class="toggle-indicator-dot"></span>
-                  <span class="toggle-btn-label" id="stressToggleStateText">SÍLABA TÔNICA: OCULTA</span>
+                  <span class="toggle-btn-label" id="stressToggleStateText">WORD STRESS: HIDDEN</span>
                 </button>
               </div>
             </div>
@@ -304,14 +304,14 @@
                     <span class="stress-tip-ipa" id="stressTipIpa">/dɪˈvel.ə.pər/</span>
                     <span class="stress-tip-syllables" id="stressTipSyllables">de-VEL-op-er</span>
                   </div>
-                  <div class="stress-tip-desc" id="stressTipDesc">Em português: de-ve-lo-PER ➔ Em inglês: de-VEL-op-er (força na 2ª sílaba)</div>
+                  <div class="stress-tip-desc" id="stressTipDesc">In Portuguese: de-ve-lo-PER ➔ In English: de-VEL-op-er (stress on 2nd syllable)</div>
                 </div>
               </div>
               <div class="stress-tip-actions">
-                <button type="button" class="btn-play-word" id="stressTipAudioBtn" title="Ouvir pronúncia nativa em inglês">
-                  <span>🔊 Ouvir</span>
+                <button type="button" class="btn-play-word" id="stressTipAudioBtn" title="Listen to native English pronunciation">
+                  <span>🔊 Listen</span>
                 </button>
-                <button type="button" class="btn-close-tip" id="stressTipCloseBtn" title="Fechar dica">
+                <button type="button" class="btn-close-tip" id="stressTipCloseBtn" title="Close tip">
                   &times;
                 </button>
               </div>
@@ -323,7 +323,7 @@
             </div>
 
             <div class="reading-passage-footer">
-              <span class="reading-hint">💡 <em>Dica de Pronúncia:</em> Clique em qualquer palavra pontilhada para ver a tônica, ouvir a pronúncia e entender por que nós brasileiros erramos a força!</span>
+              <span class="reading-hint">💡 <em>Pronunciation Tip:</em> Click any dotted word to see word stress, hear audio, and understand English rhythm patterns!</span>
             </div>
           </div>
 
@@ -365,7 +365,7 @@
                   "Yesterday, I <span class="blank-slot">________</span> (work) on the login screen for five hours."
                 </div>
                 <div class="code-subtext" id="questionSubtext">
-                  Selecione a opção que completa a frase corretamente no Simple Past:
+                  Select the option that correctly completes the sentence in Simple Past:
                 </div>
               </div>
             </div>
@@ -391,8 +391,8 @@
               <div class="diagnostic-error-banner hidden" id="feedbackDiagnosticBanner">
                 <span class="error-diag-icon">⚠️</span>
                 <div class="error-diag-meta">
-                  <div class="error-diag-label" id="errorDiagLabel">TIPO DE ERRO: Armadilha do Duplo Passado</div>
-                  <div class="error-diag-desc" id="errorDiagDesc">Você usou 'didn't pushed'. Com o auxiliar didn't, o verbo principal deve voltar obrigatoriamente para a forma base.</div>
+                  <div class="error-diag-label" id="errorDiagLabel">ERROR TYPE: Double Past Trap</div>
+                  <div class="error-diag-desc" id="errorDiagDesc">You used 'didn't pushed'. With the auxiliary didn't, the main verb must return to the base infinitive.</div>
                 </div>
               </div>
 
@@ -400,15 +400,15 @@
               <div class="feedback-rule-box">
                 <div class="rule-icon-box">💡</div>
                 <div class="rule-explanation-text" id="feedbackRuleText">
-                  Regra padrão: para a maioria dos verbos regulares, acrescentamos <strong>-ed</strong> ao infinitivo (<em>work ➔ worked</em>).
+                  Standard rule: for most regular verbs, add <strong>-ed</strong> to the base form (<em>work ➔ worked</em>).
                 </div>
               </div>
 
               <div class="feedback-actions">
                 <button class="btn btn-action" id="nextQuestionBtn">
-                  <span class="btn-text" id="nextBtnText">PRÓXIMO TICKET</span>
+                  <span class="btn-text" id="nextBtnText">NEXT TICKET</span>
                   <span class="btn-icon">➔</span>
-                  <span class="btn-kbd-hint">[Espaço]</span>
+                  <span class="btn-kbd-hint">[Space]</span>
                 </button>
               </div>
             </div>
@@ -437,10 +437,10 @@
             <div class="verdict-banner" id="verdictBanner">
               <div class="verdict-icon" id="verdictIcon">🏆</div>
               <div class="verdict-meta">
-                <span class="verdict-eyebrow">DIAGNÓSTICO PEDAGÓGICO DE INGLÊS TÉCNICO</span>
-                <h2 class="verdict-title" id="verdictTitle">PRONTO PARA A2</h2>
+                <span class="verdict-eyebrow">TECHNICAL ENGLISH PEDAGOGICAL ASSESSMENT</span>
+                <h2 class="verdict-title" id="verdictTitle">READY FOR A2</h2>
                 <p class="verdict-description" id="verdictDescription">
-                  Excelente domínio das estruturas do Simple Past! Você constrói afirmativas, negativas e perguntas com precisão e evita com consistência o duplo passado (*didn't pushed*).
+                  Outstanding mastery of technical structures! You construct statements, negatives, and questions accurately with consistent execution.
                 </p>
               </div>
             </div>
@@ -448,33 +448,33 @@
             <!-- Server Sync Confirmation Pill -->
             <div class="server-sync-status" id="serverSyncStatus">
               <span class="sync-dot"></span>
-              <span class="sync-text" id="syncStatusText">💾 Respostas salvas com sucesso no banco de dados do professor!</span>
+              <span class="sync-text" id="syncStatusText">💾 Responses successfully recorded in teacher database!</span>
             </div>
 
             <!-- Key Metric Metrics Row -->
             <div class="result-stats-row">
               <div class="stat-card">
-                <div class="stat-card-label">PONTUAÇÃO TOTAL</div>
+                <div class="stat-card-label">TOTAL SCORE</div>
                 <div class="stat-card-value highlight-cyan" id="resultFinalXp">1.250 XP</div>
-                <div class="stat-card-sub" id="resultBonusSub">Bônus de Streak incluído</div>
+                <div class="stat-card-sub" id="resultBonusSub">Streak Bonus included</div>
               </div>
 
               <div class="stat-card">
-                <div class="stat-card-label">TAXA DE PRECISÃO</div>
+                <div class="stat-card-label">ACCURACY RATE</div>
                 <div class="stat-card-value highlight-green" id="resultAccuracy">100%</div>
-                <div class="stat-card-sub" id="resultScoreRatio">10 / 10 corretas</div>
+                <div class="stat-card-sub" id="resultScoreRatio">10 / 10 correct</div>
               </div>
 
               <div class="stat-card">
-                <div class="stat-card-label">VIDAS PRESERVADAS</div>
+                <div class="stat-card-label">LIVES PRESERVED</div>
                 <div class="stat-card-value highlight-pink" id="resultLivesLeft">3 / 3</div>
-                <div class="stat-card-sub" id="resultLivesSub">Sem falhas críticas</div>
+                <div class="stat-card-sub" id="resultLivesSub">No critical failures</div>
               </div>
 
               <div class="stat-card">
-                <div class="stat-card-label">STATUS DA SPRINT</div>
-                <div class="stat-card-value highlight-yellow" id="resultSprintStatus">COMPLETA</div>
-                <div class="stat-card-sub">Release aprovada</div>
+                <div class="stat-card-label">SPRINT STATUS</div>
+                <div class="stat-card-value highlight-yellow" id="resultSprintStatus">COMPLETED</div>
+                <div class="stat-card-sub">Release approved</div>
               </div>
             </div>
 
@@ -482,7 +482,7 @@
             <div class="diagnostics-breakdown-section">
               <h3 class="section-title">
                 <span class="title-icon">📊</span>
-                Diagnóstico por Habilidade Gramatical
+                Diagnostic Breakdown by Skill Area
               </h3>
               
               <div class="area-meters-grid" id="areaMetersGrid">
@@ -493,7 +493,7 @@
             <!-- Detailed Question Audit / Log Accordion -->
             <div class="questions-audit-section">
               <div class="audit-header" id="auditToggleBtn">
-                <span class="audit-title">📝 Registro das Respostas & Diagnóstico de Erros</span>
+                <span class="audit-title">📝 Response Log & Diagnostic Error Review</span>
                 <span class="audit-arrow" id="auditArrow">▼</span>
               </div>
               <div class="audit-list" id="auditList">
@@ -505,17 +505,17 @@
             <div class="result-actions">
               <button class="btn btn-primary" id="restartQuestBtn">
                 <span class="btn-icon">🔁</span>
-                <span class="btn-text">TENTAR NOVAMENTE</span>
+                <span class="btn-text">RETRY SPRINT</span>
               </button>
 
               <button class="btn btn-secondary" id="returnCatalogBtn">
                 <span class="btn-icon">📋</span>
-                <span class="btn-text">ESCOLHER OUTRO TESTE</span>
+                <span class="btn-text">CHOOSE ANOTHER TEST</span>
               </button>
 
               <button class="btn btn-secondary" id="copyReportBtn">
                 <span class="btn-icon">📋</span>
-                <span class="btn-text" id="copyBtnText">COPIAR RELATÓRIO</span>
+                <span class="btn-text" id="copyBtnText">COPY SPRINT REPORT</span>
               </button>
             </div>
           </div>
@@ -541,26 +541,26 @@
       </div>
       <div class="modal-body">
         <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 8px; padding: 10px 14px; gap: 10px; flex-wrap: wrap;">
-          <span style="font-size: 0.85rem; color: #d8b4fe;">📚 Procurando os slides de aula das preposições (<strong>TO vs FOR</strong> & <strong>IN, ON, AT</strong>)?</span>
-          <button class="btn btn-primary" id="openSlidesFromCheatSheetBtn" style="padding: 5px 12px; font-size: 0.78rem;">ABRIR SLIDES DE AULA ➔</button>
+          <span style="font-size: 0.85rem; color: #d8b4fe;">📚 Looking for interactive classroom slides (<strong>TO vs FOR</strong>, <strong>WORD STRESS</strong> & <strong>IN, ON, AT</strong>)?</span>
+          <button class="btn btn-primary" id="openSlidesFromCheatSheetBtn" style="padding: 5px 12px; font-size: 0.78rem;">OPEN CLASS SLIDES ➔</button>
         </div>
-        <h2>Guia de Bolso: Simple Past para Devs (A1 ➔ A2)</h2>
-        <p class="modal-sub">As 4 regras de ouro para nunca mais errar em Daily Standups:</p>
+        <h2>Pocket Guide: Simple Past for Tech Devs (A1 ➔ A2)</h2>
+        <p class="modal-sub">The 4 golden rules to never make a mistake in Daily Standups:</p>
 
         <div class="cheatsheet-grid">
           <div class="cheat-card">
-            <div class="cheat-badge">REGRA 1</div>
-            <h3>Verbos Regulares (-ed)</h3>
+            <div class="cheat-badge">RULE 1</div>
+            <h3>Regular Verbs (-ed)</h3>
             <ul>
-              <li><strong>Padrão:</strong> acrescente <code>-ed</code>: <em>work ➔ worked</em>, <em>test ➔ tested</em>.</li>
-              <li><strong>Terminados em -e:</strong> acrescente apenas <code>-d</code>: <em>close ➔ closed</em>, <em>save ➔ saved</em>.</li>
-              <li><strong>CVC (consoante + vogal + consoante):</strong> dobra a última consoante: <em>stop ➔ stopped</em>.</li>
+              <li><strong>Standard:</strong> add <code>-ed</code>: <em>work ➔ worked</em>, <em>test ➔ tested</em>.</li>
+              <li><strong>Ending in -e:</strong> add only <code>-d</code>: <em>close ➔ closed</em>, <em>save ➔ saved</em>.</li>
+              <li><strong>CVC (consonant + vowel + consonant):</strong> double final consonant: <em>stop ➔ stopped</em>.</li>
             </ul>
           </div>
 
           <div class="cheat-card">
-            <div class="cheat-badge">REGRA 2</div>
-            <h3>Verbos Irregulares em Tech</h3>
+            <div class="cheat-badge">RULE 2</div>
+            <h3>Irregular Verbs in Tech</h3>
             <ul>
               <li><code>have ➔ had</code> ("We had a sprint review")</li>
               <li><code>write ➔ wrote</code> ("Sarah wrote the backend test")</li>
@@ -571,9 +571,9 @@
           </div>
 
           <div class="cheat-card">
-            <div class="cheat-badge">REGRA 3</div>
-            <h3>A Regra de Ouro do DID / DIDN'T</h3>
-            <p>O auxiliar <code>did</code> e <code>didn't</code> já carrega todo o passado. O verbo principal <strong>VOLTA OBRIGATORIAMENTE AO INFINITIVO BASE</strong>!</p>
+            <div class="cheat-badge">RULE 3</div>
+            <h3>The Golden Rule of DID / DIDN'T</h3>
+            <p>The auxiliaries <code>did</code> and <code>didn't</code> already carry the past tense. The main verb <strong>MUST RETURN TO THE BASE INFINITIVE</strong>!</p>
             <div class="code-compare">
               <div class="compare-wrong">❌ I didn't pushed the code.</div>
               <div class="compare-right">✅ I didn't push the code.</div>
@@ -583,12 +583,12 @@
           </div>
 
           <div class="cheat-card">
-            <div class="cheat-badge">REGRA 4</div>
-            <h3>Verbo To Be no Passado</h3>
+            <div class="cheat-badge">RULE 4</div>
+            <h3>Past Tense of Verb To Be</h3>
             <ul>
               <li><strong>WAS:</strong> <code>I / He / She / It</code> ("The server <em>was</em> down.")</li>
               <li><strong>WERE:</strong> <code>You / We / They</code> ("We <em>were</em> in a meeting.")</li>
-              <li><em>Cuidado:</em> Nunca use "did be" ou "didn't be"! ("The server wasn't responding").</li>
+              <li><em>Caution:</em> Never use "did be" or "didn't be"! ("The server wasn't responding").</li>
             </ul>
           </div>
         </div>
@@ -608,11 +608,11 @@
           <span class="dot dot-yellow"></span>
           <span class="dot dot-green"></span>
         </div>
-        <span class="window-title" id="deckWindowTitle">~/slides/prepositions-to-vs-for.deck</span>
+        <span class="window-title" id="deckWindowTitle">~/slides/tech-grammar-mastery.deck</span>
         <div class="deck-top-actions">
           <span class="slide-counter-badge" id="slideCounterBadge">SLIDE <span id="currentSlideNum">1</span> / 6</span>
-          <button class="btn-deck-util" id="slideFullscreenBtn" title="Alternar Tela Cheia">⛶</button>
-          <button class="modal-close-btn" id="closeStudyDeckBtn" title="Fechar Slides (ESC)">&times;</button>
+          <button class="btn-deck-util" id="slideFullscreenBtn" title="Toggle Fullscreen">⛶</button>
+          <button class="modal-close-btn" id="closeStudyDeckBtn" title="Close Slides (ESC)">&times;</button>
         </div>
       </div>
 
@@ -620,17 +620,17 @@
       <div class="deck-selector-bar" id="deckSelectorBar">
         <button class="deck-tab-btn active" id="tabToFor" data-deck="to-for">
           <span class="tab-icon">🎯</span>
-          <span class="tab-text">TO vs FOR (Propósito & Benefício)</span>
-          <span class="deck-tab-badge">NOVO</span>
+          <span class="tab-text">TO vs FOR (Purpose & Benefit)</span>
+          <span class="deck-tab-badge">NEW</span>
         </button>
         <button class="deck-tab-btn" id="tabWordStress" data-deck="word-stress">
           <span class="tab-icon">🗣️</span>
-          <span class="tab-text">Sílaba Tônica em TI (Inglês vs PT)</span>
-          <span class="deck-tab-badge badge-cyan">NOVO</span>
+          <span class="tab-text">Word Stress in Tech (Pronunciation)</span>
+          <span class="deck-tab-badge badge-cyan">NEW</span>
         </button>
         <button class="deck-tab-btn" id="tabInOnAt" data-deck="in-on-at">
           <span class="tab-icon">📍</span>
-          <span class="tab-text">IN, ON, AT (Tempo & Lugar)</span>
+          <span class="tab-text">IN, ON, AT (Time & Place)</span>
         </button>
       </div>
 
@@ -639,17 +639,17 @@
         <div class="slide-pages-container" id="slidePagesContainer">
 
           <!-- ===================================================================
-               DECK A: PREPOSIÇÕES TO vs FOR (NOVO)
+               DECK A: TO vs FOR PREPOSITIONS
                =================================================================== -->
           <div class="deck-group active" id="deckGroupToFor" data-deck-id="to-for">
 
-            <!-- SLIDE 1: O BUG COGNITIVO - VETOR (TO) vs BENEFÍCIO (FOR) -->
+            <!-- SLIDE 1: COGNITIVE BUG - DIRECTION (TO) vs BENEFIT (FOR) -->
             <div class="slide-page active" data-slide="1">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 01 // FUNDAMENTO VISUAL</span>
-                <h2 class="slide-title">O "Bug Mental" do Português: Vetor (TO) vs Benefício (FOR)</h2>
+                <span class="slide-step-tag">SLIDE 01 // VISUAL FOUNDATION</span>
+                <h2 class="slide-title">The Cognitive Shift: Vector & Direction (TO) vs Benefit & Favor (FOR)</h2>
                 <p class="slide-subtitle">
-                  No português, usamos <em>"para"</em> (ou <em>"pra"</em>) para tudo: <em>"fui para casa"</em>, <em>"café para você"</em>, <em>"ferramenta para teste"</em>. Em inglês, a preposição expressa a <strong>natureza da relação</strong>: ou é <strong>Direção/Destino (TO)</strong> ou é <strong>Benefício/Favor (FOR)</strong>.
+                  In Portuguese, "para" (or "pra") is used indiscriminately: <em>"fui para casa"</em>, <em>"café para você"</em>, <em>"ferramenta para teste"</em>. In English, the preposition defines the <strong>exact nature of the relationship</strong>: either <strong>Direction / Destination (TO)</strong> or <strong>Benefit / Favor / Utility (FOR)</strong>.
                 </p>
               </div>
 
@@ -659,9 +659,9 @@
                   <div class="concept-card concept-to">
                     <div class="concept-badge-to">
                       <span class="concept-icon">➔</span>
-                      <span>TO • VETOR, MOVIMENTO & DESTINO</span>
+                      <span>TO • VECTOR, DIRECTION & DESTINATION</span>
                     </div>
-                    <p class="concept-desc">Indica deslocamento físico, envio de dados, comunicação direcionada ou término de percurso.</p>
+                    <p class="concept-desc">Indicates physical motion, data transmission, directed communication, or path endpoint.</p>
                     <div class="concept-examples">
                       <code>go to the office</code>
                       <code>send email to Carlos</code>
@@ -676,9 +676,9 @@
                   <div class="concept-card concept-for">
                     <div class="concept-badge-for">
                       <span class="concept-icon">🎁</span>
-                      <span>FOR • BENEFÍCIO, FAVOR & UTILIDADE</span>
+                      <span>FOR • BENEFIT, FAVOR & UTILITY</span>
                     </div>
-                    <p class="concept-desc">Indica quem recebe a vantagem, quem é ajudado/substituído ou a finalidade de um recurso.</p>
+                    <p class="concept-desc">Indicates who receives the advantage, who is assisted or substituted, or intended utility.</p>
                     <div class="concept-examples">
                       <code>made coffee for you</code>
                       <code>review the PR for Sarah</code>
@@ -693,37 +693,37 @@
 
                 <!-- Key Takeaway Card -->
                 <div class="slide-side-card">
-                  <div class="takeaway-badge">💡 O TESTE DO VETOR</div>
-                  <h3>Como decidir em 2 segundos:</h3>
+                  <div class="takeaway-badge">💡 THE VECTOR TEST</div>
+                  <h3>How to decide in 2 seconds:</h3>
                   <ul class="slide-bullet-list">
-                    <li><strong>Há movimento ou transferência até alguém?</strong> Se algo viaja ou é entregue a um destino, use <strong>TO</strong>.</li>
-                    <li><strong>Alguém é beneficiado ou ajudado?</strong> Se alguém recebe o favor ou você faz a tarefa no lugar dela, use <strong>FOR</strong>.</li>
-                    <li><strong>Teste de substituição mental:</strong> Troque por <em>"em direção a"</em> (TO) ou <em>"em benefício de"</em> (FOR).</li>
+                    <li><strong>Is there movement or transfer toward a destination?</strong> If something travels or delivers to an endpoint, use <strong>TO</strong>.</li>
+                    <li><strong>Is someone assisted or receiving benefit?</strong> If someone receives a favor or you perform work on their behalf, use <strong>FOR</strong>.</li>
+                    <li><strong>Mental substitution test:</strong> Test with <em>"toward / to the recipient"</em> (TO) vs <em>"on behalf of / for the benefit of"</em> (FOR).</li>
                   </ul>
                   <div class="memory-anchor-box">
                     <span class="anchor-icon">🧠</span>
-                    <span><strong>Âncora mental:</strong> <em>"I sent the ticket <strong>to</strong> Alex"</em> (Alex recebeu). <em>"I closed the ticket <strong>for</strong> Alex"</em> (Ajudei Alex fazendo por ele).</span>
+                    <span><strong>Mental anchor:</strong> <em>"I sent the ticket <strong>to</strong> Alex"</em> (Alex received it). <em>"I closed the ticket <strong>for</strong> Alex"</em> (I helped Alex by doing it for him).</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 2: A REGRA DE OURO DO PROPÓSITO -->
+            <!-- SLIDE 2: THE GOLDEN RULE OF PURPOSE -->
             <div class="slide-page" data-slide="2">
               <div class="slide-header">
                 <span class="slide-step-tag">SLIDE 02 // PURPOSE & INTENTION</span>
-                <h2 class="slide-title">A Regra de Ouro do Propósito: TO + Verbo vs FOR + -ing / Noun</h2>
+                <h2 class="slide-title">The Golden Rule of Purpose: TO + Base Verb vs FOR + -ing / Noun</h2>
                 <p class="slide-subtitle">
-                  O erro número 1 de brasileiros em reuniões internacionais é dizer <em>"I joined the call for discuss..." ❌</em>. Guarde esta distinção cirúrgica:
+                  The #1 mistake made by non-native developers in international standups is saying <em>"I joined the call for discuss..." ❌</em>. Master this essential distinction:
                 </p>
               </div>
 
               <div class="slide-cards-2">
                 <!-- Purpose with Verb (TO) -->
                 <div class="tech-hack-card border-cyan">
-                  <div class="hack-badge" style="color: var(--cyan-neon);">🎯 INTENÇÃO PESSOAL (AÇÃO)</div>
-                  <h3>TO + Verbo na Forma Base</h3>
-                  <p class="card-desc">Quando você explica <strong>por que VOCÊ realizou uma ação</strong> usando um verbo:</p>
+                  <div class="hack-badge" style="color: var(--cyan-neon);">🎯 HUMAN INTENTION (ACTION)</div>
+                  <h3>TO + Base Verb</h3>
+                  <p class="card-desc">When you explain <strong>why YOU performed an action</strong> using a verb:</p>
                   <div class="purpose-rules-box">
                     <div class="compare-row-item">
                       <span class="badge-check">✅</span>
@@ -731,7 +731,7 @@
                     </div>
                     <div class="compare-row-item error-row">
                       <span class="badge-err">❌</span>
-                      <span><del>for fix</del> / <del>for to fix</del> (Erro grave!)</span>
+                      <span><del>for fix</del> / <del>for to fix</del> (Critical error!)</span>
                     </div>
                     <div class="compare-row-item">
                       <span class="badge-check">✅</span>
@@ -747,15 +747,15 @@
                     </div>
                   </div>
                   <div class="purpose-formula">
-                    <strong>Fórmula:</strong> Ação humana ➔ <code>TO + Base Verb</code>
+                    <strong>Formula:</strong> Human intention ➔ <code>TO + Base Verb</code>
                   </div>
                 </div>
 
                 <!-- Purpose of Tool (FOR) -->
                 <div class="tech-hack-card border-purple">
-                  <div class="hack-badge" style="color: #d8b4fe;">⚙️ FUNÇÃO DE OBJETO / FERRAMENTA</div>
+                  <div class="hack-badge" style="color: #d8b4fe;">⚙️ OBJECT / TOOL FUNCTION</div>
                   <h3>FOR + Verbo em -ing ou Substantivo</h3>
-                  <p class="card-desc">Quando você explica <strong>para que serve uma ferramenta, serviço ou recurso</strong>:</p>
+                  <p class="card-desc">When explaining <strong>the purpose or function of a tool, service, or resource</strong>:</p>
                   <div class="purpose-rules-box">
                     <div class="compare-row-item">
                       <span class="badge-check">✅</span>
@@ -779,7 +779,7 @@
                     </div>
                   </div>
                   <div class="purpose-formula">
-                    <strong>Fórmula:</strong> Utilidade de ferramenta ➔ <code>FOR + -ing / Noun</code>
+                    <strong>Formula:</strong> Tool utility ➔ <code>FOR + -ing / Noun</code>
                   </div>
                 </div>
               </div>
@@ -788,33 +788,33 @@
                 <span class="anchor-glow">⚡</span>
                 <div>
                   <strong>O Duelo Perfeito:</strong>
-                  <em>"I use Docker <strong>to containerize</strong> my apps."</em> (Minha ação pessoal)
+                  <em>"I use Docker <strong>to containerize</strong> my apps."</em> (My personal action)
                   vs
-                  <em>"Docker is a tool <strong>for containerizing</strong> apps."</em> (Função da ferramenta)
+                  <em>"Docker is a tool <strong>for containerizing</strong> apps."</em> (Tool function)
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 3: VERBOS DE TRANSFERÊNCIA vs SERVIÇO & O BUG DO EXPLAIN -->
+            <!-- SLIDE 3: TRANSFER & DIRECTION VERBS vs SERVICE & THE EXPLAIN BUG -->
             <div class="slide-page" data-slide="3">
               <div class="slide-header">
                 <span class="slide-step-tag">SLIDE 03 // VERB PAIRINGS & THE EXPLAIN BUG</span>
-                <h2 class="slide-title">Verbos de Transferência vs Serviço & A Armadilha do "Explain"</h2>
+                <h2 class="slide-title">Transfer Verbs vs Service & The "Explain" Bug</h2>
                 <p class="slide-subtitle">
-                  Certos verbos em inglês são magneticamente ligados a <strong>TO</strong> ou <strong>FOR</strong>. Aprenda os padrões essenciais de engenharia de software:
+                  Certain verbs in English are magnetically linked to <strong>TO</strong> or <strong>FOR</strong>. Master these essential software engineering patterns:
                 </p>
               </div>
 
               <div class="slide-columns-3">
-                <!-- Column 1: Verbos com TO -->
+                <!-- Column 1: Verbs with TO -->
                 <div class="slide-col-card col-in" style="border-color: rgba(6, 182, 212, 0.4);">
-                  <div class="col-pill in-pill">TO (Transferência / Destino)</div>
-                  <h4>Comunicação Direta & Movimento</h4>
+                  <div class="col-pill in-pill">TO (Transfer / Destination)</div>
+                  <h4>Direct Communication & Motion</h4>
                   <ul class="col-list">
-                    <li><code>send to</code> (enviar para)</li>
-                    <li><code>give to</code> (entregar para)</li>
-                    <li><code>forward to</code> (encaminhar para)</li>
-                    <li><code>speak / talk to</code> (falar com)</li>
+                    <li><code>send to</code> (send to recipient)</li>
+                    <li><code>give to</code> (hand over to)</li>
+                    <li><code>forward to</code> (forward to)</li>
+                    <li><code>speak / talk to</code> (talk to person)</li>
                     <li><code>listen to</code> (ouvir a)</li>
                     <li><code>reply to</code> (responder a)</li>
                   </ul>
@@ -823,17 +823,17 @@
                   </div>
                 </div>
 
-                <!-- Column 2: Verbos com FOR -->
+                <!-- Column 2: Verbs with FOR -->
                 <div class="slide-col-card col-at" style="border-color: rgba(16, 185, 129, 0.4);">
-                  <div class="col-pill at-pill">FOR (Serviço & Favor)</div>
-                  <h4>Ajuda, Subrogação & Benefício</h4>
+                  <div class="col-pill at-pill">FOR (Service & Favors)</div>
+                  <h4>Help, Delegation & Beneficiary</h4>
                   <ul class="col-list">
                     <li><code>do a favor for</code> (fazer favor)</li>
-                    <li><code>review PR for</code> (revisar por alguém)</li>
-                    <li><code>build / develop for</code> (criar para)</li>
-                    <li><code>buy / order for</code> (comprar para)</li>
-                    <li><code>save for</code> (guardar para)</li>
-                    <li><code>fix for</code> (consertar para)</li>
+                    <li><code>review PR for</code> (review on someone's behalf)</li>
+                    <li><code>build / develop for</code> (develop for client/team)</li>
+                    <li><code>buy / order for</code> (purchase on behalf)</li>
+                    <li><code>save for</code> (reserve for)</li>
+                    <li><code>fix for</code> (resolve for teammate)</li>
                   </ul>
                   <div class="col-example">
                     <em>"Can you merge this hotfix <strong>for</strong> me while I'm away?"</em>
@@ -845,7 +845,7 @@
                   <div class="col-pill on-pill" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">⚠️ ALERTA VERMELHO</div>
                   <h4 style="color: #f87171;">O Maior Bug: Verbo EXPLAIN</h4>
                   <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">
-                    Em inglês, o verbo <em>explain</em> <strong>NUNCA</strong> aceita <em>"explain me"</em> nem <em>"explain for me"</em>!
+                    In English, the verb <em>explain</em> <strong>NEVER</strong> accepts <em>"explain me"</em> or <em>"explain for me"</em>!
                   </p>
                   <div style="background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 6px; font-size: 0.78rem;">
                     <div style="color: #f87171; margin-bottom: 4px;">❌ <em>"Explain for me this bug"</em></div>
@@ -859,13 +859,13 @@
               </div>
             </div>
 
-            <!-- SLIDE 4: TEMPO & DURAÇÃO vs OPINIÃO (TO ME vs FOR ME) -->
+            <!-- SLIDE 4: TIME DURATION vs OPINION (TO ME vs FOR ME) -->
             <div class="slide-page" data-slide="4">
               <div class="slide-header">
                 <span class="slide-step-tag">SLIDE 04 // DURATION & OPINION</span>
-                <h2 class="slide-title">Duração de Tempo & A Nuance: "To me" vs "For me"</h2>
+                <h2 class="slide-title">Time Duration & The Nuance: "To me" vs "For me"</h2>
                 <p class="slide-subtitle">
-                  Como quantificar horas e minutos de incidentes, e como expressar opinião sem soar arrogante ou confuso.
+                  How to quantify outage duration in hours and minutes, and express opinions diplomatically in standups.
                 </p>
               </div>
 
@@ -873,11 +873,11 @@
                 <!-- Time Duration Hack -->
                 <div class="tech-hack-card">
                   <div class="hack-badge">⏱️ MEDIDAS DE TEMPO</div>
-                  <h3>Duração Contínua vs Ponto Limite</h3>
+                  <h3>Continuous Duration vs Boundary Limits</h3>
                   <div class="hack-comparison">
                     <div class="hack-item on-item" style="border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.08);">
-                      <span class="hack-tag" style="color: var(--green-neon);">FOR + DURAÇÃO / PERÍODO</span>
-                      <p>Expressa <strong>quanto tempo</strong> uma ação durou ou está em andamento contínuo:</p>
+                      <span class="hack-tag" style="color: var(--green-neon);">FOR + DURATION / PERIOD</span>
+                      <p>Expresses <strong>how long</strong> an action lasted or has been running continuously:</p>
                       <div class="hack-pills">
                         <code>for 45 minutes</code>
                         <code>for two hours</code>
@@ -905,12 +905,12 @@
                 <!-- To Me vs For Me Hack -->
                 <div class="tech-hack-card">
                   <div class="hack-badge">🧠 PONTO DE VISTA vs IMPACTO</div>
-                  <h3>"To me" vs "For me": O Teste da Opinião</h3>
+                  <h3>"To me" vs "For me": The Opinion Test</h3>
                   <div class="hack-tech-list">
                     <div class="tech-rule-row">
                       <span class="tech-prep prep-in" style="background: rgba(6, 182, 212, 0.2); color: var(--cyan-neon);">TO ME</span>
                       <div class="tech-rule-desc">
-                        <strong>Na minha opinião / No meu julgamento (Subjetivo):</strong><br>
+                        <strong>In my opinion / From my perspective (Subjective):</strong><br>
                         <em>"<strong>To me</strong>, this design looks much cleaner."</em><br>
                         <em>"It seems <strong>to me</strong> that the query is unindexed."</em>
                       </div>
@@ -918,7 +918,7 @@
                     <div class="tech-rule-row">
                       <span class="tech-prep prep-at" style="background: rgba(16, 185, 129, 0.2); color: var(--green-neon);">FOR ME</span>
                       <div class="tech-rule-desc">
-                        <strong>No meu caso / Afeta a minha conveniência ou saúde:</strong><br>
+                        <strong>In my case / Affects my routine or workload:</strong><br>
                         <em>"Does 2:30 PM work <strong>for you</strong>?"</em> (Na sua agenda?)<br>
                         <em>"Working remotely is very productive <strong>for me</strong>."</em><br>
                         <em>"This ticket is too difficult <strong>for me</strong> alone."</em>
@@ -929,13 +929,13 @@
               </div>
             </div>
 
-            <!-- SLIDE 5: PRÁTICA GUIADA - FIX THE STANDUP TICKETS -->
+            <!-- SLIDE 5: GUIDED PRACTICE - FIX THE STANDUP TICKETS -->
             <div class="slide-page" data-slide="5">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 05 // PRÁTICA GUIADA</span>
-                <h2 class="slide-title">Bug Hunting: Encontre o Erro nos Tickets da Daily</h2>
+                <span class="slide-step-tag">SLIDE 05 // GUIDED PRACTICE</span>
+                <h2 class="slide-title">Bug Hunting: Find the Bug in Daily Standup Tickets</h2>
                 <p class="slide-subtitle">
-                  Identifique a preposição errada nos 4 tickets abaixo. Clique no botão de cada ticket para debugar ao vivo!
+                  Spot the incorrect preposition in the 4 tickets below. Click each ticket to debug live!
                 </p>
               </div>
 
@@ -951,7 +951,7 @@
                   </div>
                   <div class="ticket-solution hidden" id="ticketSol501">
                     <div class="sol-correct">✅ <em>"We scheduled an emergency sync <strong>to align</strong> the release timeline."</em></div>
-                    <p class="sol-expl"><strong>Diagnóstico:</strong> A intenção da pessoa com verbo na forma base exige <code>to + base verb</code> (to align). Dizer "for align" é um dos erros mais comuns de tradução do português.</p>
+                    <p class="sol-expl"><strong>Diagnosis:</strong> Personal intention with a base verb requires <code>to + base verb</code> (to align). Saying "for align" is a classic false friend from Portuguese.</p>
                   </div>
                 </div>
 
@@ -966,7 +966,7 @@
                   </div>
                   <div class="ticket-solution hidden" id="ticketSol502">
                     <div class="sol-correct">✅ <em>"Could the senior engineer please <strong>explain to me</strong> the OAuth callback flow?"</em></div>
-                    <p class="sol-expl"><strong>Diagnóstico:</strong> O verbo <em>explain</em> exige obrigatoriamente a preposição direcional <code>to</code> para introduzir quem escuta a explicação (explain to me).</p>
+                    <p class="sol-expl"><strong>Diagnosis:</strong> The verb <em>explain</em> strictly requires directional preposition <code>to</code> for the listener (explain to me).</p>
                   </div>
                 </div>
 
@@ -981,7 +981,7 @@
                   </div>
                   <div class="ticket-solution hidden" id="ticketSol503">
                     <div class="sol-correct">✅ <em>"The payment gateway was completely unresponsive <strong>for 45 minutes</strong>."</em></div>
-                    <p class="sol-expl"><strong>Diagnóstico:</strong> A extensão contínua de um período de tempo exige <code>for</code> (for 45 minutes). <code>To</code> expressa destino ou marco final, não duração.</p>
+                    <p class="sol-expl"><strong>Diagnosis:</strong> Elapsed continuous time duration requires <code>for</code> (for 45 minutes). <code>To</code> indicates destinations or endpoints, not duration.</p>
                   </div>
                 </div>
 
@@ -996,7 +996,7 @@
                   </div>
                   <div class="ticket-solution hidden" id="ticketSol504">
                     <div class="sol-correct">✅ <em>"I forwarded the new production API credentials <strong>to the frontend team</strong>."</em></div>
-                    <p class="sol-expl"><strong>Diagnóstico:</strong> Verbos de envio e transferência (forward, send, pass) usam <code>to</code> para o destinatário da entrega. Usar <code>for</code> significaria que você enviou no lugar da equipe ausente.</p>
+                    <p class="sol-expl"><strong>Diagnosis:</strong> Verbs of transmission and forwarding (forward, send, pass) take <code>to</code> for the recipient. Using <code>for</code> would imply sending on someone's behalf as a proxy.</p>
                   </div>
                 </div>
               </div>
@@ -1006,33 +1006,33 @@
             <div class="slide-page" data-slide="6">
               <div class="slide-header">
                 <span class="slide-step-tag">SLIDE 06 // SPEAKING DRILL</span>
-                <h2 class="slide-title">Daily Standup Speaking: Sua Rotina Real com TO e FOR</h2>
+                <h2 class="slide-title">Daily Standup Speaking: Real-World Scenarios with TO & FOR</h2>
                 <p class="slide-subtitle">
-                  Hora de colocar a voz para jogo! Responda em voz alta como se o Tech Lead estivesse perguntando agora na reunião:
+                  Time to practice speaking out loud! Answer as if your Scrum Master just asked you in the daily sync:
                 </p>
               </div>
 
               <div class="speaking-prompts-grid">
                 <div class="prompt-box">
-                  <div class="prompt-q">🎙️ Questão 1: "Why did you create that new feature branch yesterday?"</div>
+                  <div class="prompt-q">🎙️ Question 1: "Why did you create that new feature branch yesterday?"</div>
                   <div class="prompt-template">
-                    <span class="template-label">Template de resposta:</span>
+                    <span class="template-label">Response template:</span>
                     <p><em>"I created the branch <strong>to</strong> fix a memory leak and <strong>to</strong> optimize our database queries."</em></p>
                   </div>
                 </div>
 
                 <div class="prompt-box">
-                  <div class="prompt-q">🎙️ Questão 2: "What is this new microservice used for in our cloud stack?"</div>
+                  <div class="prompt-q">🎙️ Question 2: "What is this new microservice used for in our cloud stack?"</div>
                   <div class="prompt-template">
-                    <span class="template-label">Template de resposta:</span>
+                    <span class="template-label">Response template:</span>
                     <p><em>"It is an event worker used <strong>for</strong> processing webhooks and <strong>for</strong> caching user sessions."</em></p>
                   </div>
                 </div>
 
                 <div class="prompt-box">
-                  <div class="prompt-q">🎙️ Questão 3: "Can you review my pull request before our afternoon release?"</div>
+                  <div class="prompt-q">🎙️ Question 3: "Can you review my pull request before our afternoon release?"</div>
                   <div class="prompt-template">
-                    <span class="template-label">Template de resposta:</span>
+                    <span class="template-label">Response template:</span>
                     <p><em>"Sure, I can review it <strong>for</strong> you right after this call! Just send the PR link <strong>to</strong> me."</em></p>
                   </div>
                 </div>
@@ -1040,11 +1040,11 @@
 
               <div class="slide-action-banner" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.12));">
                 <div class="action-banner-text">
-                  <h3>Pronto para testar seus reflexos?</h3>
-                  <p>Inicie a Sprint Quest interativa de TO vs FOR com 10 níveis técnicos, contexto de TI e diagnóstico cirúrgico em tempo real!</p>
+                  <h3>Ready to test your reflexes?</h3>
+                  <p>Launch the interactive 10-level TO vs FOR Sprint Quest with real-time diagnostic error feedback!</p>
                 </div>
                 <button class="btn btn-primary btn-large btn-launch-to-for" id="startQuestFromToForSlidesBtn">
-                  <span class="btn-text">INICIAR TESTE PRÁTICO (TO vs FOR)</span>
+                  <span class="btn-text">START PRACTICE QUEST (TO vs FOR)</span>
                   <span class="btn-icon">⚡</span>
                 </button>
               </div>
@@ -1053,17 +1053,17 @@
           </div>
 
           <!-- ===================================================================
-               DECK B: PREPOSIÇÕES IN, ON, AT (EXISTENTE)
+               DECK B: PREPOSITIONS IN, ON, AT
                =================================================================== -->
           <div class="deck-group hidden" id="deckGroupInOnAt" data-deck-id="in-on-at">
 
-          <!-- SLIDE 1: O BUG COGNITIVO & A PIRÂMIDE INVERTIDA -->
+          <!-- SLIDE 1: COGNITIVE BUG & THE INVERTED PYRAMID -->
           <div class="slide-page" data-slide="1">
             <div class="slide-header">
-              <span class="slide-step-tag">SLIDE 01 // FUNDAMENTO VISUAL</span>
-              <h2 class="slide-title">O "Bug Mental" do Português & A Pirâmide Invertida</h2>
+              <span class="slide-step-tag">SLIDE 01 // VISUAL FOUNDATION</span>
+              <h2 class="slide-title">The Cognitive Shift: The Inverted Prepositions Pyramid</h2>
               <p class="slide-subtitle">
-                Em português dizemos <em>"no Brasil"</em>, <em>"na segunda-feira"</em> e <em>"às 9h"</em> usando quase sempre variações de <strong>EM (no/na)</strong>. Em inglês, a preposição expressa <strong>ESCALA (Dimensão & Precisão)</strong>.
+                In Portuguese, we use variations of "em" for countries, days, and hours indiscriminately. In English, prepositions define <strong>SCALE (Dimension & Geometric Precision)</strong>.
               </p>
             </div>
 
@@ -1072,42 +1072,42 @@
               <div class="pyramid-interactive-wrapper">
                 <div class="pyramid-tier tier-in" data-tier="in">
                   <div class="tier-badge">IN • O MAIOR / GERAL</div>
-                  <div class="tier-desc">3D • Espaço Amplo / Caixa Fechada • Séculos, Anos, Meses • Países & Cidades</div>
+                  <div class="tier-desc">3D • Enclosed Space / Broad Container • Centuries, Years, Months • Countries & Cities</div>
                 </div>
                 <div class="pyramid-tier tier-on" data-tier="on">
-                  <div class="tier-badge">ON • INTERMEDIÁRIO</div>
-                  <div class="tier-desc">2D • Superfície & Linhas • Dias da Semana & Datas • Ruas & Telas</div>
+                  <div class="tier-badge">ON • INTERMEDIATE</div>
+                  <div class="tier-desc">2D • Surfaces & Lines • Days of Week & Calendar Dates • Streets & Screens</div>
                 </div>
                 <div class="pyramid-tier tier-at" data-tier="at">
-                  <div class="tier-badge">AT • ULTRA-ESPECÍFICO</div>
-                  <div class="tier-desc">1D • Ponto Exato no Alvo • Horários no Relógio • Endereço com Número</div>
+                  <div class="tier-badge">AT • ULTRA-SPECIFIC</div>
+                  <div class="tier-desc">1D • Precise Point Target • Exact Clock Times • Civic Address with Number</div>
                 </div>
               </div>
 
               <!-- Key Takeaway Card -->
               <div class="slide-side-card">
-                <div class="takeaway-badge">💡 A REGRA DE OURO</div>
+                <div class="takeaway-badge">💡 THE GOLDEN RULE</div>
                 <h3>Pense como um Funil de Zoom</h3>
                 <ul class="slide-bullet-list">
-                  <li><strong>IN:</strong> Zoom afastado no mapa mundial ou no calendário do ano.</li>
-                  <li><strong>ON:</strong> Zoom intermediário focado na folha do calendário ou na rua/superfície.</li>
-                  <li><strong>AT:</strong> Zoom máximo focado no ponteiro dos minutos ou no número predial exato.</li>
+                  <li><strong>IN:</strong> Zoomed out on the world map or yearly calendar.</li>
+                  <li><strong>ON:</strong> Mid-level zoom on calendar days or road corridors/surfaces.</li>
+                  <li><strong>AT:</strong> Maximum zoom on the minute clock hand or exact street number.</li>
                 </ul>
                 <div class="memory-anchor-box">
                   <span class="anchor-icon">🧠</span>
-                  <span><strong>Âncora mental:</strong> Nunca tente traduzir "em". Pergunte a si mesmo: <em>"qual é o tamanho do alvo?"</em></span>
+                  <span><strong>Mental model:</strong> Never translate "em". Ask yourself: <em>"how broad is the target?"</em></span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- SLIDE 2: PREPOSIÇÕES DE TEMPO -->
+          <!-- SLIDE 2: PREPOSITIONS OF TIME -->
           <div class="slide-page" data-slide="2">
             <div class="slide-header">
               <span class="slide-step-tag">SLIDE 02 // TIME PYRAMID</span>
-              <h2 class="slide-title">Preposições de TEMPO: Do Século ao Minuto Exato</h2>
+              <h2 class="slide-title">Prepositions of TIME: From Centuries to the Exact Minute</h2>
               <p class="slide-subtitle">
-                A pirâmide temporal determina a preposição com base na duração do período.
+                The temporal pyramid determines the preposition based on the scope of the time period.
               </p>
             </div>
 
@@ -1115,7 +1115,7 @@
               <!-- Column IN (Time) -->
               <div class="slide-col-card col-in">
                 <div class="col-pill in-pill">IN (Geral / Longo)</div>
-                <h4>Séculos, Anos, Meses & Períodos</h4>
+                <h4>Centuries, Years, Months & Periods</h4>
                 <ul class="col-list">
                   <li><code>in 2025</code> / <code>in 1999</code></li>
                   <li><code>in November</code> / <code>in July</code></li>
@@ -1131,8 +1131,8 @@
 
               <!-- Column ON (Time) -->
               <div class="slide-col-card col-on">
-                <div class="col-pill on-pill">ON (Médio / Dias)</div>
-                <h4>Dias da Semana & Datas do Calendário</h4>
+                <div class="col-pill on-pill">ON (Mid-Scale / Days)</div>
+                <h4>Days of the Week & Calendar Dates</h4>
                 <ul class="col-list">
                   <li><code>on Monday</code> / <code>on Fridays</code></li>
                   <li><code>on October 21st</code></li>
@@ -1149,14 +1149,14 @@
               <!-- Column AT (Time) -->
               <div class="slide-col-card col-at">
                 <div class="col-pill at-pill">AT (Pontual / Exato)</div>
-                <h4>Horários de Relógio & Momentos Fixos</h4>
+                <h4>Clock Times & Fixed Moments</h4>
                 <ul class="col-list">
                   <li><code>at 9:30 AM</code> / <code>at 4:00 PM</code></li>
                   <li><code>at noon</code> / <code>at midday</code></li>
                   <li><code>at midnight</code></li>
                   <li><code>at lunchtime</code></li>
                   <li><code>at the moment</code></li>
-                  <li class="highlight-exception"><code>at night</code> ⚠️ (Exceção clássica!)</li>
+                  <li class="highlight-exception"><code>at night</code> ⚠️ (Classic exception!)</li>
                 </ul>
                 <div class="col-example">
                   <em>"Our standup begins sharp <strong>at</strong> 9:30 AM."</em>
@@ -1165,13 +1165,13 @@
             </div>
           </div>
 
-          <!-- SLIDE 3: PREPOSIÇÕES DE LUGAR -->
+          <!-- SLIDE 3: PREPOSITIONS OF PLACE -->
           <div class="slide-page" data-slide="3">
             <div class="slide-header">
               <span class="slide-step-tag">SLIDE 03 // PLACE PYRAMID</span>
-              <h2 class="slide-title">Preposições de LUGAR: Do País ao Número do Prédio</h2>
+              <h2 class="slide-title">Prepositions of PLACE: From Countries to Building Numbers</h2>
               <p class="slide-subtitle">
-                A geometria do espaço físico define se o local é 3D (dentro), 2D (superfície) ou 1D (alvo no mapa).
+                Physical geometry defines whether a space is 3D (enclosed), 2D (surface), or 1D (GPS point).
               </p>
             </div>
 
@@ -1179,7 +1179,7 @@
               <!-- Column IN (Place) -->
               <div class="slide-col-card col-in">
                 <div class="col-pill in-pill">IN (3D / Fechado)</div>
-                <h4>Países, Cidades, Salas & Recipientes</h4>
+                <h4>Countries, Cities, Rooms & Enclosures</h4>
                 <ul class="col-list">
                   <li><code>in Brazil</code> / <code>in Canada</code></li>
                   <li><code>in São Paulo</code> / <code>in London</code></li>
@@ -1195,8 +1195,8 @@
 
               <!-- Column ON (Place) -->
               <div class="slide-col-card col-on">
-                <div class="col-pill on-pill">ON (2D / Superfície)</div>
-                <h4>Ruas, Avenidas, Superfícies & Telas</h4>
+                <div class="col-pill on-pill">ON (2D / Surface)</div>
+                <h4>Streets, Avenues, Surfaces & Screens</h4>
                 <ul class="col-list">
                   <li><code>on Paulista Avenue</code></li>
                   <li><code>on 5th Street</code></li>
@@ -1213,9 +1213,9 @@
               <!-- Column AT (Place) -->
               <div class="slide-col-card col-at">
                 <div class="col-pill at-pill">AT (1D / Ponto Exato)</div>
-                <h4>Endereço com Número & Ponto de Encontro</h4>
+                <h4>Civic Address with Number & Meeting Points</h4>
                 <ul class="col-list">
-                  <li><code>at 450 Market St</code> (com número)</li>
+                  <li><code>at 450 Market St</code> (with building number)</li>
                   <li><code>at the bus stop</code></li>
                   <li><code>at the airport</code></li>
                   <li><code>at the entrance</code></li>
@@ -1233,9 +1233,9 @@
           <div class="slide-page" data-slide="4">
             <div class="slide-header">
               <span class="slide-step-tag">SLIDE 04 // CHEAT CODES & TECH</span>
-              <h2 class="slide-title">Pegadinhas & Regras Rápidas: Transporte e TI</h2>
+              <h2 class="slide-title">Cheat Codes & Edge Cases: Transit and Cloud IT</h2>
               <p class="slide-subtitle">
-                Dois macetes mnemônicos definitivos para resolver as dúvidas mais frequentes de reuniões internacionais.
+                Two high-yield mental models to master common questions in international standups.
               </p>
             </div>
 
@@ -1243,11 +1243,11 @@
               <!-- Transport Hack -->
               <div class="tech-hack-card">
                 <div class="hack-badge">🚌 MACETE DO TRANSPORTE</div>
-                <h3>A Regra da "Perna Esticada"</h3>
+                <h3>The "Aisle Walking" Rule</h3>
                 <div class="hack-comparison">
                   <div class="hack-item on-item">
                     <span class="hack-tag">USE ON</span>
-                    <p>Se você consegue <strong>ficar em pé e caminhar pelo corredor</strong> ou senta montado:</p>
+                    <p>If you can <strong>stand upright and walk down an aisle</strong> or sit astride:</p>
                     <div class="hack-pills">
                       <code>on the bus</code>
                       <code>on the train</code>
@@ -1258,7 +1258,7 @@
                   </div>
                   <div class="hack-item in-item">
                     <span class="hack-tag">USE IN</span>
-                    <p>Se você precisa se abaixar para entrar e <strong>fica apenas sentado</strong>:</p>
+                    <p>If you have to duck inside and <strong>remain seated</strong>:</p>
                     <div class="hack-pills">
                       <code>in the car</code>
                       <code>in a taxi</code>
@@ -1272,26 +1272,26 @@
               <!-- Tech & Dev Context Hack -->
               <div class="tech-hack-card">
                 <div class="hack-badge">💻 NO MUNDO DEV & TI</div>
-                <h3>Infraestrutura, Código e Reuniões</h3>
+                <h3>Cloud Infrastructure, Code & Workspaces</h3>
                 <div class="hack-tech-list">
                   <div class="tech-rule-row">
                     <span class="tech-prep prep-in">IN</span>
                     <div class="tech-rule-desc">
-                      <strong>Dentro de armazenamento ou código:</strong><br>
+                      <strong>Inside storage or source code:</strong><br>
                       <em>"Tokens stored <strong>in</strong> the database"</em> • <em>"Variable defined <strong>in</strong> config.json"</em>
                     </div>
                   </div>
                   <div class="tech-rule-row">
                     <span class="tech-prep prep-on">ON</span>
                     <div class="tech-rule-desc">
-                      <strong>Plataformas, Nuvem, Máquinas e Telas:</strong><br>
+                      <strong>Platforms, Cloud, Hosts & Screens:</strong><br>
                       <em>"PR opened <strong>on</strong> GitHub"</em> • <em>"Deployed <strong>on</strong> AWS"</em> • <em>"Shown <strong>on</strong> screen"</em>
                     </div>
                   </div>
                   <div class="tech-rule-row">
                     <span class="tech-prep prep-at">AT</span>
                     <div class="tech-rule-desc">
-                      <strong>Posição pontual de trabalho:</strong><br>
+                      <strong>Focused workstation position:</strong><br>
                       <em>"Working <strong>at</strong> home"</em> • <em>"Sitting <strong>at</strong> my desk"</em>
                     </div>
                   </div>
@@ -1300,13 +1300,13 @@
             </div>
           </div>
 
-          <!-- SLIDE 5: PRÁTICA GUIADA - FIX THE STANDUP TICKETS -->
+          <!-- SLIDE 5: GUIDED PRACTICE - FIX THE STANDUP TICKETS -->
           <div class="slide-page" data-slide="5">
             <div class="slide-header">
-              <span class="slide-step-tag">SLIDE 05 // PRÁTICA GUIADA</span>
-              <h2 class="slide-title">Bug Hunting: Encontre o Erro nos Tickets da Daily</h2>
+              <span class="slide-step-tag">SLIDE 05 // GUIDED PRACTICE</span>
+              <h2 class="slide-title">Bug Hunting: Find the Bug in Daily Standup Tickets</h2>
               <p class="slide-subtitle">
-                Identifique a preposição errada nos 4 tickets abaixo. Clique no botão de cada ticket para debugar ao vivo!
+                Spot the incorrect preposition in the 4 tickets below. Click each ticket to debug live!
               </p>
             </div>
 
@@ -1322,7 +1322,7 @@
                 </div>
                 <div class="ticket-solution hidden" id="ticketSol1">
                   <div class="sol-correct">✅ <em>"Our sprint retrospective is <strong>on Friday</strong> <strong>in the morning</strong>."</em></div>
-                  <p class="sol-expl"><strong>Diagnóstico:</strong> Dias da semana exigem <code>on</code> (on Friday). Períodos do dia exigem <code>in</code> (in the morning).</p>
+                  <p class="sol-expl"><strong>Diagnosis:</strong> Days of the week take <code>on</code> (on Friday). Parts of the day take <code>in</code> (in the morning).</p>
                 </div>
               </div>
 
@@ -1337,7 +1337,7 @@
                 </div>
                 <div class="ticket-solution hidden" id="ticketSol2">
                   <div class="sol-correct">✅ <em>"The critical hotfix was deployed <strong>at 10:15 AM</strong> yesterday."</em></div>
-                  <p class="sol-expl"><strong>Diagnóstico:</strong> Horários pontuais no relógio sempre exigem <code>at</code> (at 10:15 AM).</p>
+                  <p class="sol-expl"><strong>Diagnosis:</strong> Exact clock times always require <code>at</code> (at 10:15 AM).</p>
                 </div>
               </div>
 
@@ -1352,7 +1352,7 @@
                 </div>
                 <div class="ticket-solution hidden" id="ticketSol3">
                   <div class="sol-correct">✅ <em>"She is working <strong>in London</strong>, <strong>on the 4th floor</strong>."</em></div>
-                  <p class="sol-expl"><strong>Diagnóstico:</strong> Cidades são áreas geográficas amplas (<code>in London</code>). Andares prediais são superfícies horizontais (<code>on the 4th floor</code>).</p>
+                  <p class="sol-expl"><strong>Diagnosis:</strong> Cities are broad geographic regions (<code>in London</code>). Building floors are horizontal surfaces (<code>on the 4th floor</code>).</p>
                 </div>
               </div>
 
@@ -1367,7 +1367,7 @@
                 </div>
                 <div class="ticket-solution hidden" id="ticketSol4">
                   <div class="sol-correct">✅ <em>"Did you inspect the error logs <strong>on the screen</strong> and <strong>on GitHub</strong>?"</em></div>
-                  <p class="sol-expl"><strong>Diagnóstico:</strong> Telas, monitores e plataformas digitais como GitHub, AWS ou Slack são superfícies digitais: use <code>on</code>.</p>
+                  <p class="sol-expl"><strong>Diagnosis:</strong> Screens, monitors, and cloud platforms like GitHub, AWS, and Slack are digital surfaces: use <code>on</code>.</p>
                 </div>
               </div>
             </div>
@@ -1379,31 +1379,31 @@
               <span class="slide-step-tag">SLIDE 06 // SPEAKING DRILL</span>
               <h2 class="slide-title">Daily Standup Speaking: Sua Rotina Real</h2>
               <p class="slide-subtitle">
-                Hora de colocar a voz para jogo! Responda em voz alta como se o Tech Lead estivesse conduzindo a Daily agora:
+                Time to practice speaking out loud! Answer as if your Scrum Master just asked you in the daily sync:
               </p>
             </div>
 
             <div class="speaking-prompts-grid">
               <div class="prompt-box">
-                <div class="prompt-q">🎙️ Questão 1: "What time does your first meeting start today?"</div>
+                <div class="prompt-q">🎙️ Question 1: "What time does your first meeting start today?"</div>
                 <div class="prompt-template">
-                  <span class="template-label">Template de resposta:</span>
+                  <span class="template-label">Response template:</span>
                   <p><em>"My first meeting starts <strong>at</strong> [ex: 9:00 AM], followed by our daily standup <strong>at</strong> [ex: 10:30 AM]."</em></p>
                 </div>
               </div>
 
               <div class="prompt-box">
-                <div class="prompt-q">🎙️ Questão 2: "What days of the week are usually best for deploys?"</div>
+                <div class="prompt-q">🎙️ Question 2: "What days of the week are usually best for deploys?"</div>
                 <div class="prompt-template">
-                  <span class="template-label">Template de resposta:</span>
+                  <span class="template-label">Response template:</span>
                   <p><em>"We usually release new versions <strong>on</strong> Tuesdays and Thursdays, and never <strong>on</strong> Fridays!"</em></p>
                 </div>
               </div>
 
               <div class="prompt-box">
-                <div class="prompt-q">🎙️ Questão 3: "Where are you working from this week?"</div>
+                <div class="prompt-q">🎙️ Question 3: "Where are you working from this week?"</div>
                 <div class="prompt-template">
-                  <span class="template-label">Template de resposta:</span>
+                  <span class="template-label">Response template:</span>
                   <p><em>"I am working <strong>at</strong> home today sitting <strong>at</strong> my desk, but I will be <strong>in</strong> the office <strong>on</strong> Wednesday."</em></p>
                 </div>
               </div>
@@ -1411,28 +1411,29 @@
 
             <div class="slide-action-banner">
               <div class="action-banner-text">
-                <h3>Pronto para testar seus reflexos?</h3>
-                <p>Inicie a Sprint Quest interativa de Preposições com 10 níveis técnicos e diagnóstico em tempo real!</p>
+                <h3>Ready to test your reflexes?</h3>
+                <p>Launch the interactive 10-level Prepositions Quest with instant real-time diagnostic feedback!</p>
               </div>
               <button class="btn btn-primary btn-large" id="startQuestFromSlidesBtn">
-                <span class="btn-text">INICIAR TESTE PRÁTICO (QUEST)</span>
+                <span class="btn-text">START PRACTICE QUEST (IN, ON, AT)</span>
                 <span class="btn-icon">⚡</span>
               </button>
             </div>
           </div>
+          </div>
 
           <!-- ===================================================================
-               DECK C: SÍLABA TÔNICA EM TI (INGLÊS vs PORTUGUÊS)
+               DECK C: WORD STRESS IN TECH (ENGLISH vs PORTUGUESE)
                =================================================================== -->
           <div class="deck-group hidden" id="deckGroupWordStress" data-deck-id="word-stress">
 
-            <!-- SLIDE 1: O BUG DO PORTUGUÊS NA SÍLABA TÔNICA -->
+            <!-- SLIDE 1: THE PORTUGUESE STRESS BUG -->
             <div class="slide-page active" data-slide="1">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 01 // VÍCIO FONÉTICO</span>
-                <h2 class="slide-title">O "Bug do Português" na Sílaba Tônica em TI</h2>
+                <span class="slide-step-tag">SLIDE 01 // PHONETIC INTERFERENCE</span>
+                <h2 class="slide-title">The "Portuguese Stress Bug" in Tech Vocabulary</h2>
                 <p class="slide-subtitle">
-                  Por que desenvolvedores brasileiros dizem <em>"de-ve-lo-PER"</em> ou <em>"tech-no-LO-gy"</em>? No português, quase todos os termos técnicos são paroxítonas ou oxítonas que colocam a força no final. Em inglês, a tônica salta para trás!
+                  Why do Brazilian developers say <em>"de-ve-lo-PER"</em> or <em>"tech-no-LO-gy"</em>? In Portuguese, technical cognates almost always place primary stress on the suffix or final syllable. In English, word stress shifts backward!
                 </p>
               </div>
 
@@ -1440,22 +1441,22 @@
                 <div class="concept-card concept-to">
                   <div class="concept-badge-to">
                     <span class="concept-icon">🇧🇷</span>
-                    <span>O HÁBITO DO PORTUGUÊS (FORÇA NO FINAL)</span>
+                    <span>PORTUGUESE HABIT (STRESS AT END)</span>
                   </div>
-                  <p class="concept-desc">No português, acentuamos o sufixo ou a última sílaba:</p>
+                  <p class="concept-desc">In Portuguese, stress naturally lands on the suffix or last syllable:</p>
                   <div class="concept-examples">
-                    <code>de-sen-vol-ve-<strong>DOR</strong> ➔ fala "de-ve-lo-PER" ❌</code>
-                    <code>tec-no-lo-<strong>GI</strong>-a ➔ fala "tech-no-LO-gy" ❌</code>
-                    <code>ar-qui-te-<strong>TU</strong>-ra ➔ fala "ar-chi-TEC-ture" ❌</code>
+                    <code>de-sen-vol-ve-<strong>DOR</strong> ➔ sounds like "de-ve-lo-PER" ❌</code>
+                    <code>tec-no-lo-<strong>GI</strong>-a ➔ sounds like "tech-no-LO-gy" ❌</code>
+                    <code>ar-qui-te-<strong>TU</strong>-ra ➔ sounds like "ar-chi-TEC-ture" ❌</code>
                   </div>
                 </div>
 
                 <div class="concept-card concept-for">
                   <div class="concept-badge-for">
                     <span class="concept-icon">🇺🇸</span>
-                    <span>A REGRA DO INGLÊS (FORÇA ANTERIOR)</span>
+                    <span>ENGLISH RULE (STRESS SHIFTS BACK)</span>
                   </div>
-                  <p class="concept-desc">Em inglês, o centro de gravidade fonético recua:</p>
+                  <p class="concept-desc">In English, primary stress shifts earlier in the word:</p>
                   <div class="concept-examples">
                     <code>de-<strong>VEL</strong>-op-er /dɪˈvel.ə.pər/ ✅</code>
                     <code>tech-<strong>NOL</strong>-o-gy /tekˈnɒl.ə.dʒi/ ✅</code>
@@ -1466,49 +1467,49 @@
 
               <div class="memory-anchor-banner">
                 <span class="anchor-glow">💡</span>
-                <span><strong>Regra de Ouro:</strong> Se você errar a sílaba tônica em inglês, o falante nativo muitas vezes <strong>não reconhece a palavra</strong>, mesmo que as letras estejam certas!</span>
+                <span><strong>Golden Rule:</strong> If you place word stress on the wrong syllable in English, native speakers often <strong>cannot recognize the word</strong>, even if every individual consonant and vowel is correct!</span>
               </div>
             </div>
 
             <!-- SLIDE 2: SUFIXOS -LOGY E -ITY -->
             <div class="slide-page" data-slide="2">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 02 // A REGRA DE OURO</span>
-                <h2 class="slide-title">Sufixos Magnéticos: A Sílaba Anterior ao -LOGY e -ITY</h2>
+                <span class="slide-step-tag">SLIDE 02 // MAGNETIC SUFFIXES</span>
+                <h2 class="slide-title">Magnetic Suffixes: The Syllable Before -LOGY and -ITY</h2>
                 <p class="slide-subtitle">
-                  Sempre que uma palavra terminar em <strong>-logy</strong> ou <strong>-ity</strong>, a tônica é puxada <em>obrigatoriamente</em> para a sílaba imediatamente anterior ao sufixo!
+                  Whenever a word ends in <strong>-logy</strong> or <strong>-ity</strong>, word stress is pulled <em>strictly</em> to the syllable immediately preceding the suffix!
                 </p>
               </div>
 
               <div class="tickets-debug-grid">
                 <div class="debug-ticket-card">
                   <div class="ticket-header">
-                    <span class="ticket-id">SUFIXO -LOGY</span>
-                    <span class="ticket-status fixed">TÔNICA IMEDIATAMENTE ANTERIOR</span>
+                    <span class="ticket-id">SUFFIX -LOGY</span>
+                    <span class="ticket-status fixed">STRESS IMMEDIATELY PRECEDING</span>
                   </div>
                   <div class="ticket-code">
-                    tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(não tech-no-LO-gy!)</span><br>
+                    tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(not tech-no-LO-gy!)</span><br>
                     meth-od-<strong>OL</strong>-o-gy<br>
                     bi-<strong>OL</strong>-o-gy
                   </div>
                   <div class="ticket-why">
-                    <strong>Por que erramos?</strong> Em português dizemos <em>"tec-no-lo-GI-a"</em> com força no final. Em inglês, a força fica no <strong>NOL</strong>!
+                    <strong>Why the mistake?</strong> In Portuguese we say <em>"tec-no-lo-GI-a"</em> with stress on GI. In English, stress is locked on <strong>NOL</strong>!
                   </div>
                 </div>
 
                 <div class="debug-ticket-card">
                   <div class="ticket-header">
-                    <span class="ticket-id">SUFIXO -ITY</span>
-                    <span class="ticket-status fixed">TÔNICA IMEDIATAMENTE ANTERIOR</span>
+                    <span class="ticket-id">SUFFIX -ITY</span>
+                    <span class="ticket-status fixed">STRESS IMMEDIATELY PRECEDING</span>
                   </div>
                   <div class="ticket-code">
-                    ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(não ca-pa-CI-ty!)</span><br>
-                    pro-duc-<strong>TIV</strong>-i-ty <span class="syntax-correct">(não pro-duc-ti-VI-ty!)</span><br>
+                    ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(not ca-pa-CI-ty!)</span><br>
+                    pro-duc-<strong>TIV</strong>-i-ty <span class="syntax-correct">(not pro-duc-ti-VI-ty!)</span><br>
                     se-<strong>CUR</strong>-i-ty<br>
                     re-li-a-<strong>BIL</strong>-i-ty
                   </div>
                   <div class="ticket-why">
-                    <strong>Atenção:</strong> Em português dizemos <em>"ca-pa-ci-DA-de"</em> e <em>"pro-du-ti-vi-DA-de"</em>. No inglês, a força é puxada para trás: <strong>PAC</strong> e <strong>TIV</strong>!
+                    <strong>Key distinction:</strong> In Portuguese we say <em>"ca-pa-ci-DA-de"</em> and <em>"pro-du-ti-vi-DA-de"</em>. In English, stress is pulled back to <strong>PAC</strong> and <strong>TIV</strong>!
                   </div>
                 </div>
               </div>
@@ -1517,50 +1518,50 @@
             <!-- SLIDE 3: VERBOS EM -ATE E -IZE -->
             <div class="slide-page" data-slide="3">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 03 // VERBOS TÉCNICOS</span>
-                <h2 class="slide-title">Verbos em -ATE e -IZE: A Antepenúltima Sílaba</h2>
+                <span class="slide-step-tag">SLIDE 03 // TECHNICAL VERBS</span>
+                <h2 class="slide-title">Verbs in -ATE and -IZE: Antepenultimate Stress</h2>
                 <p class="slide-subtitle">
-                  Para verbos com 3 sílabas ou mais terminados em <strong>-ate</strong> ou <strong>-ize</strong>, a força recai duas sílabas antes do final (proparoxítona).
+                  For verbs with 3 or more syllables ending in <strong>-ate</strong> or <strong>-ize</strong>, stress falls two syllables before the end (antepenultimate).
                 </p>
               </div>
 
               <div class="speaking-prompts-grid">
                 <div class="prompt-box">
-                  <div class="prompt-q">⚙️ AU-to-mate (e não au-to-MATE)</div>
+                  <div class="prompt-q">⚙️ AU-to-mate (not au-to-MATE)</div>
                   <div class="prompt-template">
-                    <span class="template-label">Exemplo Prático:</span>
+                    <span class="template-label">Practical Example:</span>
                     <p><em>"We must <strong>AU</strong>-to-mate the test execution in CI/CD."</em></p>
-                    <span class="template-context">Em PT: "au-to-ma-TI-zar". Em inglês: <strong>AU</strong>-to-mate!</span>
+                    <span class="template-context">In PT: "au-to-ma-TI-zar". In English: <strong>AU</strong>-to-mate!</span>
                   </div>
                 </div>
 
                 <div class="prompt-box">
-                  <div class="prompt-q">💬 com-MU-ni-cate (e não com-mu-ni-CATE)</div>
+                  <div class="prompt-q">💬 com-MU-ni-cate (not com-mu-ni-CATE)</div>
                   <div class="prompt-template">
-                    <span class="template-label">Exemplo Prático:</span>
+                    <span class="template-label">Practical Example:</span>
                     <p><em>"Devs must <strong>com-MU-ni-cate</strong> async on Slack."</em></p>
-                    <span class="template-context">Em PT: "co-mu-ni-CAR". Em inglês a força é no <strong>MU</strong>!</span>
+                    <span class="template-context">In PT: "co-mu-ni-CAR". In English: stress is on <strong>MU</strong>!</span>
                   </div>
                 </div>
 
                 <div class="prompt-box">
-                  <div class="prompt-q">🎯 pri-OR-i-tize (e não pri-o-ri-TIZE)</div>
+                  <div class="prompt-q">🎯 pri-OR-i-tize (not pri-o-ri-TIZE)</div>
                   <div class="prompt-template">
-                    <span class="template-label">Exemplo Prático:</span>
+                    <span class="template-label">Practical Example:</span>
                     <p><em>"The team decided to <strong>pri-OR-i-tize</strong> the critical bug."</em></p>
-                    <span class="template-context">Em PT: "pri-o-ri-ZAR". Em inglês a força é no <strong>OR</strong>!</span>
+                    <span class="template-context">In PT: "pri-o-ri-ZAR". In English: stress is on <strong>OR</strong>!</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 4: SUBSTANTIVOS DE 2 SÍLABAS -->
+            <!-- SLIDE 4: 2-SYLLABLE NOUNS -->
             <div class="slide-page" data-slide="4">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 04 // NOMES DE 2 SÍLABAS</span>
-                <h2 class="slide-title">Substantivos Técnicos de 2 Sílabas: Força no Começo!</h2>
+                <span class="slide-step-tag">SLIDE 04 // 2-SYLLABLE TECH NOUNS</span>
+                <h2 class="slide-title">2-Syllable Tech Nouns: Stress on the First Syllable!</h2>
                 <p class="slide-subtitle">
-                  Cerca de 85% dos substantivos em inglês de duas sílabas têm a tônica na <strong>primeira sílaba</strong>. Veja os que mais confundem desenvolvedores:
+                  Over 85% of two-syllable nouns in English place primary stress on the <strong>first syllable</strong>. Here are the ones that cause the most confusion:
                 </p>
               </div>
 
@@ -1570,14 +1571,14 @@
                     <span class="card-prep-icon">👥</span>
                     <h3>COL-league /ˈkɒl.iːɡ/</h3>
                   </div>
-                  <p class="card-prep-core">Em português falamos <em>"co-LE-ga"</em> (com força na 2ª sílaba). No inglês, a palavra é pronunciada com força na PRIMEIRA sílaba e o final é quase mudo: <strong>COL</strong>-league!</p>
+                  <p class="card-prep-core">In Portuguese we say <em>"co-LE-ga"</em> (stress on LE). In English, stress is firmly on the FIRST syllable: <strong>COL</strong>-league!</p>
                   <div class="card-prep-rules">
                     <div class="rule-item">
-                      <span class="rule-check">❌ Erro comum:</span>
+                      <span class="rule-check">❌ Common trap:</span>
                       <code>falar "col-LEAGUE" ou "co-LE-ga"</code>
                     </div>
                     <div class="rule-item">
-                      <span class="rule-check">✅ Correto:</span>
+                      <span class="rule-check">✅ Correct:</span>
                       <code>my senior <strong>COL</strong>-league explained it to me</code>
                     </div>
                   </div>
@@ -1588,14 +1589,14 @@
                     <span class="card-prep-icon">🚨</span>
                     <h3>IN-ci-dent /ˈɪn.sɪ.dənt/</h3>
                   </div>
-                  <p class="card-prep-core">Em português dizemos <em>"in-ci-DEN-te"</em>. Em inglês, a força está no <strong>IN</strong>, e as sílabas seguintes reduzem suavemente.</p>
+                  <p class="card-prep-core">In Portuguese we say <em>"in-ci-DEN-te"</em>. In English, stress is on <strong>IN</strong>, and the remaining syllables reduce smoothly.</p>
                   <div class="card-prep-rules">
                     <div class="rule-item">
-                      <span class="rule-check">❌ Erro comum:</span>
-                      <code>falar "in-ci-DENT" com força no final</code>
+                      <span class="rule-check">❌ Common trap:</span>
+                      <code>saying "in-ci-DENT" with stress at the end</code>
                     </div>
                     <div class="rule-item">
-                      <span class="rule-check">✅ Correto:</span>
+                      <span class="rule-check">✅ Correct:</span>
                       <code>we opened a high-priority <strong>IN</strong>-ci-dent</code>
                     </div>
                   </div>
@@ -1606,74 +1607,74 @@
             <!-- SLIDE 5: O EFEITO SCHWA -->
             <div class="slide-page" data-slide="5">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 05 // O SEGREDO DO SCHWA</span>
-                <h2 class="slide-title">O Som Neutro Schwa (/ə/): O Ritmo do Inglês</h2>
+                <span class="slide-step-tag">SLIDE 05 // THE SCHWA SECRET</span>
+                <h2 class="slide-title">The Reduced Neutral Vowel "Schwa" (/ə/): The Rhythm of English</h2>
                 <p class="slide-subtitle">
-                  No português falamos quase todas as vogais abertas (ritmo silábico). No inglês (ritmo acentual), <strong>toda sílaba que NÃO é a tônica vira um som fraco e neutro</strong> (/ə/ - schwa)!
+                  Portuguese is a syllable-timed language where most vowels are clearly pronounced. English is a stress-timed language: <strong>any syllable that is NOT stressed reduces to the weak neutral vowel</strong> (/ə/ - schwa)!
                 </p>
               </div>
 
               <div class="concept-card" style="border-color: rgba(6, 182, 212, 0.4); background: rgba(6, 182, 212, 0.08); padding: 20px;">
-                <h3 style="color: var(--cyan-neon); margin-bottom: 12px;">Exemplo Prático: de-VEL-op-er (/dɪˈvel.ə.pər/)</h3>
+                <h3 style="color: var(--cyan-neon); margin-bottom: 12px;">Practical Example: de-VEL-op-er (/dɪˈvel.ə.pər/)</h3>
                 <p style="color: var(--text-main); line-height: 1.6; margin-bottom: 14px;">
-                  1. A primeira sílaba <code>de-</code> é fraca e soa como /dɪ/<br>
-                  2. A segunda sílaba <strong style="color: var(--amber-neon); font-size: 1.2rem;">VEL</strong> é a tônica: longa, alta e nítida!<br>
-                  3. A terceira sílaba <code>-op-</code> vira schwa /ə/<br>
-                  4. A quarta sílaba <code>-er</code> vira schwa r-colorido /pər/
+                  1. The first syllable <code>de-</code> is unstressed and reduces to /dɪ/<br>
+                  2. The second syllable <strong style="color: var(--amber-neon); font-size: 1.2rem;">VEL</strong> is stressed: louder, longer, higher pitch!<br>
+                  3. The third syllable <code>-op-</code> reduces to schwa /ə/<br>
+                  4. The fourth syllable <code>-er</code> reduces to r-colored schwa /pər/
                 </p>
                 <div class="memory-anchor-banner" style="background: rgba(15, 23, 42, 0.8);">
-                  <span>Se você disser <em>"de-ve-lo-PER"</em>, os sons fracos não acontecem, o ritmo do idioma quebra e o ouvido do gringo trava!</span>
+                  <span>If you say <em>"de-ve-lo-PER"</em>, vowel reduction fails to occur, English sentence rhythm breaks down, and native listeners struggle to parse the word!</span>
                 </div>
               </div>
             </div>
 
-            <!-- SLIDE 6: CHEAT SHEET RÁPIDA -->
+            <!-- SLIDE 6: QUICK CHEAT SHEET -->
             <div class="slide-page" data-slide="6">
               <div class="slide-header">
-                <span class="slide-step-tag">SLIDE 06 // CHEAT SHEET RÁPIDA</span>
-                <h2 class="slide-title">Top 10 Termos de TI com Sílaba Tônica em Inglês</h2>
+                <span class="slide-step-tag">SLIDE 06 // QUICK CHEAT SHEET</span>
+                <h2 class="slide-title">Top 10 Tech Terms with Primary English Word Stress</h2>
                 <p class="slide-subtitle">
-                  Guarde esta tabela de bolso para suas próximas Dailies, Code Reviews e reuniões técnicas:
+                  Keep this quick pocket reference ready for your upcoming Daily Standups, Code Reviews, and syncs:
                 </p>
               </div>
 
               <div class="tickets-debug-grid">
                 <div class="debug-ticket-card">
                   <div class="ticket-header">
-                    <span class="ticket-id">TERMOS 1 A 5</span>
-                    <span class="ticket-status fixed">TÔNICA REAL</span>
+                    <span class="ticket-id">TERMS 1 TO 5</span>
+                    <span class="ticket-status fixed">PRIMARY STRESS</span>
                   </div>
                   <div class="ticket-code">
-                    1. de-<strong>VEL</strong>-op-er <span class="syntax-correct">(2ª sílaba)</span><br>
-                    2. <strong>AR</strong>-chi-tec-ture <span class="syntax-correct">(1ª sílaba)</span><br>
-                    3. tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(2ª sílaba)</span><br>
-                    4. cer-<strong>TIF</strong>-i-cate <span class="syntax-correct">(2ª sílaba)</span><br>
-                    5. <strong>COL</strong>-league <span class="syntax-correct">(1ª sílaba)</span>
+                    1. de-<strong>VEL</strong>-op-er <span class="syntax-correct">(2nd syllable)</span><br>
+                    2. <strong>AR</strong>-chi-tec-ture <span class="syntax-correct">(1st syllable)</span><br>
+                    3. tech-<strong>NOL</strong>-o-gy <span class="syntax-correct">(2nd syllable)</span><br>
+                    4. cer-<strong>TIF</strong>-i-cate <span class="syntax-correct">(2nd syllable)</span><br>
+                    5. <strong>COL</strong>-league <span class="syntax-correct">(1st syllable)</span>
                   </div>
                 </div>
 
                 <div class="debug-ticket-card">
                   <div class="ticket-header">
-                    <span class="ticket-id">TERMOS 6 A 10</span>
-                    <span class="ticket-status fixed">TÔNICA REAL</span>
+                    <span class="ticket-id">TERMS 6 TO 10</span>
+                    <span class="ticket-status fixed">PRIMARY STRESS</span>
                   </div>
                   <div class="ticket-code">
-                    6. <strong>AU</strong>-to-mate <span class="syntax-correct">(1ª sílaba)</span><br>
-                    7. ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(2ª sílaba)</span><br>
-                    8. pri-<strong>OR</strong>-i-tize <span class="syntax-correct">(2ª sílaba)</span><br>
-                    9. ca-<strong>TAS</strong>-tro-phe <span class="syntax-correct">(2ª sílaba)</span><br>
-                    10. re-<strong>LI</strong>-a-ble <span class="syntax-correct">(2ª sílaba)</span>
+                    6. <strong>AU</strong>-to-mate <span class="syntax-correct">(1st syllable)</span><br>
+                    7. ca-<strong>PAC</strong>-i-ty <span class="syntax-correct">(2nd syllable)</span><br>
+                    8. pri-<strong>OR</strong>-i-tize <span class="syntax-correct">(2nd syllable)</span><br>
+                    9. ca-<strong>TAS</strong>-tro-phe <span class="syntax-correct">(2nd syllable)</span><br>
+                    10. re-<strong>LI</strong>-a-ble <span class="syntax-correct">(2nd syllable)</span>
                   </div>
                 </div>
               </div>
 
               <div class="slide-action-banner">
                 <div class="action-banner-text">
-                  <h3>Pronto para a Atividade de Leitura?</h3>
-                  <p>Leia os 3 textos técnicos de TI, ative a exibição da sílaba tônica e responda aos 9 desafios!</p>
+                  <h3>Ready for the Tech Reading Activity?</h3>
+                  <p>Read the 3 technical IT passages, toggle word stress display, and solve the 9 diagnostic challenges!</p>
                 </div>
                 <button class="btn btn-primary btn-large" onclick="if(window.questApp) { window.questApp.closeStudyDeck(); const q = QUESTS_CATALOG.find(x => x.id === 'tech-reading-stress'); if(q) window.questApp.selectQuest(q); }">
-                  <span class="btn-text">INICIAR ATIVIDADE DE LEITURA</span>
+                  <span class="btn-text">START TECH READING QUEST</span>
                   <span class="btn-icon">📖</span>
                 </button>
               </div>
@@ -1683,35 +1684,34 @@
 
         </div>
       </div>
-      </div>
 
       <!-- Slide Deck Navigation Footer -->
       <div class="slide-deck-footer">
         <button class="btn btn-secondary deck-nav-btn" id="prevSlideBtn">
-          <span>⬅ Anterior</span>
+          <span>⬅ Previous</span>
         </button>
 
         <div class="slide-dots" id="slideDotsContainer">
-          <span class="slide-dot active" data-index="1" title="Slide 1: A Pirâmide"></span>
-          <span class="slide-dot" data-index="2" title="Slide 2: Tempo"></span>
-          <span class="slide-dot" data-index="3" title="Slide 3: Lugar"></span>
+          <span class="slide-dot active" data-index="1" title="Slide 1: The Pyramid"></span>
+          <span class="slide-dot" data-index="2" title="Slide 2: Time"></span>
+          <span class="slide-dot" data-index="3" title="Slide 3: Place"></span>
           <span class="slide-dot" data-index="4" title="Slide 4: Cheat Codes"></span>
           <span class="slide-dot" data-index="5" title="Slide 5: Bug Hunting"></span>
           <span class="slide-dot" data-index="6" title="Slide 6: Speaking Drill"></span>
         </div>
 
         <button class="btn btn-primary deck-nav-btn" id="nextSlideBtn">
-          <span>Próximo ➔</span>
+          <span>Next ➔</span>
         </button>
 
         <div class="deck-kbd-hint">
-          Navegue com <kbd>←</kbd> <kbd>→</kbd> ou <kbd>Espaço</kbd>
+          Navigate with <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="quests_data.js?v=20261117_1"></script>
-  <script src="app.js?v=20261117_1"></script>
+  <script src="quests_data.js?v=20261117_3"></script>
+  <script src="app.js?v=20261117_3"></script>
 </body>
 </html>

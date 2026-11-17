@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal do Professor | Tech English Quests Control</title>
+  <title>Teacher Dashboard | Tech English Quests Control</title>
   <meta name="robots" content="noindex, nofollow">
   
   <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -190,68 +190,353 @@
       background-color: #000;
     }
 
+    .toggle-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
     .toggle-status-tag {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .toggle-status-tag.active {
       color: var(--green-neon);
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
     .toggle-status-tag.locked {
-      color: var(--red-neon);
+      color: var(--red-alert);
+    }
+
+    /* Insights Section */
+    .teacher-insights-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .teacher-insights-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .focus-card {
+      border-left: 4px solid var(--purple-accent);
+      background: rgba(168, 85, 247, 0.05);
+    }
+
+    .insight-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--purple-accent);
+      letter-spacing: 0.05em;
+    }
+
+    .focus-card h4 {
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .focus-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .teacher-quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .t-stat {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .t-val {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .t-val.highlight-red {
+      color: var(--red-alert);
+      font-size: 1.05rem;
+      word-break: break-word;
+    }
+
+    .t-lbl {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Submissions List */
+    .submissions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .submission-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      flex-wrap: wrap;
+    }
+
+    .submission-row:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      background: rgba(168, 85, 247, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .sub-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sub-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    .sub-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan-neon);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .sub-time {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .sub-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sub-score {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .sub-score.high {
+      color: var(--green-neon);
+    }
+
+    .sub-score.med {
+      color: var(--amber-glow);
+    }
+
+    .sub-score.low {
+      color: var(--red-alert);
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-mono);
+    }
+
+    .btn-refresh {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-refresh:hover {
+      background: #334155;
+    }
+
+    .btn-danger {
       background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.35);
     }
 
-    .toggle-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.4;
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.3);
     }
 
     .save-feedback-pill {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: var(--green-neon);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .save-feedback-pill.show {
+      opacity: 1;
+    }
+
+    /* Modal / Drawer for detailed audit */
+    .submission-detail-drawer {
+      background: #090d16;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .submission-detail-drawer.hidden {
       display: none;
+    }
+
+    .detail-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+
+    .detail-drawer-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .audit-item {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    .audit-item.correct {
+      border-left: 3px solid var(--green-neon);
+    }
+
+    .audit-item.wrong {
+      border-left: 3px solid var(--red-alert);
+    }
+
+    .audit-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .audit-item-title {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .audit-item-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .audit-item.correct .audit-item-badge {
+      color: var(--green-neon);
+    }
+
+    .audit-item.wrong .audit-item-badge {
+      color: var(--red-alert);
+    }
+
+    .audit-diag-note {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 4px;
+      font-family: var(--font-mono);
     }
   </style>
 </head>
-<body>
-  <div class="cyber-glow glow-cyan"></div>
-  <div class="cyber-glow glow-green"></div>
-  <div class="cyber-grid-overlay"></div>
+<body class="theme-glow">
+  <div class="mesh-bg"></div>
 
   <div class="teacher-page-container">
-    <!-- Teacher Header Bar -->
+    
+    <!-- Topbar & Authentication Pill -->
     <header class="teacher-topbar">
       <div class="teacher-brand">
-        <span class="pulse-indicator"></span>
-        <h1 style="font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.01em;">PORTAL DO PROFESSOR</h1>
-        <span class="teacher-badge">CENTRAL DE CONTROLE PEDAGÓGICO</span>
+        <span style="font-size: 1.5rem;">👨‍🏫</span>
+        <div>
+          <h1 style="font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.01em;">TEACHER DASHBOARD</h1>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Tech English Quest Control & Diagnostic Center</span>
+        </div>
+        <span class="teacher-badge">PEDAGOGICAL CONTROL CENTER</span>
       </div>
 
       <div class="teacher-status-auth">
-        <span>🛡️ ACESSO EXCLUSIVO DO PROFESSOR</span>
+        <span>🛡️ TEACHER ACCESS ONLY</span>
       </div>
     </header>
 
     <!-- Student Public Link Share Banner -->
     <div class="share-card-banner">
       <div class="share-info">
-        <span class="share-title">🔗 LINK DE ACESSO PARA ENVIAR AO ALUNO (QUALQUER CIDADE):</span>
-        <span class="share-url" id="studentShareUrl">Carregando endereço...</span>
+        <span class="share-title">🔗 STUDENT DIRECT ACCESS LINK (SEND TO STUDENT):</span>
+        <span class="share-url" id="studentShareUrl">Loading student URL...</span>
       </div>
       <button class="btn btn-primary btn-sm" id="copyStudentLinkBtn">
-        <span>📋 Copiar Link do Aluno</span>
+        <span>📋 Copy Student Link</span>
       </button>
     </div>
 
@@ -259,12 +544,12 @@
     <section class="glass-panel" style="padding: 24px 28px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
         <div>
-          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">🎯 Controle de Liberação dos Testes</h2>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">🎯 Quest Access & Unlock Control</h2>
           <p style="font-size: 0.88rem; color: var(--text-muted);">
-            Defina quais testes estão liberados para o estudante fazer agora. Testes desativados aparecerão como <strong>indisponíveis/bloqueados</strong> no portal do aluno.
+            Choose which quests are active and available for the student right now. Deactivated quests will appear as <strong>locked / unavailable</strong> in the student portal.
           </p>
         </div>
-        <span class="save-feedback-pill" id="settingsSaveNotification">✔ Salvo no servidor!</span>
+        <span class="save-feedback-pill" id="settingsSaveNotification">✔ Saved to server!</span>
       </div>
 
       <div class="quest-controls-grid" id="questControlsGrid">
@@ -274,32 +559,32 @@
 
     <!-- SECTION 2: CLINICAL INSIGHTS & NEXT CLASS ADVICE -->
     <section class="glass-panel" style="padding: 24px 28px;">
-      <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px;">🧠 Diagnóstico Clínico & Onde Focar na Próxima Aula</h2>
+      <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px;">🧠 Diagnostic Insights & Focus for Next Class</h2>
       <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
-        Análise pedagógica automática gerada a partir dos padrões de erro registrados nas respostas dos alunos.
+        Automated pedagogical diagnostic analysis generated from error patterns recorded across student submissions.
       </p>
 
       <div class="teacher-insights-grid">
         <div class="insight-card focus-card">
-          <div class="insight-badge">PLANO DE AÇÃO PEDAGÓGICO</div>
-          <h4 id="teacherFocusTopic">Carregando insights...</h4>
-          <p id="teacherFocusAdvice">Aguardando submissões dos estudantes para mapear os pontos cegos.</p>
+          <div class="insight-badge">PEDAGOGICAL ACTION PLAN</div>
+          <h4 id="teacherFocusTopic">Loading insights...</h4>
+          <p id="teacherFocusAdvice">Waiting for student submissions to map grammar blind spots.</p>
         </div>
 
         <div class="insight-card stats-summary-card">
-          <div class="insight-badge">MÉTRICAS DA TURMA</div>
+          <div class="insight-badge">CLASSROOM METRICS</div>
           <div class="teacher-quick-stats">
             <div class="t-stat">
               <span class="t-val" id="totalSubmissionsCount">0</span>
-              <span class="t-lbl">Testes Feitos</span>
+              <span class="t-lbl">Quests Completed</span>
             </div>
             <div class="t-stat">
               <span class="t-val" id="avgAccuracy">0%</span>
-              <span class="t-lbl">Média de Acerto</span>
+              <span class="t-lbl">Average Accuracy</span>
             </div>
             <div class="t-stat">
               <span class="t-val highlight-red" id="topErrorType">-</span>
-              <span class="t-lbl">Erro Mais Frequente</span>
+              <span class="t-lbl">Most Frequent Error</span>
             </div>
           </div>
         </div>
@@ -310,26 +595,26 @@
     <section class="glass-panel" style="padding: 24px 28px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
         <div>
-          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">📝 Histórico de Testes Realizados</h2>
+          <h2 style="font-size: 1.3rem; font-weight: 800; color: #fff;">📝 Student Submission Audit Log</h2>
           <p style="font-size: 0.88rem; color: var(--text-muted);">
-            Clique em qualquer linha para inspecionar cada questão, a resposta dada pelo aluno e o diagnóstico de erro.
+            Click any row to inspect each question, the student's answer, and the diagnostic distractor note.
           </p>
         </div>
         <div style="display: flex; gap: 8px;">
-          <button class="btn-sm btn-refresh" id="refreshSubmissionsBtn">🔄 Atualizar Dados</button>
-          <button class="btn-sm btn-danger" id="clearSubmissionsBtn">🗑️ Limpar Histórico</button>
+          <button class="btn-sm btn-refresh" id="refreshSubmissionsBtn">🔄 Refresh Data</button>
+          <button class="btn-sm btn-danger" id="clearSubmissionsBtn">🗑️ Clear History</button>
         </div>
       </div>
 
       <div class="submissions-list" id="teacherSubmissionsList">
-        <div class="empty-state">Nenhum teste foi realizado ainda. Compartilhe o link com o aluno!</div>
+        <div class="empty-state">No quests have been completed yet. Share the link with your student!</div>
       </div>
 
       <!-- Submission Detail Drawer -->
       <div class="submission-detail-drawer hidden" id="submissionDetailDrawer" style="margin-top: 20px;">
         <div class="detail-drawer-header">
-          <h4 id="detailStudentTitle">Detalhes do Aluno</h4>
-          <button class="btn-sm" id="closeDetailDrawerBtn">Fechar Auditoria</button>
+          <h4 id="detailStudentTitle">Student Details</h4>
+          <button class="btn-sm" id="closeDetailDrawerBtn">Close Audit</button>
         </div>
         <div class="detail-drawer-body" id="detailDrawerBody">
           <!-- Filled dynamically -->
@@ -339,7 +624,7 @@
 
   </div>
 
-  <script src="quests_data.js"></script>
-  <script src="teacher.js"></script>
+  <script src="quests_data.js?v=20261117_3"></script>
+  <script src="teacher.js?v=20261117_3"></script>
 </body>
 </html>

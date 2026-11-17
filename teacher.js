@@ -55,16 +55,16 @@ class TeacherPortal {
 
   copyStudentShareLink() {
     const studentUrl = `${window.location.origin}/`;
-    const message = `Fala dev! Preparei este teste gamificado interativo em formato de Daily Standup para avaliarmos o seu inglês técnico:\n${studentUrl}\nBasta acessar no navegador do celular ou computador e fazer a quest!`;
+    const message = `Hey! I prepared this interactive Daily Standup challenge to test your technical English:\n${studentUrl}\nOpen it on your desktop or mobile browser and complete the quest!`;
 
     navigator.clipboard.writeText(message).then(() => {
       const orig = this.copyStudentLinkBtn.querySelector("span").textContent;
-      this.copyStudentLinkBtn.querySelector("span").textContent = "Link & Mensagem Copiados! ✔";
+      this.copyStudentLinkBtn.querySelector("span").textContent = "Link & Message Copied! ✔";
       setTimeout(() => {
         this.copyStudentLinkBtn.querySelector("span").textContent = orig;
       }, 2500);
     }).catch(() => {
-      alert(`Link do Aluno:\n${studentUrl}`);
+      alert(`Student Link:\n${studentUrl}`);
     });
   }
 
@@ -99,46 +99,45 @@ class TeacherPortal {
       card.innerHTML = `
         <div class="toggle-header">
           <span class="toggle-title">${quest.icon} ${quest.title}</span>
-          <label class="switch" title="Ativar ou desativar acesso para os alunos">
+          <label class="switch" title="Toggle student access">
             <input type="checkbox" id="checkbox-${quest.id}" ${isEnabled ? "checked" : ""}>
             <span class="slider"></span>
           </label>
         </div>
         <span class="toggle-status-tag ${isEnabled ? "active" : "locked"}" id="tag-${quest.id}">
-          ${isEnabled ? "🟢 LIBERADO (Aluno pode fazer)" : "🔒 BLOQUEADO (Indisponível para o aluno)"}
+          ${isEnabled ? "🟢 UNLOCKED (Student can access)" : "🔒 LOCKED (Unavailable to student)"}
         </span>
         <p class="toggle-desc">${quest.description}</p>
       `;
 
-      const checkbox = card.querySelector(`#checkbox-${quest.id}`);
-      checkbox.addEventListener("change", (e) => {
-        this.handleQuestToggle(quest.id, e.target.checked);
+      const input = card.querySelector(`#checkbox-${quest.id}`);
+      input.addEventListener("change", (e) => {
+        this.toggleQuestAccess(quest.id, e.target.checked);
       });
 
       this.questControlsGrid.appendChild(card);
     });
   }
 
-  handleQuestToggle(questId, isChecked) {
-    this.questSettings[questId] = isChecked;
+  toggleQuestAccess(questId, enabled) {
+    this.questSettings[questId] = enabled;
 
-    // Update UI card dynamically
     const card = document.getElementById(`card-toggle-${questId}`);
     const tag = document.getElementById(`tag-${questId}`);
 
-    if (card && tag) {
-      if (isChecked) {
-        card.className = "quest-toggle-card active";
-        tag.className = "toggle-status-tag active";
-        tag.textContent = "🟢 LIBERADO (Aluno pode fazer)";
-      } else {
-        card.className = "quest-toggle-card locked";
-        tag.className = "toggle-status-tag locked";
-        tag.textContent = "🔒 BLOQUEADO (Indisponível para o aluno)";
-      }
+    if (enabled) {
+      card.classList.remove("locked");
+      card.classList.add("active");
+      tag.className = "toggle-status-tag active";
+      tag.textContent = "🟢 UNLOCKED (Student can access)";
+    } else {
+      card.classList.remove("active");
+      card.classList.add("locked");
+      tag.className = "toggle-status-tag locked";
+      tag.textContent = "🔒 LOCKED (Unavailable to student)";
     }
 
-    // Save to server
+    // Persist to server
     fetch(`/api/quest-settings?auth=${encodeURIComponent(TEACHER_AUTH_KEY)}`, {
       method: "POST",
       headers: {
@@ -149,101 +148,106 @@ class TeacherPortal {
     })
       .then(res => res.json())
       .then(() => {
-        this.showSaveNotification();
+        this.showSavedPill();
       })
       .catch(err => {
-        console.error("Failed to save quest settings on server:", err);
+        console.error("Failed to save quest settings to server:", err);
+        // Fallback to local storage
+        localStorage.setItem("standup_quest_settings", JSON.stringify(this.questSettings));
+        this.showSavedPill();
       });
   }
 
-  showSaveNotification() {
-    this.settingsSaveNotification.style.display = "inline-block";
+  showSavedPill() {
+    this.settingsSaveNotification.classList.add("show");
     setTimeout(() => {
-      this.settingsSaveNotification.style.display = "none";
+      this.settingsSaveNotification.classList.remove("show");
     }, 2000);
   }
 
   // ==========================================================================
-  // 2. SUBMISSIONS & CLINICAL INSIGHTS
+  // 2. SUBMISSIONS FETCHING & CLINICAL DIAGNOSTICS
   // ==========================================================================
 
   loadSubmissions() {
-    fetch(`/api/submissions?auth=${encodeURIComponent(TEACHER_AUTH_KEY)}`, {
-      headers: { "Authorization": `Bearer ${TEACHER_AUTH_KEY}` }
-    })
-      .then(res => {
-        if (!res.ok) throw new Error("Unauthorized or server error");
-        return res.json();
-      })
-      .then(submissions => {
-        this.submissions = submissions || [];
-        this.renderSubmissions();
+    fetch(`/api/submissions?auth=${encodeURIComponent(TEACHER_AUTH_KEY)}`)
+      .then(res => res.json())
+      .then(data => {
+        this.submissions = Array.isArray(data) ? data : [];
         this.computeInsights();
+        this.renderSubmissions();
       })
       .catch(err => {
-        console.warn("Could not fetch submissions from server:", err);
-        const localList = JSON.parse(localStorage.getItem("standup_quest_submissions") || "[]");
-        this.submissions = localList;
-        this.renderSubmissions();
+        console.warn("Could not fetch remote submissions, reading localStorage:", err);
+        const local = localStorage.getItem("standup_quest_submissions");
+        this.submissions = local ? JSON.parse(local) : [];
         this.computeInsights();
+        this.renderSubmissions();
       });
   }
 
   computeInsights() {
-    this.totalSubmissionsCount.textContent = this.submissions.length;
+    const total = this.submissions.length;
+    this.totalSubmissionsCount.textContent = total;
 
-    if (!this.submissions || this.submissions.length === 0) {
+    if (total === 0) {
       this.avgAccuracy.textContent = "0%";
       this.topErrorType.textContent = "-";
-      this.teacherFocusTopic.textContent = "Nenhum teste realizado ainda";
-      this.teacherFocusAdvice.textContent = "Compartilhe o link com o aluno. Assim que ele finalizar o teste, os insights clínicos e pontos cegos aparecerão aqui.";
+      this.teacherFocusTopic.textContent = "No Submissions Yet";
+      this.teacherFocusAdvice.textContent = "Share the link with your student. Once they finish the quest, clinical insights and blind spots will appear here.";
       return;
     }
 
-    const totalAccuracy = this.submissions.reduce((acc, s) => acc + (s.accuracy || 0), 0);
-    const avgAcc = Math.round(totalAccuracy / this.submissions.length);
-    this.avgAccuracy.textContent = `${avgAcc}%`;
+    // Calculate Average Accuracy
+    const totalAcc = this.submissions.reduce((acc, cur) => acc + (cur.accuracy || 0), 0);
+    const avg = Math.round(totalAcc / total);
+    this.avgAccuracy.textContent = `${avg}%`;
 
+    // Map error patterns
     const errorCounts = {};
     this.submissions.forEach(sub => {
-      (sub.userAnswers || []).forEach(ans => {
-        if (!ans.isCorrect && ans.errorLabel) {
-          errorCounts[ans.errorLabel] = (errorCounts[ans.errorLabel] || 0) + 1;
-        }
-      });
+      if (Array.isArray(sub.userAnswers)) {
+        sub.userAnswers.forEach(ans => {
+          if (!ans.isCorrect && ans.errorLabel) {
+            errorCounts[ans.errorLabel] = (errorCounts[ans.errorLabel] || 0) + 1;
+          }
+        });
+      }
     });
 
     let topError = "-";
     let maxCount = 0;
-    Object.keys(errorCounts).forEach(label => {
-      if (errorCounts[label] > maxCount) {
-        maxCount = errorCounts[label];
-        topError = label;
+    for (const [errLabel, count] of Object.entries(errorCounts)) {
+      if (count > maxCount) {
+        maxCount = count;
+        topError = errLabel;
       }
-    });
+    }
 
-    this.topErrorType.textContent = topError.length > 20 ? topError.substring(0, 18) + "..." : topError;
+    this.topErrorType.textContent = topError !== "-" ? `${topError} (${maxCount}x)` : "None detected";
 
-    if (maxCount > 0) {
-      this.teacherFocusTopic.textContent = `Atenção Prioritária: ${topError}`;
-      if (topError.toLowerCase().includes("duplo passado")) {
-        this.teacherFocusAdvice.innerHTML = `O estudante repetiu a armadilha do <strong>duplo passado</strong> (${maxCount}x).<br>👉 <strong>Recomendação para a próxima aula:</strong> Fazer um drill prático focado na regra: <em>"O auxiliar DID/DIDN'T rouba o passado do verbo principal"</em> (ex: <em>didn't push</em>, nunca <em>didn't pushed</em>).`;
+    // Build pedagogical action plan
+    if (topError !== "-" && maxCount > 0) {
+      this.teacherFocusTopic.textContent = `Priority Focus: ${topError}`;
+
+      if (topError.toLowerCase().includes("duplo passado") || topError.toLowerCase().includes("double past")) {
+        this.teacherFocusAdvice.innerHTML = `The student repeatedly triggered the <strong>double past</strong> trap (${maxCount}x).<br>👉 <strong>Recommendation for next class:</strong> Run a rapid-fire drill on the rule: <em>"Auxiliary DID/DIDN'T absorbs past tense from the main verb"</em> (e.g. <em>didn't push</em>, never <em>didn't pushed</em>).`;
       } else if (topError.toLowerCase().includes("irregular")) {
-        this.teacherFocusAdvice.innerHTML = `O estudante tentou aplicar -ed em verbos irregulares fundamentais (${maxCount}x).<br>👉 <strong>Recomendação:</strong> Praticar a lista essencial dos 10 verbos irregulares de TI (write➔wrote, run➔ran, have➔had, find➔found).`;
+        this.teacherFocusAdvice.innerHTML = `The student attempted to append -ed to fundamental irregular verbs (${maxCount}x).<br>👉 <strong>Recommendation:</strong> Drill the top 10 tech irregular verbs (write➔wrote, run➔ran, have➔had, find➔found).`;
       } else if (topError.toLowerCase().includes("to be")) {
-        this.teacherFocusAdvice.innerHTML = `O estudante confunde o verbo To Be com verbos de ação (${maxCount}x).<br>👉 <strong>Recomendação:</strong> Reforçar a separação: <em>Was/Were</em> nunca usam <em>Did</em>.`;
+        this.teacherFocusAdvice.innerHTML = `The student confused verb To Be with action verbs (${maxCount}x).<br>👉 <strong>Recommendation:</strong> Reinforce separation: <em>Was/Were</em> never use auxiliary <em>Did</em>.`;
       } else {
-        this.teacherFocusAdvice.innerHTML = `Foram detectados ${maxCount} erros do tipo <em>${topError}</em>. Foco em revisão pontual deste tópico no início do próximo encontro.`;
+        this.teacherFocusAdvice.innerHTML = `Detected ${maxCount} errors of type <em>${topError}</em>. Focus on a quick recap of this concept at the start of your next class.`;
       }
     } else {
-      this.teacherFocusTopic.textContent = "Excelente Domínio Geral";
-      this.teacherFocusAdvice.textContent = "O estudante atingiu alta precisão sem erros recorrentes. Pode avançar para tempos contínuos e Present Perfect.";
+      this.teacherFocusTopic.textContent = "Excellent Overall Mastery";
+      this.teacherFocusAdvice.textContent = "The student demonstrated high precision with no recurring error patterns. Ready to advance to continuous tenses and Present Perfect.";
     }
   }
 
   renderSubmissions() {
     if (!this.submissions || this.submissions.length === 0) {
-      this.teacherSubmissionsList.innerHTML = `<div class="empty-state">Nenhum teste foi realizado ainda. Compartilhe o link com o aluno!</div>`;
+      this.teacherSubmissionsList.innerHTML = `<div class="empty-state">No quests have been completed yet. Share the link with your student!</div>`;
       return;
     }
 
@@ -252,17 +256,17 @@ class TeacherPortal {
       const row = document.createElement("div");
       row.className = "submission-row";
 
-      const timeStr = sub.timestamp ? new Date(sub.timestamp).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "Hoje";
+      const timeStr = sub.timestamp ? new Date(sub.timestamp).toLocaleString("en-US", { dateStyle: "short", timeStyle: "short" }) : "Today";
 
       row.innerHTML = `
         <div class="sub-col-student">
-          <span class="sub-name">👤 ${sub.studentName || "Aluno"}</span>
+          <span class="sub-name">👤 ${sub.studentName || "Student"}</span>
           <span class="sub-time">${timeStr} • ${sub.questTitle || "Simple Past"}</span>
         </div>
         <div class="sub-col-score">
           <span class="sub-acc-pill ${sub.isWin ? "win" : "loss"}">${sub.scoreRatio} (${sub.accuracy}%)</span>
           <span class="sub-verdict">${sub.verdict}</span>
-          <span style="font-size:0.75rem;color:var(--cyan-neon);font-weight:700;">🔍 Inspecionar</span>
+          <span style="font-size:0.75rem;color:var(--cyan-neon);font-weight:700;">🔍 Inspect</span>
         </div>
       `;
 
@@ -272,7 +276,7 @@ class TeacherPortal {
   }
 
   showSubmissionDetail(sub) {
-    this.detailStudentTitle.textContent = `📋 Auditoria de Respostas: ${sub.studentName} — ${sub.questTitle} (${sub.scoreRatio} acertos • ${sub.verdict})`;
+    this.detailStudentTitle.textContent = `📋 Answer Audit: ${sub.studentName} — ${sub.questTitle} (${sub.scoreRatio} correct • ${sub.verdict})`;
     this.detailDrawerBody.innerHTML = "";
 
     (sub.userAnswers || []).forEach(ans => {
@@ -280,13 +284,13 @@ class TeacherPortal {
       item.className = `audit-item ${ans.isCorrect ? "correct" : "wrong"}`;
       item.innerHTML = `
         <div class="audit-item-top">
-          <span class="audit-item-title">Nível ${ans.level} • ${ans.categoryLabel}</span>
-          <span class="audit-item-badge">${ans.isCorrect ? "✔ ACERTO" : "✖ ERRO"}</span>
+          <span class="audit-item-title">Level ${ans.level} • ${ans.categoryLabel}</span>
+          <span class="audit-item-badge">${ans.isCorrect ? "✔ CORRECT" : "✖ INCORRECT"}</span>
         </div>
         <div class="audit-item-context">"${ans.context.replace('<span class="blank-slot">________</span>', '<u>' + ans.chosenText + '</u>')}"</div>
         <div class="audit-item-answers">
-          <span>Aluno marcou: <strong>${ans.chosenText}</strong></span>
-          ${!ans.isCorrect ? `<span>Correto: <strong style="color:var(--green-neon);">${ans.correctText}</strong></span>` : ""}
+          <span>Student selected: <strong>${ans.chosenText}</strong></span>
+          ${!ans.isCorrect ? `<span>Correct: <strong style="color:var(--green-neon);">${ans.correctText}</strong></span>` : ""}
         </div>
         ${!ans.isCorrect && ans.errorLabel ? `<div style="color:var(--red-neon);font-size:0.8rem;font-weight:700;margin-top:2px;">⚠️ ${ans.errorLabel}: ${ans.diagnosticNote}</div>` : ""}
       `;
@@ -298,7 +302,7 @@ class TeacherPortal {
   }
 
   clearSubmissions() {
-    if (!confirm("Tem certeza que deseja apagar todo o histórico de testes dos alunos?")) return;
+    if (!confirm("Are you sure you want to delete all student test history?")) return;
 
     fetch(`/api/submissions?auth=${encodeURIComponent(TEACHER_AUTH_KEY)}`, {
       method: "DELETE",
@@ -310,7 +314,7 @@ class TeacherPortal {
         this.renderSubmissions();
         this.computeInsights();
       })
-      .catch(err => alert("Erro ao limpar dados: " + err));
+      .catch(err => alert("Error clearing data: " + err));
   }
 }
 
